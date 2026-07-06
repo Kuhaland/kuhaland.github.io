@@ -1,30 +1,50 @@
 <template>
   <aside class="detail">
-    <Transition name="slide" mode="out-in">
-      <div class="detail-inner" :key="item.id">
-        <p class="eyebrow">Detail</p>
-        <h2 class="detail-title">{{ item.label }}</h2>
-        <div class="divider" />
-        <p class="detail-text">{{ item.detail }}</p>
-      </div>
-    </Transition>
+    <OverlayScrollbarsComponent class="detail-scroll" :options="osOptions" defer>
+      <Transition name="slide" mode="out-in">
+        <div class="detail-inner" :key="item.id">
+          <p class="eyebrow">Detail</p>
+          <h2 class="detail-title">{{ item.label }}</h2>
+          <div class="divider" />
+          <p class="detail-text">{{ item.detail }}</p>
+        </div>
+      </Transition>
+    </OverlayScrollbarsComponent>
   </aside>
 </template>
 
 <script setup>
+import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
+
 defineProps({
   item: { type: Object, required: true },
 })
+
+const osOptions = {
+  scrollbars: {
+    theme: 'os-theme-dark',
+    autoHide: 'leave',
+    autoHideDelay: 400,
+  },
+}
 </script>
 
 <style scoped lang="scss">
 .detail {
-  width: 340px;
+  width: 30%;
+  height: 100%;
   flex-shrink: 0;
-  padding: 40px 32px;
-  overflow-y: auto;
   background: var(--color-panel);
   border-left: 1px solid var(--color-border);
+}
+
+.detail-scroll {
+  width: 100%;
+  height: 100%;
+}
+
+.detail-inner {
+  padding: 40px 32px;
 }
 
 .eyebrow {
@@ -72,8 +92,11 @@ defineProps({
 @include respond-to($bp-md) {
   .detail {
     width: 100%;
+    height: auto;
     border-left: none;
     border-top: 1px solid var(--color-border);
+  }
+  .detail-inner {
     padding: 28px 24px;
   }
 }

@@ -1,22 +1,81 @@
 <template>
-  <main class="main">
-    <Transition name="fade" mode="out-in">
-      <div class="content" :key="item.id">
-        <div class="hero" :style="{ backgroundImage: item.image }">
-          <span class="hero-tag">{{ item.label }}</span>
-        </div>
-        <div class="body">
-          <h1 class="title">{{ item.label }}</h1>
-          <p class="summary">{{ item.summary }}</p>
-        </div>
+  <main ref="mainRef" class="main">
+    <div class="content">
+      <div
+        v-for="(item, i) in items"
+        :key="item.id"
+        :ref="(el) => setBlock(el, i)"
+        class="section-slot"
+      >
+        <component :is="sectionMap[item.id]" />
       </div>
-    </Transition>
+    </div>
   </main>
 </template>
 
 <script setup>
-defineProps({
-  item: { type: Object, required: true },
+import { ref, provide, onMounted, onUnmounted } from 'vue'
+import AboutSection from './sections/AboutSection.vue'
+import WorkSection from './sections/WorkSection.vue'
+import SkillsSection from './sections/SkillsSection.vue'
+import JournalSection from './sections/JournalSection.vue'
+import ContactSection from './sections/ContactSection.vue'
+
+const props = defineProps({
+  items: { type: Array, required: true },
+  activeIndex: { type: Number, default: 0 },
+})
+
+const emit = defineEmits(['update:activeIndex'])
+
+const sectionMap = {
+  about: AboutSection,
+  work: WorkSection,
+  skills: SkillsSection,
+  journal: JournalSection,
+  contact: ContactSection,
+}
+
+const mainRef = ref(null)
+const scrollerEl = ref(null)
+const blocks = ref([])
+let observer = null
+
+provide('scrollerEl', scrollerEl)
+
+function setBlock(el, i) {
+  if (el) blocks.value[i] = el
+}
+
+function onIntersect(entries) {
+  for (const entry of entries) {
+    if (entry.isIntersecting) {
+      const index = blocks.value.indexOf(entry.target)
+      if (index !== -1 && index !== props.activeIndex) {
+        emit('update:activeIndex', index)
+      }
+    }
+  }
+}
+
+function scrollToIndex(index) {
+  blocks.value[index]?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+defineExpose({ scrollToIndex })
+
+onMounted(() => {
+  scrollerEl.value = mainRef.value
+  observer = new IntersectionObserver(onIntersect, {
+    root: mainRef.value,
+    rootMargin: '-45% 0px -45% 0px',
+    threshold: 0,
+  })
+  blocks.value.forEach((el) => el && observer.observe(el))
+})
+
+onUnmounted(() => {
+  observer?.disconnect()
 })
 </script>
 
@@ -26,76 +85,10 @@ defineProps({
   min-width: 0;
   overflow-y: auto;
   background: var(--color-bg);
+  scroll-behavior: smooth;
 }
 
 .content {
-  padding: 40px;
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.hero {
   width: 100%;
-  height: 340px;
-  border-radius: var(--radius-lg);
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  @include flex(column, flex-end, flex-start);
-  padding: 28px;
-}
-
-.hero-tag {
-  padding: 8px 16px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(6px);
-  color: $color-text;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.body {
-  margin-top: 32px;
-}
-
-.title {
-  font-size: 34px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.summary {
-  margin-top: 16px;
-  font-size: 18px;
-  line-height: 1.7;
-  color: #55555a;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.25s ease, transform 0.25s ease;
-}
-
-.fade-enter-from {
-  opacity: 0;
-  transform: translateY(8px);
-}
-
-.fade-leave-to {
-  opacity: 0;
-  transform: translateY(-8px);
-}
-
-@include respond-to($bp-md) {
-  .content {
-    padding: 24px;
-  }
-  .hero {
-    height: 220px;
-  }
-  .title {
-    font-size: 28px;
-  }
 }
 </style>

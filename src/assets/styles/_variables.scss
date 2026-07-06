@@ -9,7 +9,7 @@ $color-accent: #4f7cff;
 $font-sans: "Inter", "Pretendard", -apple-system, BlinkMacSystemFont,
   "Segoe UI", Roboto, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 
-$lnb-width-expanded: 264px;
+$lnb-width-expanded: 10%;
 $lnb-width-collapsed: 76px;
 
 $radius-lg: 20px;
@@ -18,6 +18,7 @@ $radius-sm: 10px;
 
 $transition-lnb: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $transition-base: 0.2s ease;
+$transition-nav: 0.38s cubic-bezier(0.4, 0, 0.2, 1);
 
 $bp-md: 860px;
 $bp-sm: 560px;
