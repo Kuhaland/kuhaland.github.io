@@ -1,0 +1,23 @@
+$color-bg: #f5f5f4;
+$color-panel: #ffffff;
+$color-sidebar: #1c1c1e;
+$color-text: #1c1c1e;
+$color-text-muted: #8a8a8e;
+$color-border: #ececec;
+$color-accent: #4f7cff;
+
+$font-sans: "Inter", "Pretendard", -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+
+$lnb-width-expanded: 264px;
+$lnb-width-collapsed: 76px;
+
+$radius-lg: 20px;
+$radius-md: 14px;
+$radius-sm: 10px;
+
+$transition-lnb: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+$transition-base: 0.2s ease;
+
+$bp-md: 860px;
+$bp-sm: 560px;
