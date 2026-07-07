@@ -31,7 +31,7 @@ onMounted(() => {
     showIntro.value = false
     unlockScroll()
     emit('done')
-  }, 5000)
+  }, 3000)
 })
 
 onUnmounted(() => {
