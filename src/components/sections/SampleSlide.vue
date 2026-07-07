@@ -1,9 +1,9 @@
 <template>
-  <section ref="root" class="section-block" :style="{ backgroundImage: data.bg }">
-    <div class="section-inner">
-      <span class="tag reveal">{{ data.tag }}</span>
-      <h1 class="title reveal">{{ data.title }}</h1>
-      <p class="summary reveal">{{ data.body }}</p>
+  <section ref="root" class="section" :style="{ backgroundImage: data.bg }">
+    <div class="section__inner">
+      <span class="section__tag reveal">{{ data.tag }}</span>
+      <h1 class="section__title reveal">{{ data.title }}</h1>
+      <p class="section__summary reveal">{{ data.body }}</p>
     </div>
   </section>
 </template>

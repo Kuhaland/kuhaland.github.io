@@ -37,7 +37,7 @@
 }
 
 @mixin section-styles {
-  .section-block {
+  .section {
     position: relative;
     min-height: 100vh;
     @include flex(column, center, flex-start);
@@ -57,66 +57,65 @@
         rgba(0, 0, 0, 0.55) 100%
       );
     }
-  }
 
-  .section-inner {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
-  }
+    &__inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+    }
 
-  .tag {
-    display: inline-block;
-    padding: 8px 16px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.22);
-    backdrop-filter: blur(6px);
-    font-size: 14px;
-    font-weight: 600;
-    text-shadow: none;
-  }
+    &__tag {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(6px);
+      font-size: 14px;
+      font-weight: 600;
+      text-shadow: none;
+    }
 
-  .title {
-    margin-top: 20px;
-    font-size: 40px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
+    &__title {
+      margin-top: 20px;
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
 
-  .summary {
-    margin-top: 16px;
-    font-size: 19px;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.92);
-  }
+    &__summary {
+      margin-top: 16px;
+      font-size: 19px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.92);
+    }
 
-  .sub {
-    margin-top: 36px;
-    padding-top: 28px;
-    border-top: 1px solid rgba(255, 255, 255, 0.25);
-  }
+    &__sub {
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
+    }
 
-  .sub-heading {
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-  }
+    &__sub-heading {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
 
-  .sub-body {
-    margin-top: 12px;
-    font-size: 16px;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.9);
-  }
+    &__sub-body {
+      margin-top: 12px;
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.9);
+    }
 
-  @include respond-to($bp-md) {
-    .section-block {
+    @include respond-to($bp-md) {
       min-height: auto;
       padding: 64px 28px;
-    }
-    .title {
-      font-size: 30px;
+
+      &__title {
+        font-size: 30px;
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <main ref="stage" class="stage">
-    <div class="vtrack" :style="vStyle" @transitionend="onTransitionEnd">
-      <div v-for="(item, i) in items" :key="item.id" class="vsection">
+    <div class="stage__track" :style="vStyle" @transitionend="onTransitionEnd">
+      <div v-for="(item, i) in items" :key="item.id" class="stage__section">
         <IntroSection
           v-if="item.id === 'about'"
           :inner-index="innerIndex"
@@ -104,7 +104,10 @@ function onTouchEnd(e) {
 function onTransitionEnd(e) {
   if (e.propertyName !== 'transform') return
   const t = e.target
-  if (t.classList.contains('vtrack') || t.classList.contains('htrack')) {
+  if (
+    t.classList.contains('stage__track') ||
+    t.classList.contains('intro__track')
+  ) {
     isAnimating.value = false
   }
 }
@@ -131,27 +134,27 @@ onBeforeUnmount(() => {
   height: 100%;
   overflow: hidden;
   background: var(--color-bg);
-}
 
-.vtrack {
-  transition: $transition-slide;
-  will-change: transform;
-}
+  &__track {
+    transition: $transition-slide;
+    will-change: transform;
+  }
 
-.vsection {
-  height: 100vh;
-}
+  &__section {
+    height: 100vh;
+  }
 
-@include respond-to($bp-md) {
-  .stage {
+  @include respond-to($bp-md) {
     height: auto;
     overflow: visible;
-  }
-  .vtrack {
-    transform: none !important;
-  }
-  .vsection {
-    height: auto;
+
+    &__track {
+      transform: none !important;
+    }
+
+    &__section {
+      height: auto;
+    }
   }
 }
 </style>

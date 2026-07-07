@@ -74,10 +74,8 @@ function onSelect(index) {
   display: flex;
   height: 100vh;
   overflow: hidden;
-}
 
-@include respond-to($bp-md) {
-  .layout {
+  @include respond-to($bp-md) {
     height: auto;
     min-height: 100vh;
     flex-direction: column;

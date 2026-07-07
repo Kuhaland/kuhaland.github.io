@@ -1,17 +1,17 @@
 <template>
-  <div class="intro-h">
-    <div class="htrack" :style="hStyle">
-      <div v-for="(s, i) in samples" :key="i" class="sample">
+  <div class="intro">
+    <div class="intro__track" :style="hStyle">
+      <div v-for="(s, i) in samples" :key="i" class="intro__sample">
         <SampleSlide :data="s" :active="active && i === innerIndex" />
       </div>
     </div>
 
-    <div class="dots">
+    <div class="intro__dots">
       <button
         v-for="(s, i) in samples"
         :key="i"
-        class="dot"
-        :class="{ active: i === innerIndex }"
+        class="intro__dot"
+        :class="{ 'intro__dot--active': i === innerIndex }"
         :aria-label="`${i + 1}번째 페이지로 이동`"
         @click="emit('select-sample', i)"
       />
@@ -63,62 +63,63 @@ const hStyle = computed(() => ({
 </script>
 
 <style scoped lang="scss">
-.intro-h {
+.intro {
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
-}
 
-.htrack {
-  display: flex;
-  height: 100%;
-  transition: $transition-slide;
-  will-change: transform;
-}
-
-.sample {
-  flex: 0 0 100%;
-  width: 100%;
-  height: 100%;
-}
-
-.dots {
-  position: absolute;
-  left: 50%;
-  bottom: 26px;
-  transform: translateX(-50%);
-  z-index: 5;
-  @include flex(row, center, center, 10px);
-}
-
-.dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.5);
-  transition: $transition-base;
-
-  &.active {
-    background: #fff;
-    transform: scale(1.35);
+  &__track {
+    display: flex;
+    height: 100%;
+    transition: $transition-slide;
+    will-change: transform;
   }
-}
 
-@include respond-to($bp-md) {
-  .intro-h {
+  &__sample {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__dots {
+    position: absolute;
+    left: 50%;
+    bottom: 26px;
+    transform: translateX(-50%);
+    z-index: 5;
+    @include flex(row, center, center, 10px);
+  }
+
+  &__dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transition: $transition-base;
+
+    &--active {
+      background: #fff;
+      transform: scale(1.35);
+    }
+  }
+
+  @include respond-to($bp-md) {
     height: auto;
-  }
-  .htrack {
-    flex-direction: column;
-    transform: none !important;
-  }
-  .sample {
-    flex: none;
-    height: auto;
-  }
-  .dots {
-    display: none;
+
+    &__track {
+      flex-direction: column;
+      transform: none !important;
+    }
+
+    &__sample {
+      flex: none;
+      height: auto;
+    }
+
+    &__dots {
+      display: none;
+    }
   }
 }
 </style>
