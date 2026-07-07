@@ -2,17 +2,7 @@
   <main ref="stage" class="stage">
     <div class="stage__track" :style="vStyle" @transitionend="onTransitionEnd">
       <div v-for="(item, i) in items" :key="item.id" class="stage__section">
-        <IntroSection
-          v-if="item.id === 'about'"
-          :inner-index="innerIndex"
-          :active="i === sectionIndex"
-          @select-sample="setInner"
-        />
-        <component
-          :is="sectionMap[item.id]"
-          v-else
-          :active="i === sectionIndex"
-        />
+        <component :is="sectionMap[item.id]" :active="i === sectionIndex" />
       </div>
     </div>
   </main>
@@ -20,7 +10,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
-import IntroSection from './sections/IntroSection.vue'
+import AboutSection from './sections/AboutSection.vue'
 import WorkSection from './sections/WorkSection.vue'
 import SkillsSection from './sections/SkillsSection.vue'
 import ContactSection from './sections/ContactSection.vue'
@@ -28,18 +18,17 @@ import ContactSection from './sections/ContactSection.vue'
 const props = defineProps({
   items: { type: Array, required: true },
   sectionIndex: { type: Number, default: 0 },
-  innerIndex: { type: Number, default: 0 },
 })
 
-const emit = defineEmits(['update:sectionIndex', 'update:innerIndex'])
+const emit = defineEmits(['update:sectionIndex'])
 
 const sectionMap = {
+  about: AboutSection,
   work: WorkSection,
   skills: SkillsSection,
   contact: ContactSection,
 }
 
-const INNER_LAST = 3
 const stage = ref(null)
 const isAnimating = ref(false)
 let touchStartY = 0
@@ -49,16 +38,9 @@ const vStyle = computed(() => ({
 }))
 
 const lastSection = computed(() => props.items.length - 1)
-const activeIsIntro = computed(() => props.items[props.sectionIndex]?.id === 'about')
 
 function isNarrow() {
   return window.matchMedia('(max-width: 860px)').matches
-}
-
-function setInner(index) {
-  if (isAnimating.value || index === props.innerIndex) return
-  isAnimating.value = true
-  emit('update:innerIndex', index)
 }
 
 function goSection(index) {
@@ -70,17 +52,7 @@ function goSection(index) {
 
 function step(direction) {
   if (isAnimating.value) return
-  if (activeIsIntro.value) {
-    if (direction > 0) {
-      if (props.innerIndex < INNER_LAST) setInner(props.innerIndex + 1)
-      else goSection(props.sectionIndex + 1)
-    } else {
-      if (props.innerIndex > 0) setInner(props.innerIndex - 1)
-      else goSection(props.sectionIndex - 1)
-    }
-  } else {
-    goSection(props.sectionIndex + (direction > 0 ? 1 : -1))
-  }
+  goSection(props.sectionIndex + (direction > 0 ? 1 : -1))
 }
 
 function onWheel(e) {
@@ -102,12 +74,7 @@ function onTouchEnd(e) {
 }
 
 function onTransitionEnd(e) {
-  if (e.propertyName !== 'transform') return
-  const t = e.target
-  if (
-    t.classList.contains('stage__track') ||
-    t.classList.contains('intro__track')
-  ) {
+  if (e.propertyName === 'transform' && e.target.classList.contains('stage__track')) {
     isAnimating.value = false
   }
 }

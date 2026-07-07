@@ -1,7 +1,7 @@
 <template>
   <Transition name="fade">
     <div v-if="showIntro" class="intro-overlay" role="presentation">
-      <div class="intro-overlay__circle" />
+      <span class="intro-overlay__circle" aria-hidden="true" />
       <span class="intro-overlay__mouse">
         <span class="intro-overlay__wheel" />
       </span>
@@ -83,6 +83,18 @@ onUnmounted(() => {
   }
 }
 
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+
 @keyframes scroll-wheel {
   0% {
     opacity: 0;
@@ -94,18 +106,6 @@ onUnmounted(() => {
   100% {
     opacity: 0;
     transform: translateY(12px);
-  }
-}
-
-@keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 0.85;
-  }
-  50% {
-    transform: scale(1.12);
-    opacity: 1;
   }
 }
 

@@ -7,6 +7,19 @@
           <h2 class="detail__title">{{ item.label }}</h2>
           <div class="detail__divider" />
           <p class="detail__text">{{ item.detail }}</p>
+
+          <template v-if="item.skills && item.skills.length">
+            <h3 class="detail__subtitle">핵심 역량</h3>
+            <ul class="detail__skills">
+              <li
+                v-for="skill in item.skills"
+                :key="skill"
+                class="detail__chip"
+              >
+                {{ skill }}
+              </li>
+            </ul>
+          </template>
         </div>
       </Transition>
     </OverlayScrollbarsComponent>
@@ -71,6 +84,32 @@ const osOptions = {
     font-size: 15px;
     line-height: 1.85;
     color: #55555a;
+  }
+
+  &__subtitle {
+    margin-top: 28px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  &__skills {
+    margin-top: 14px;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__chip {
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    font-size: 13px;
+    font-weight: 600;
+    color: #45454a;
   }
 
   @include respond-to($bp-md) {

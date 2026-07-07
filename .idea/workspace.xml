@@ -7,16 +7,11 @@
     <list default="true" id="dace1f6e-7003-4c03-93c4-347a20ad4a26" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/styles/_mixins.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/styles/_mixins.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/DetailPanel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DetailPanel.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/IntroOverlay.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IntroOverlay.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/MainContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainContent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SideNav.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideNav.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sections/ContactSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/ContactSection.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sections/IntroSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/IntroSection.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sections/SampleSlide.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/SampleSlide.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sections/SkillsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/SkillsSection.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sections/WorkSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/WorkSection.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sections/IntroSection.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sections/SampleSlide.vue" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +58,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1783326846023</updated>
-      <workItem from="1783326847031" duration="10630000" />
+      <workItem from="1783326847031" duration="12018000" />
     </task>
     <servers />
   </component>

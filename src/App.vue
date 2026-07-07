@@ -10,9 +10,7 @@
     <MainContent
       :items="menu"
       :section-index="sectionIndex"
-      :inner-index="innerIndex"
       @update:section-index="sectionIndex = $event"
-      @update:inner-index="innerIndex = $event"
     />
     <DetailPanel :item="activeItem" />
     <IntroOverlay />
@@ -31,8 +29,16 @@ const menu = [
     id: 'about',
     label: '소개',
     icon: 'person',
+    headline: '디자인을 이해하는 퍼블리셔, 구조를 설계하는 개발자',
     detail:
-      'kuhaland는 사용자 경험을 최우선으로 생각하는 프론트엔드 개발자이자 디자이너입니다. 작은 인터랙션 하나에도 이야기를 담으려 노력하며, 코드와 디자인이 자연스럽게 어우러지는 결과물을 지향합니다. 새로운 기술을 배우고 실험하는 과정 자체를 즐기며, 그 경험을 기록으로 남깁니다.',
+      '디자인과 퍼블리싱을 모두 경험한 17년차 웹퍼블리셔 이형화입니다. 반응형 웹, 웹표준, 웹접근성을 기본으로 삼아 어떤 환경에서도 일관된 화면을 구현합니다. 재사용 가능한 공통 컴포넌트 설계와 국내·해외 서비스 유지보수 경험을 통해, 처음 만드는 것만큼 오래 관리하는 것까지 고려한 코드를 작성합니다.',
+    skills: [
+      'GUI 설계',
+      '반응형 웹',
+      '웹표준/웹접근성',
+      '컴포넌트 기반 퍼블리싱',
+      'UI/UX 기획 이해',
+    ],
   },
   {
     id: 'work',
@@ -58,14 +64,12 @@ const menu = [
 ]
 
 const sectionIndex = ref(0)
-const innerIndex = ref(0)
 const isCollapsed = ref(false)
 
 const activeItem = computed(() => menu[sectionIndex.value] ?? menu[0])
 
 function onSelect(index) {
   sectionIndex.value = index
-  if (menu[index].id === 'about') innerIndex.value = 0
 }
 </script>
 

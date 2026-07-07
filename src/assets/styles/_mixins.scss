@@ -40,7 +40,7 @@
   .section {
     position: relative;
     min-height: 100vh;
-    @include flex(column, center, flex-start);
+    @include flex(column, flex-end, flex-start);
     padding: 96px 64px;
     background-size: cover;
     background-position: center;
