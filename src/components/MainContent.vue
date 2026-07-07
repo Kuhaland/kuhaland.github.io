@@ -1,94 +1,157 @@
 <template>
-  <main ref="mainRef" class="main">
-    <div class="content">
-      <div
-        v-for="(item, i) in items"
-        :key="item.id"
-        :ref="(el) => setBlock(el, i)"
-        class="section-slot"
-      >
-        <component :is="sectionMap[item.id]" />
+  <main ref="stage" class="stage">
+    <div class="vtrack" :style="vStyle" @transitionend="onTransitionEnd">
+      <div v-for="(item, i) in items" :key="item.id" class="vsection">
+        <IntroSection
+          v-if="item.id === 'about'"
+          :inner-index="innerIndex"
+          :active="i === sectionIndex"
+          @select-sample="setInner"
+        />
+        <component
+          :is="sectionMap[item.id]"
+          v-else
+          :active="i === sectionIndex"
+        />
       </div>
     </div>
   </main>
 </template>
 
 <script setup>
-import { ref, provide, onMounted, onUnmounted } from 'vue'
-import AboutSection from './sections/AboutSection.vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
+import IntroSection from './sections/IntroSection.vue'
 import WorkSection from './sections/WorkSection.vue'
 import SkillsSection from './sections/SkillsSection.vue'
-import JournalSection from './sections/JournalSection.vue'
 import ContactSection from './sections/ContactSection.vue'
 
 const props = defineProps({
   items: { type: Array, required: true },
-  activeIndex: { type: Number, default: 0 },
+  sectionIndex: { type: Number, default: 0 },
+  innerIndex: { type: Number, default: 0 },
 })
 
-const emit = defineEmits(['update:activeIndex'])
+const emit = defineEmits(['update:sectionIndex', 'update:innerIndex'])
 
 const sectionMap = {
-  about: AboutSection,
   work: WorkSection,
   skills: SkillsSection,
-  journal: JournalSection,
   contact: ContactSection,
 }
 
-const mainRef = ref(null)
-const scrollerEl = ref(null)
-const blocks = ref([])
-let observer = null
+const INNER_LAST = 3
+const stage = ref(null)
+const isAnimating = ref(false)
+let touchStartY = 0
 
-provide('scrollerEl', scrollerEl)
+const vStyle = computed(() => ({
+  transform: `translateY(-${props.sectionIndex * 100}vh)`,
+}))
 
-function setBlock(el, i) {
-  if (el) blocks.value[i] = el
+const lastSection = computed(() => props.items.length - 1)
+const activeIsIntro = computed(() => props.items[props.sectionIndex]?.id === 'about')
+
+function isNarrow() {
+  return window.matchMedia('(max-width: 860px)').matches
 }
 
-function onIntersect(entries) {
-  for (const entry of entries) {
-    if (entry.isIntersecting) {
-      const index = blocks.value.indexOf(entry.target)
-      if (index !== -1 && index !== props.activeIndex) {
-        emit('update:activeIndex', index)
-      }
+function setInner(index) {
+  if (isAnimating.value || index === props.innerIndex) return
+  isAnimating.value = true
+  emit('update:innerIndex', index)
+}
+
+function goSection(index) {
+  const clamped = Math.max(0, Math.min(lastSection.value, index))
+  if (clamped === props.sectionIndex) return
+  isAnimating.value = true
+  emit('update:sectionIndex', clamped)
+}
+
+function step(direction) {
+  if (isAnimating.value) return
+  if (activeIsIntro.value) {
+    if (direction > 0) {
+      if (props.innerIndex < INNER_LAST) setInner(props.innerIndex + 1)
+      else goSection(props.sectionIndex + 1)
+    } else {
+      if (props.innerIndex > 0) setInner(props.innerIndex - 1)
+      else goSection(props.sectionIndex - 1)
     }
+  } else {
+    goSection(props.sectionIndex + (direction > 0 ? 1 : -1))
   }
 }
 
-function scrollToIndex(index) {
-  blocks.value[index]?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+function onWheel(e) {
+  if (isNarrow()) return
+  e.preventDefault()
+  if (Math.abs(e.deltaY) < 8) return
+  step(e.deltaY > 0 ? 1 : -1)
 }
 
-defineExpose({ scrollToIndex })
+function onTouchStart(e) {
+  touchStartY = e.touches[0].clientY
+}
+
+function onTouchEnd(e) {
+  if (isNarrow()) return
+  const delta = touchStartY - e.changedTouches[0].clientY
+  if (Math.abs(delta) < 40) return
+  step(delta > 0 ? 1 : -1)
+}
+
+function onTransitionEnd(e) {
+  if (e.propertyName !== 'transform') return
+  const t = e.target
+  if (t.classList.contains('vtrack') || t.classList.contains('htrack')) {
+    isAnimating.value = false
+  }
+}
 
 onMounted(() => {
-  scrollerEl.value = mainRef.value
-  observer = new IntersectionObserver(onIntersect, {
-    root: mainRef.value,
-    rootMargin: '-45% 0px -45% 0px',
-    threshold: 0,
-  })
-  blocks.value.forEach((el) => el && observer.observe(el))
+  const el = stage.value
+  el.addEventListener('wheel', onWheel, { passive: false })
+  el.addEventListener('touchstart', onTouchStart, { passive: true })
+  el.addEventListener('touchend', onTouchEnd, { passive: true })
 })
 
-onUnmounted(() => {
-  observer?.disconnect()
+onBeforeUnmount(() => {
+  const el = stage.value
+  el.removeEventListener('wheel', onWheel)
+  el.removeEventListener('touchstart', onTouchStart)
+  el.removeEventListener('touchend', onTouchEnd)
 })
 </script>
 
 <style scoped lang="scss">
-.main {
+.stage {
   flex: 1;
   min-width: 0;
-  overflow-y: auto;
+  height: 100%;
+  overflow: hidden;
   background: var(--color-bg);
-  scroll-behavior: smooth;
 }
 
-.content {
-  width: 100%;
+.vtrack {
+  transition: $transition-slide;
+  will-change: transform;
+}
+
+.vsection {
+  height: 100vh;
+}
+
+@include respond-to($bp-md) {
+  .stage {
+    height: auto;
+    overflow: visible;
+  }
+  .vtrack {
+    transform: none !important;
+  }
+  .vsection {
+    height: auto;
+  }
 }
 </style>

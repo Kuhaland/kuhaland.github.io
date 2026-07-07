@@ -1,12 +1,11 @@
-import { inject, watch, onBeforeUnmount } from 'vue'
+import { watch, nextTick, onBeforeUnmount } from 'vue'
 import { gsap } from '../plugins/gsap.js'
 
-export function useSectionReveal(rootRef) {
-  const scrollerEl = inject('scrollerEl', null)
+export function useSectionReveal(rootRef, isActive) {
   let ctx = null
 
-  function build(scroller) {
-    if (!rootRef.value || !scroller) return
+  function play() {
+    if (!rootRef.value) return
     ctx?.revert()
     ctx = gsap.context(() => {
       gsap.from('.reveal', {
@@ -15,20 +14,14 @@ export function useSectionReveal(rootRef) {
         duration: 0.7,
         ease: 'power3.out',
         stagger: 0.12,
-        scrollTrigger: {
-          scroller,
-          trigger: rootRef.value,
-          start: 'top 78%',
-          toggleActions: 'play none none reverse',
-        },
       })
     }, rootRef.value)
   }
 
   watch(
-    () => scrollerEl?.value,
-    (el) => {
-      if (el) build(el)
+    isActive,
+    (active) => {
+      if (active) nextTick(play)
     },
     { immediate: true }
   )

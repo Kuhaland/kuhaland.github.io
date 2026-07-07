@@ -2,16 +2,17 @@
   <div class="layout">
     <SideNav
       :items="menu"
-      :active-index="activeIndex"
+      :active-index="sectionIndex"
       :collapsed="isCollapsed"
       @select="onSelect"
       @toggle="isCollapsed = !isCollapsed"
     />
     <MainContent
-      ref="mainRef"
       :items="menu"
-      :active-index="activeIndex"
-      @update:active-index="activeIndex = $event"
+      :section-index="sectionIndex"
+      :inner-index="innerIndex"
+      @update:section-index="sectionIndex = $event"
+      @update:inner-index="innerIndex = $event"
     />
     <DetailPanel :item="activeItem" />
     <IntroOverlay />
@@ -48,13 +49,6 @@ const menu = [
       '주력 스택은 Vue 3와 Vite, 그리고 SCSS 기반의 스타일 아키텍처입니다. 시맨틱 마크업과 접근성을 고려한 마크업을 지향하고, Git 기반 협업과 CI 워크플로우에 익숙합니다. 필요에 따라 TypeScript, 상태 관리 라이브러리, 애니메이션 도구를 유연하게 조합해 문제를 해결합니다.',
   },
   {
-    id: 'journal',
-    label: '기록',
-    icon: 'article',
-    detail:
-      '새로운 기술을 접하면 직접 만들어 보고, 그 과정을 글로 정리합니다. 실패한 실험도 기록으로 남겨 다음 시도의 밑거름으로 삼습니다. 꾸준한 기록이 곧 성장의 궤적이라 믿으며, 언젠가 누군가에게 도움이 될 작은 힌트를 남기는 것을 좋아합니다.',
-  },
-  {
     id: 'contact',
     label: '연락처',
     icon: 'mail',
@@ -63,14 +57,15 @@ const menu = [
   },
 ]
 
-const activeIndex = ref(0)
+const sectionIndex = ref(0)
+const innerIndex = ref(0)
 const isCollapsed = ref(false)
-const mainRef = ref(null)
 
-const activeItem = computed(() => menu[activeIndex.value] ?? menu[0])
+const activeItem = computed(() => menu[sectionIndex.value] ?? menu[0])
 
 function onSelect(index) {
-  mainRef.value?.scrollToIndex(index)
+  sectionIndex.value = index
+  if (menu[index].id === 'about') innerIndex.value = 0
 }
 </script>
 
@@ -78,6 +73,7 @@ function onSelect(index) {
 .layout {
   display: flex;
   height: 100vh;
+  overflow: hidden;
 }
 
 @include respond-to($bp-md) {
@@ -85,6 +81,7 @@ function onSelect(index) {
     height: auto;
     min-height: 100vh;
     flex-direction: column;
+    overflow: visible;
   }
 }
 </style>

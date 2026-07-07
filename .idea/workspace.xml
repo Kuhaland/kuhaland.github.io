@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="dace1f6e-7003-4c03-93c4-347a20ad4a26" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/kuhaland.github.io.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/styles/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/styles/_variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MainContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainContent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sections/AboutSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/AboutSection.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sections/ContactSection.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sections/JournalSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/JournalSection.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sections/SkillsSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/SkillsSection.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sections/WorkSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/WorkSection.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/composables/useSectionReveal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/composables/useSectionReveal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/plugins/gsap.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/plugins/gsap.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,7 +38,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/smart-tn-076/Downloads/git/kuhaland.github.io",
+    "last_opened_file_path": "/Users/smart-tn-076/Downloads/git/kuhaland.github.io/src/assets/fonts",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -33,6 +48,15 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/assets/fonts" />
+      <recent name="$PROJECT_DIR$/src/assets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/assets/images" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -41,7 +65,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1783326846023</updated>
-      <workItem from="1783326847031" duration="760000" />
+      <workItem from="1783326847031" duration="8486000" />
     </task>
     <servers />
   </component>

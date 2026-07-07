@@ -32,12 +32,16 @@
 import { ref } from 'vue'
 import { useSectionReveal } from '../../composables/useSectionReveal.js'
 
+const props = defineProps({
+  active: { type: Boolean, default: false },
+})
+
 const root = ref(null)
 const bg = {
   backgroundImage: 'linear-gradient(150deg, #667eea 0%, #764ba2 100%)',
 }
 
-useSectionReveal(root)
+useSectionReveal(root, () => props.active)
 </script>
 
 <style scoped lang="scss">
