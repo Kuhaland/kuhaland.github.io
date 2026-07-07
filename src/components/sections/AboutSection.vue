@@ -1,18 +1,16 @@
 <template>
-  <section ref="root" class="section" :style="bg">
+  <section ref="root" class="section">
+    <CodeTyping class="section__bg" />
+
     <div class="section__inner">
       <img
         class="section__image reveal"
         :src="aboutImage"
         alt="웹퍼블리셔 이형화를 소개하는 대표 이미지"
       />
-      <h1 class="section__title reveal">
-        디자인을 이해하는 퍼블리셔,<br>구조를 설계하는 개발자
-      </h1>
-      <p class="section__summary reveal">
-        디자인과 퍼블리싱을 모두 경험한 17년차 웹퍼블리셔 이형화입니다.
-        <br>반응형 웹·웹표준·웹접근성을 기본으로 삼아, 어떤 환경에서도 일관된 화면을 구현합니다.
-      </p>
+      <p class="section__eyebrow reveal">{{ item.headlineEn }}</p>
+      <h1 class="section__title reveal">{{ item.headline }}</h1>
+      <p class="section__summary reveal">{{ item.summary }}</p>
     </div>
   </section>
 </template>
@@ -20,18 +18,15 @@
 <script setup>
 import { ref } from 'vue'
 import aboutImage from '@/assets/images/logo.png'
+import CodeTyping from './CodeTyping.vue'
 import { useSectionReveal } from '../../composables/useSectionReveal.js'
 
 const props = defineProps({
+  item: { type: Object, required: true },
   active: { type: Boolean, default: false },
 })
 
 const root = ref(null)
-const bg = {
-  backgroundImage:
-    'linear-gradient(150deg, #f6c99f 0%, #e8a3a0 35%, #b48ba8 70%, #6d7fa8 100%)',
-}
-
 useSectionReveal(root, () => props.active)
 </script>
 
@@ -39,18 +34,50 @@ useSectionReveal(root, () => props.active)
 @include section-styles;
 
 .section {
+  overflow: hidden;
+  background: linear-gradient(135deg, #1e1b4b 0%, #7a2a8f 60%, #c13584 100%);
+
+  &::before {
+    z-index: 1;
+    background: linear-gradient(
+      120deg,
+      rgba(15, 12, 41, 0.72) 0%,
+      rgba(15, 12, 41, 0.45) 45%,
+      rgba(15, 12, 41, 0.15) 100%
+    );
+  }
+
+  &__bg {
+    z-index: 0;
+  }
+
+  &__inner {
+    z-index: 2;
+  }
+
   &__image {
     display: block;
-    height: 60px;
+    height: 56px;
     width: auto;
-    max-width: 240px;
-    margin-bottom: 30px;
+    max-width: 220px;
+    margin-bottom: 26px;
     object-fit: contain;
-    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.28));
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+  }
+
+  &__eyebrow {
+    max-width: 560px;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.82);
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
   }
 
   &__title {
-    max-width: 640px;
+    margin-top: 10px;
+    max-width: 660px;
   }
 }
 </style>

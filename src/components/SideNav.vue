@@ -1,5 +1,8 @@
 <template>
-  <aside class="sidenav" :class="{ 'sidenav--collapsed': collapsed }">
+  <aside
+    class="sidenav"
+    :class="{ 'sidenav--collapsed': collapsed, 'is-entered': entered }"
+  >
     <div class="sidenav__top">
       <div class="sidenav__logo">
         <img
@@ -48,6 +51,7 @@ const props = defineProps({
   items: { type: Array, required: true },
   activeIndex: { type: Number, default: 0 },
   collapsed: { type: Boolean, default: false },
+  entered: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['select', 'toggle'])
@@ -96,8 +100,16 @@ onBeforeUnmount(() => {
   padding: 20px 14px;
   background: var(--color-sidebar);
   color: #fff;
-  transition: $transition-lnb;
   overflow: hidden;
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: $transition-lnb, transform $transition-enter,
+    opacity $transition-enter;
+
+  &.is-entered {
+    transform: translateX(0);
+    opacity: 1;
+  }
 
   &--collapsed {
     width: $lnb-width-collapsed;
@@ -217,6 +229,14 @@ onBeforeUnmount(() => {
     &__item--active {
       background: rgba(255, 255, 255, 0.14);
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidenav {
+    transform: none;
+    opacity: 1;
+    transition: $transition-lnb;
   }
 }
 </style>

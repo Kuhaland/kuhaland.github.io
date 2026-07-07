@@ -12,6 +12,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
+const emit = defineEmits(['done'])
+
 const showIntro = ref(true)
 let timer = null
 
@@ -28,6 +30,7 @@ onMounted(() => {
   timer = setTimeout(() => {
     showIntro.value = false
     unlockScroll()
+    emit('done')
   }, 5000)
 })
 
@@ -43,11 +46,20 @@ onUnmounted(() => {
   inset: 0;
   z-index: 1000;
   @include flex-center;
-  background: rgba(20, 20, 24, 0.45);
-  backdrop-filter: blur(8px);
+  overflow: hidden;
+  background: linear-gradient(135deg, #1e1b4b 0%, #7a2a8f 60%, #c13584 100%);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: rgba(12, 10, 30, 0.4);
+  }
 
   &__circle {
     position: absolute;
+    z-index: 2;
     width: 320px;
     height: 320px;
     border-radius: 50%;
@@ -64,7 +76,7 @@ onUnmounted(() => {
 
   &__mouse {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     width: 34px;
     height: 56px;
     display: flex;

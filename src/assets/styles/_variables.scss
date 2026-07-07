@@ -20,6 +20,7 @@ $transition-lnb: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $transition-base: 0.2s ease;
 $transition-nav: 0.38s cubic-bezier(0.4, 0, 0.2, 1);
 $transition-slide: transform 0.6s cubic-bezier(0.7, 0, 0.3, 1);
+$transition-enter: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 
 $bp-md: 860px;
 $bp-sm: 560px;

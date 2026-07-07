@@ -4,16 +4,24 @@
       :items="menu"
       :active-index="sectionIndex"
       :collapsed="isCollapsed"
+      :entered="pageEntered"
       @select="onSelect"
       @toggle="isCollapsed = !isCollapsed"
     />
     <MainContent
       :items="menu"
       :section-index="sectionIndex"
+      :work-index="workIndex"
+      :entered="pageEntered"
       @update:section-index="sectionIndex = $event"
+      @update:work-index="workIndex = $event"
     />
-    <DetailPanel :item="activeItem" />
-    <IntroOverlay />
+    <DetailPanel
+      :item="activeItem"
+      :project="currentProject"
+      :entered="pageEntered"
+    />
+    <IntroOverlay @done="pageEntered = true" />
   </div>
 </template>
 
@@ -23,21 +31,63 @@ import SideNav from './components/SideNav.vue'
 import MainContent from './components/MainContent.vue'
 import DetailPanel from './components/DetailPanel.vue'
 import IntroOverlay from './components/IntroOverlay.vue'
+import { projects } from './data/projects.js'
 
 const menu = [
   {
     id: 'about',
     label: '소개',
     icon: 'person',
-    headline: '디자인을 이해하는 퍼블리셔, 구조를 설계하는 개발자',
+    headlineEn:
+      'A publisher who understands design, a developer who architects structure',
+    headline: '디자인을 읽는 퍼블리셔, 구조를 짓는 UX·UI 개발자',
+    summary:
+      '디자인과 퍼블리싱을 아우르는 17년차 웹퍼블리셔 이형화입니다.어떤 환경에서도 일관된 화면을 만듭니다.',
     detail:
-      '디자인과 퍼블리싱을 모두 경험한 17년차 웹퍼블리셔 이형화입니다. 반응형 웹, 웹표준, 웹접근성을 기본으로 삼아 어떤 환경에서도 일관된 화면을 구현합니다. 재사용 가능한 공통 컴포넌트 설계와 국내·해외 서비스 유지보수 경험을 통해, 처음 만드는 것만큼 오래 관리하는 것까지 고려한 코드를 작성합니다.',
-    skills: [
+      '디자인과 퍼블리싱을 모두 경험한 17년차 웹퍼블리셔 이형화입니다. 디자인에 대한 이해를 갖춘 퍼블리셔로서, 눈에 보이는 완성도와 눈에 보이지 않는 코드 품질을 함께 책임집니다.',
+    highlights: [
+      {
+        label: '전문 분야',
+        value: '반응형 웹 / 웹표준 / 웹접근성 / 크로스브라우징',
+      },
+      {
+        label: '핵심 강점',
+        value: '재사용 가능한 공통 컴포넌트 설계, 코드 표준화, 장기 유지보수 관점의 구조 설계',
+      },
+      {
+        label: '협업 역량',
+        value: '디자인 의도 해석 및 개발 연계, 팀 리딩 및 퍼블리싱 품질 관리',
+      },
+    ],
+    outro:
+      '국내외 ERP 및 자사 서비스의 장기 운영 경험을 통해, 처음 만드는 완성도만큼 오래 관리하는 지속가능성까지 고려한 코드를 지향합니다.',
+    strengths: [
       'GUI 설계',
       '반응형 웹',
       '웹표준/웹접근성',
       '컴포넌트 기반 퍼블리싱',
       'UI/UX 기획 이해',
+    ],
+    skills: [
+      'HTML',
+      'HTML5',
+      'CSS',
+      'CSS3',
+      'SCSS',
+      'SASS',
+      'JavaScript',
+      'jQuery',
+      'Vue.js',
+      'Bootstrap',
+      'JAVA',
+      'PHP',
+      'Git',
+      'GitLab',
+      'GitHub',
+      'VSCode',
+      'IntelliJ',
+      'Jira',
+      'AWS',
     ],
   },
   {
@@ -64,12 +114,18 @@ const menu = [
 ]
 
 const sectionIndex = ref(0)
+const workIndex = ref(0)
 const isCollapsed = ref(false)
+const pageEntered = ref(false)
 
 const activeItem = computed(() => menu[sectionIndex.value] ?? menu[0])
+const currentProject = computed(() =>
+  activeItem.value.id === 'work' ? projects[workIndex.value] : null
+)
 
 function onSelect(index) {
   sectionIndex.value = index
+  if (menu[index].id === 'work') workIndex.value = 0
 }
 </script>
 
