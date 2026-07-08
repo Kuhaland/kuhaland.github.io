@@ -4,7 +4,7 @@
       <span class="code-typing__dot" />
       <span class="code-typing__dot" />
       <span class="code-typing__dot" />
-      <span class="code-typing__file">App.vue</span>
+      <span class="code-typing__file">{{ fileName }}</span>
     </div>
     <ol class="code-typing__list">
       <li v-for="(ln, i) in shown" :key="i" class="code-typing__line">
@@ -18,26 +18,71 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 
-const lines = [
-  "import { ref, computed, onMounted } from 'vue'",
-  '',
-  'export default {',
-  '  setup() {',
-  '    const count = ref(0)',
-  '    const doubled = computed(() => count.value * 2)',
-  '',
-  '    function increment() {',
-  '      count.value++',
-  '    }',
-  '',
-  '    onMounted(() => {',
-  '      console.log("ready:", count.value)',
-  '    })',
-  '',
-  '    return { count, doubled, increment }',
-  '  },',
-  '}',
+const sections = [
+  {
+    file: 'index.html',
+    lines: [
+      '<template>',
+      '  <section class="counter">',
+      '    <h1 class="counter__title">{{ count }}</h1>',
+      '    <p class="counter__hint">doubled: {{ doubled }}</p>',
+      '    <button class="counter__btn" @click="increment">',
+      '      + 1',
+      '    </button>',
+      '  </section>',
+      '</template>',
+    ],
+  },
+  {
+    file: 'App.vue',
+    lines: [
+      "import { ref, computed, onMounted } from 'vue'",
+      '',
+      'export default {',
+      '  setup() {',
+      '    const count = ref(0)',
+      '    const doubled = computed(() => count.value * 2)',
+      '',
+      '    function increment() {',
+      '      count.value++',
+      '    }',
+      '',
+      '    onMounted(() => {',
+      '      console.log("ready:", count.value)',
+      '    })',
+      '',
+      '    return { count, doubled, increment }',
+      '  },',
+      '}',
+    ],
+  },
+  {
+    file: 'styles.scss',
+    lines: [
+      '.counter {',
+      '  display: flex;',
+      '  flex-direction: column;',
+      '  align-items: center;',
+      '  gap: 16px;',
+      '',
+      '  &__title {',
+      '    font-size: 48px;',
+      '    font-weight: 700;',
+      '  }',
+      '',
+      '  &__btn {',
+      '    padding: 10px 20px;',
+      '    border-radius: 8px;',
+      '    cursor: pointer;',
+      '  }',
+      '}',
+    ],
+  },
 ]
+
+const sectionIndex = ref(0)
+const lines = computed(() => sections[sectionIndex.value].lines)
+const fileName = computed(() => sections[sectionIndex.value].file)
 
 const done = ref([])
 const current = ref('')
@@ -46,15 +91,15 @@ let ci = 0
 let timer = null
 
 const shown = computed(() =>
-  li >= lines.length ? done.value : [...done.value, current.value]
+  li >= lines.value.length ? done.value : [...done.value, current.value]
 )
 
 function tick() {
-  if (li >= lines.length) {
+  if (li >= lines.value.length) {
     timer = setTimeout(restart, 1800)
     return
   }
-  const line = lines[li]
+  const line = lines.value[li]
   if (ci < line.length) {
     ci++
     current.value = line.slice(0, ci)
@@ -69,6 +114,7 @@ function tick() {
 }
 
 function restart() {
+  sectionIndex.value = (sectionIndex.value + 1) % sections.length
   done.value = []
   current.value = ''
   li = 0
@@ -82,8 +128,8 @@ function prefersReduced() {
 
 onMounted(() => {
   if (prefersReduced()) {
-    done.value = [...lines]
-    li = lines.length
+    done.value = [...lines.value]
+    li = lines.value.length
     return
   }
   timer = setTimeout(tick, 300)

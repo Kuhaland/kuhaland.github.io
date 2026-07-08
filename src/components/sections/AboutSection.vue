@@ -1,13 +1,8 @@
 <template>
   <section ref="root" class="section">
     <CodeTyping class="section__bg" />
-
     <div class="section__inner">
-      <img
-        class="section__image reveal"
-        :src="aboutImage"
-        alt="웹퍼블리셔 이형화를 소개하는 대표 이미지"
-      />
+      <img class="section__image reveal" :src="aboutImage" alt="웹퍼블리셔 이형화를 소개하는 대표 이미지"/>
       <p class="section__eyebrow reveal">{{ item.headlineEn }}</p>
       <h1 class="section__title reveal">{{ item.headline }}</h1>
       <p class="section__summary reveal">{{ item.summary }}</p>

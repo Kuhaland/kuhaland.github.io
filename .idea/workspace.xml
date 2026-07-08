@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dace1f6e-7003-4c03-93c4-347a20ad4a26" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/kuhaland.github.io.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kuhaland.github.io.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/styles/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/styles/_variables.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DetailPanel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DetailPanel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IntroOverlay.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IntroOverlay.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MainContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainContent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SideNav.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideNav.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/sections/AboutSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/AboutSection.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sections/WorkSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/WorkSection.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +17,14 @@
   <component name="ComposerSettings">
     <execution />
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="3GB8wbKDVUYnhtvop5iYfZwN0Ih" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -30,10 +32,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/smart-tn-076/Downloads/git/kuhaland.github.io/src/assets/fonts",
+    "last_opened_file_path": "/Users/kuha/Documents/git/kuhaland.github.io",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -61,6 +64,7 @@
       <option name="presentableId" value="Default" />
       <updated>1783326846023</updated>
       <workItem from="1783326847031" duration="16608000" />
+      <workItem from="1783433841301" duration="2387000" />
     </task>
     <servers />
   </component>
