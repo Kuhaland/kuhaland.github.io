@@ -53,7 +53,7 @@ useSectionReveal(root, () => props.active)
   }
 
   &__id {
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -62,7 +62,7 @@ useSectionReveal(root, () => props.active)
 
   &__title {
     margin-top: 12px;
-    font-size: 68px;
+    font-size: 70px;
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.05;
@@ -73,7 +73,7 @@ useSectionReveal(root, () => props.active)
     padding: 56px 28px 72px;
 
     &__title {
-      font-size: 40px;
+      font-size: 42px;
     }
   }
 }

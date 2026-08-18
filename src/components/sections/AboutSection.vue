@@ -62,7 +62,7 @@ useSectionReveal(root, () => props.active)
 
   &__eyebrow {
     max-width: 560px;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 500;
     letter-spacing: 0.01em;
     line-height: 1.5;

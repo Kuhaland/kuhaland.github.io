@@ -187,7 +187,7 @@ useSectionReveal(root, () => props.active)
   }
 
   &__eyebrow {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -196,7 +196,7 @@ useSectionReveal(root, () => props.active)
 
   &__title {
     margin-top: 14px;
-    font-size: 40px;
+    font-size: 42px;
     font-weight: 700;
     letter-spacing: -0.02em;
   }
@@ -211,7 +211,7 @@ useSectionReveal(root, () => props.active)
 
   &__summary {
     margin-top: 16px;
-    font-size: 17px;
+    font-size: 19px;
     line-height: 1.7;
     color: rgba(255, 255, 255, 0.78);
   }
@@ -358,7 +358,7 @@ useSectionReveal(root, () => props.active)
   }
 
   &__year {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     letter-spacing: -0.01em;
     color: #9ff0cd;
@@ -366,25 +366,25 @@ useSectionReveal(root, () => props.active)
 
   &__company {
     margin-top: 2px;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 700;
   }
 
   &__team {
-    font-size: 12px;
+    font-size: 14px;
     color: rgba(255, 255, 255, 0.62);
   }
 
   &__period {
     margin-top: 6px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.02em;
     color: rgba(255, 255, 255, 0.8);
   }
 
   &__duration {
-    font-size: 12px;
+    font-size: 14px;
     color: rgba(255, 255, 255, 0.55);
   }
 
@@ -398,13 +398,13 @@ useSectionReveal(root, () => props.active)
   }
 
   &__count {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
     letter-spacing: 0.08em;
     color: rgba(255, 255, 255, 0.5);
 
     b {
-      font-size: 18px;
+      font-size: 20px;
       color: #fff;
     }
   }
@@ -412,7 +412,7 @@ useSectionReveal(root, () => props.active)
   &__hint {
     padding-top: 8px;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 0.04em;
     color: rgba(255, 255, 255, 0.45);
   }
@@ -423,7 +423,7 @@ useSectionReveal(root, () => props.active)
     padding: 64px 28px;
 
     &__title {
-      font-size: 30px;
+      font-size: 32px;
     }
 
     &__timeline {

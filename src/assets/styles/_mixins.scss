@@ -71,21 +71,21 @@
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.22);
       backdrop-filter: blur(6px);
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       text-shadow: none;
     }
 
     &__title {
       margin-top: 20px;
-      font-size: 40px;
+      font-size: 42px;
       font-weight: 700;
       letter-spacing: -0.02em;
     }
 
     &__summary {
       margin-top: 16px;
-      font-size: 19px;
+      font-size: 21px;
       line-height: 1.7;
       color: rgba(255, 255, 255, 0.92);
     }
@@ -97,14 +97,14 @@
     }
 
     &__sub-heading {
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
       letter-spacing: -0.01em;
     }
 
     &__sub-body {
       margin-top: 12px;
-      font-size: 16px;
+      font-size: 18px;
       line-height: 1.8;
       color: rgba(255, 255, 255, 0.9);
     }
@@ -114,7 +114,7 @@
       padding: 64px 28px;
 
       &__title {
-        font-size: 30px;
+        font-size: 32px;
       }
     }
   }

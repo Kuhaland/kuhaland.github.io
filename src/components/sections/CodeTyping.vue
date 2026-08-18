@@ -182,7 +182,7 @@ onBeforeUnmount(() => {
 
   &__file {
     margin-left: 10px;
-    font-size: 13px;
+    font-size: 15px;
     color: rgba(255, 255, 255, 0.6);
   }
 
@@ -191,7 +191,7 @@ onBeforeUnmount(() => {
     padding: 22px 26px;
     list-style: none;
     counter-reset: line;
-    font-size: 15px;
+    font-size: 17px;
     line-height: 1.8;
   }
 

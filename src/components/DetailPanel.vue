@@ -2,7 +2,11 @@
   <aside class="detail" :class="{ 'is-entered': entered }">
     <OverlayScrollbarsComponent class="detail__scroll" :options="osOptions" defer>
       <Transition name="slide" mode="out-in">
-        <div class="detail__inner" :key="paneKey">
+        <div
+          class="detail__inner"
+          :class="`detail__inner--${item.id}`"
+          :key="paneKey"
+        >
           <template v-if="career">
             <p class="detail__eyebrow">Career</p>
             <h2 class="detail__title">{{ career.company }}</h2>
@@ -206,7 +210,60 @@ const paneKey = computed(() => {
   }
 
   &__inner {
+    --cat-base: #5b6bbf;
+    --cat-strong: #35407a;
+    --cat-body: #454a63;
+    --cat-muted: #6e7288;
+    --cat-soft: #{rgba(#5b6bbf, 0.07)};
+    --cat-soft-strong: #{rgba(#5b6bbf, 0.13)};
+    --cat-line: #{rgba(#5b6bbf, 0.18)};
+    --cat-edge: #{rgba(#5b6bbf, 0.32)};
+
     padding: 40px 32px;
+
+    &--career {
+      --cat-base: #26766f;
+      --cat-strong: #1a5651;
+      --cat-body: #3b4d4b;
+      --cat-muted: #5f7a78;
+      --cat-soft: #{rgba(#26766f, 0.07)};
+      --cat-soft-strong: #{rgba(#26766f, 0.13)};
+      --cat-line: #{rgba(#26766f, 0.18)};
+      --cat-edge: #{rgba(#26766f, 0.32)};
+    }
+
+    &--work {
+      --cat-base: #a1602f;
+      --cat-strong: #70431f;
+      --cat-body: #554a41;
+      --cat-muted: #7d7166;
+      --cat-soft: #{rgba(#a1602f, 0.07)};
+      --cat-soft-strong: #{rgba(#a1602f, 0.13)};
+      --cat-line: #{rgba(#a1602f, 0.18)};
+      --cat-edge: #{rgba(#a1602f, 0.32)};
+    }
+
+    &--skills {
+      --cat-base: #3f7a3c;
+      --cat-strong: #2b5529;
+      --cat-body: #414d40;
+      --cat-muted: #667a63;
+      --cat-soft: #{rgba(#3f7a3c, 0.07)};
+      --cat-soft-strong: #{rgba(#3f7a3c, 0.13)};
+      --cat-line: #{rgba(#3f7a3c, 0.18)};
+      --cat-edge: #{rgba(#3f7a3c, 0.32)};
+    }
+
+    &--contact {
+      --cat-base: #7159a3;
+      --cat-strong: #4e3a75;
+      --cat-body: #4a4459;
+      --cat-muted: #75708a;
+      --cat-soft: #{rgba(#7159a3, 0.07)};
+      --cat-soft-strong: #{rgba(#7159a3, 0.13)};
+      --cat-line: #{rgba(#7159a3, 0.18)};
+      --cat-edge: #{rgba(#7159a3, 0.32)};
+    }
   }
 
   &__eyebrow {
@@ -214,7 +271,7 @@ const paneKey = computed(() => {
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--color-accent);
+    color: var(--cat-base);
   }
 
   &__title {
@@ -222,25 +279,26 @@ const paneKey = computed(() => {
     font-size: 26px;
     font-weight: 700;
     letter-spacing: -0.02em;
+    color: var(--cat-strong);
   }
 
   &__subtitle-en {
     margin-top: 4px;
     font-size: 17px;
     font-weight: 500;
-    color: var(--color-text-muted);
+    color: var(--cat-muted);
   }
 
   &__divider {
     height: 1px;
     margin: 22px 0;
-    background: var(--color-border);
+    background: var(--cat-line);
   }
 
   &__text {
     font-size: 17px;
     line-height: 1.85;
-    color: #55555a;
+    color: var(--cat-body);
   }
 
   &__highlights {
@@ -258,12 +316,12 @@ const paneKey = computed(() => {
     gap: 5px;
     padding: 13px 16px;
     border-radius: var(--radius-sm);
-    background: rgba(79, 124, 255, 0.06);
-    border-left: 3px solid var(--color-accent);
+    background: var(--cat-soft);
+    border-left: 3px solid var(--cat-base);
     transition: background $transition-base, transform $transition-base;
 
     &:hover {
-      background: rgba(79, 124, 255, 0.12);
+      background: var(--cat-soft-strong);
       transform: translateX(2px);
     }
   }
@@ -272,20 +330,20 @@ const paneKey = computed(() => {
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.06em;
-    color: var(--color-accent);
+    color: var(--cat-base);
   }
 
   &__highlight-value {
     font-size: 16px;
     line-height: 1.6;
-    color: #3a3a40;
+    color: var(--cat-body);
   }
 
   &__outro {
     margin-top: 18px;
     font-size: 16px;
     line-height: 1.8;
-    color: var(--color-text-muted);
+    color: var(--cat-muted);
   }
 
   &__meta {
@@ -296,7 +354,7 @@ const paneKey = computed(() => {
     padding: 14px 0;
 
     & + & {
-      border-top: 1px solid var(--color-border);
+      border-top: 1px solid var(--cat-line);
     }
   }
 
@@ -304,14 +362,14 @@ const paneKey = computed(() => {
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.04em;
-    color: var(--color-accent);
+    color: var(--cat-base);
   }
 
   &__value {
     margin: 8px 0 0;
     font-size: 17px;
     line-height: 1.7;
-    color: #45454a;
+    color: var(--cat-body);
   }
 
   &__badge {
@@ -319,10 +377,10 @@ const paneKey = computed(() => {
     margin-left: 8px;
     padding: 3px 10px;
     border-radius: 999px;
-    background: rgba(79, 124, 255, 0.1);
+    background: var(--cat-soft-strong);
     font-size: 14px;
     font-weight: 700;
-    color: #3a63d8;
+    color: var(--cat-base);
     vertical-align: middle;
   }
 
@@ -338,7 +396,7 @@ const paneKey = computed(() => {
     padding-left: 14px;
     font-size: 16px;
     line-height: 1.65;
-    color: #45454a;
+    color: var(--cat-body);
 
     &::before {
       content: '';
@@ -348,21 +406,21 @@ const paneKey = computed(() => {
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: var(--color-accent);
+      background: var(--cat-base);
     }
   }
 
   &__block {
     margin-top: 26px;
     padding-top: 24px;
-    border-top: 1px solid var(--color-border);
+    border-top: 1px solid var(--cat-line);
   }
 
   &__subtitle {
     font-size: 16px;
     font-weight: 700;
     letter-spacing: 0.02em;
-    color: var(--color-text);
+    color: var(--cat-strong);
   }
 
   &__skills {
@@ -377,27 +435,27 @@ const paneKey = computed(() => {
   &__chip {
     padding: 7px 14px;
     border-radius: 999px;
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
+    background: var(--cat-soft);
+    border: 1px solid var(--cat-line);
     font-size: 15px;
     font-weight: 600;
-    color: #45454a;
+    color: var(--cat-body);
     transition: background $transition-base, color $transition-base,
       border-color $transition-base;
 
     &:hover {
-      border-color: var(--color-accent);
-      color: var(--color-accent);
+      border-color: var(--cat-base);
+      color: var(--cat-base);
     }
 
     &--skill {
-      background: rgba(79, 124, 255, 0.08);
-      border-color: rgba(79, 124, 255, 0.25);
-      color: #3a63d8;
+      background: var(--cat-soft-strong);
+      border-color: var(--cat-edge);
+      color: var(--cat-base);
 
       &:hover {
-        background: var(--color-accent);
-        border-color: var(--color-accent);
+        background: var(--cat-base);
+        border-color: var(--cat-base);
         color: #fff;
       }
     }
