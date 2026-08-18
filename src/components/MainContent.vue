@@ -13,11 +13,17 @@
           :item="item"
           :active="i === sectionIndex"
         />
+        <CareerSection
+          v-else-if="item.id === 'career'"
+          :inner-index="careerIndex"
+          :active="i === sectionIndex"
+          @select-career="(n) => setInner('career', n)"
+        />
         <WorkSection
           v-else-if="item.id === 'work'"
           :inner-index="workIndex"
           :active="i === sectionIndex"
-          @select-project="setWork"
+          @select-project="(n) => setInner('work', n)"
         />
         <component
           :is="sectionMap[item.id]"
@@ -32,26 +38,45 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import AboutSection from './sections/AboutSection.vue'
+import CareerSection from './sections/CareerSection.vue'
 import WorkSection from './sections/WorkSection.vue'
 import SkillsSection from './sections/SkillsSection.vue'
 import ContactSection from './sections/ContactSection.vue'
 import { projects } from '../data/projects.js'
+import { career } from '../data/career.js'
 
 const props = defineProps({
   items: { type: Array, required: true },
   sectionIndex: { type: Number, default: 0 },
   workIndex: { type: Number, default: 0 },
+  careerIndex: { type: Number, default: 0 },
   entered: { type: Boolean, default: false },
 })
 
-const emit = defineEmits(['update:sectionIndex', 'update:workIndex'])
+const emit = defineEmits([
+  'update:sectionIndex',
+  'update:workIndex',
+  'update:careerIndex',
+])
 
 const sectionMap = {
   skills: SkillsSection,
   contact: ContactSection,
 }
 
-const WORK_LAST = projects.length - 1
+const INNER = {
+  work: {
+    last: projects.length - 1,
+    current: () => props.workIndex,
+    event: 'update:workIndex',
+  },
+  career: {
+    last: career.length - 1,
+    current: () => props.careerIndex,
+    event: 'update:careerIndex',
+  },
+}
+
 const stage = ref(null)
 const isAnimating = ref(false)
 let touchStartY = 0
@@ -67,10 +92,11 @@ function isNarrow() {
   return window.matchMedia('(max-width: 860px)').matches
 }
 
-function setWork(index) {
-  if (isAnimating.value || index === props.workIndex) return
+function setInner(id, index) {
+  const cfg = INNER[id]
+  if (!cfg || isAnimating.value || index === cfg.current()) return
   isAnimating.value = true
-  emit('update:workIndex', index)
+  emit(cfg.event, index)
 }
 
 function goSection(index) {
@@ -82,18 +108,15 @@ function goSection(index) {
 
 function step(direction) {
   if (isAnimating.value) return
-  if (activeId.value === 'work') {
-    if (direction > 0) {
-      if (props.workIndex < WORK_LAST) setWork(props.workIndex + 1)
-      else goSection(props.sectionIndex + 1)
-    } else if (props.workIndex > 0) {
-      setWork(props.workIndex - 1)
-    } else {
-      goSection(props.sectionIndex - 1)
+  const cfg = INNER[activeId.value]
+  if (cfg) {
+    const next = cfg.current() + (direction > 0 ? 1 : -1)
+    if (next >= 0 && next <= cfg.last) {
+      setInner(activeId.value, next)
+      return
     }
-  } else {
-    goSection(props.sectionIndex + (direction > 0 ? 1 : -1))
   }
+  goSection(props.sectionIndex + (direction > 0 ? 1 : -1))
 }
 
 function onWheel(e) {
@@ -130,7 +153,8 @@ function onTransitionEnd(e) {
   const t = e.target
   if (
     t.classList.contains('stage__track') ||
-    t.classList.contains('work__track')
+    t.classList.contains('work__track') ||
+    t.classList.contains('career__track')
   ) {
     isAnimating.value = false
   }

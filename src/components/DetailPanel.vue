@@ -3,7 +3,56 @@
     <OverlayScrollbarsComponent class="detail__scroll" :options="osOptions" defer>
       <Transition name="slide" mode="out-in">
         <div class="detail__inner" :key="paneKey">
-          <template v-if="project">
+          <template v-if="career">
+            <p class="detail__eyebrow">Career</p>
+            <h2 class="detail__title">{{ career.company }}</h2>
+            <p class="detail__subtitle-en">{{ career.companyEn }}</p>
+            <div class="detail__divider" />
+
+            <dl class="detail__meta">
+              <div v-if="career.team" class="detail__row">
+                <dt class="detail__label">소속</dt>
+                <dd class="detail__value">{{ career.team }}</dd>
+              </div>
+              <div class="detail__row">
+                <dt class="detail__label">재직 기간</dt>
+                <dd class="detail__value">
+                  {{ career.period }}
+                  <span class="detail__badge">{{ career.duration }}</span>
+                </dd>
+              </div>
+              <div class="detail__row">
+                <dt class="detail__label">직급</dt>
+                <dd class="detail__value">{{ career.position }}</dd>
+              </div>
+              <div class="detail__row">
+                <dt class="detail__label">담당 업무</dt>
+                <dd class="detail__value">
+                  <ul class="detail__tasks">
+                    <li v-for="t in career.tasks" :key="t" class="detail__task">
+                      {{ t }}
+                    </li>
+                  </ul>
+                </dd>
+              </div>
+              <div class="detail__row">
+                <dt class="detail__label">주요 직무</dt>
+                <dd class="detail__value">
+                  <ul class="detail__skills">
+                    <li
+                      v-for="f in career.focus"
+                      :key="f"
+                      class="detail__chip detail__chip--skill"
+                    >
+                      {{ f }}
+                    </li>
+                  </ul>
+                </dd>
+              </div>
+            </dl>
+          </template>
+
+          <template v-else-if="project">
             <p class="detail__eyebrow">Work</p>
             <h2 class="detail__title">{{ project.title }}</h2>
             <p class="detail__subtitle-en">{{ project.titleEn }}</p>
@@ -42,6 +91,9 @@
           <template v-else>
             <p class="detail__eyebrow">Detail</p>
             <h2 class="detail__title">{{ item.label }}</h2>
+            <p v-if="item.labelEn" class="detail__subtitle-en">
+              {{ item.labelEn }}
+            </p>
             <div class="detail__divider" />
             <p class="detail__text" v-html="item.detail" />
 
@@ -106,6 +158,7 @@ import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
 const props = defineProps({
   item: { type: Object, required: true },
   project: { type: Object, default: null },
+  career: { type: Object, default: null },
   entered: { type: Boolean, default: false },
 })
 
@@ -123,9 +176,11 @@ const tasks = computed(() =>
     : []
 )
 
-const paneKey = computed(() =>
-  props.project ? `work-${props.project.id}` : props.item.id
-)
+const paneKey = computed(() => {
+  if (props.career) return `career-${props.career.id}`
+  if (props.project) return `work-${props.project.id}`
+  return props.item.id
+})
 </script>
 
 <style scoped lang="scss">
@@ -155,7 +210,7 @@ const paneKey = computed(() =>
   }
 
   &__eyebrow {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -164,14 +219,14 @@ const paneKey = computed(() =>
 
   &__title {
     margin-top: 10px;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 700;
     letter-spacing: -0.02em;
   }
 
   &__subtitle-en {
     margin-top: 4px;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 500;
     color: var(--color-text-muted);
   }
@@ -183,7 +238,7 @@ const paneKey = computed(() =>
   }
 
   &__text {
-    font-size: 15px;
+    font-size: 17px;
     line-height: 1.85;
     color: #55555a;
   }
@@ -214,21 +269,21 @@ const paneKey = computed(() =>
   }
 
   &__highlight-label {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.06em;
     color: var(--color-accent);
   }
 
   &__highlight-value {
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.6;
     color: #3a3a40;
   }
 
   &__outro {
     margin-top: 18px;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.8;
     color: var(--color-text-muted);
   }
@@ -246,7 +301,7 @@ const paneKey = computed(() =>
   }
 
   &__label {
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.04em;
     color: var(--color-accent);
@@ -254,9 +309,47 @@ const paneKey = computed(() =>
 
   &__value {
     margin: 8px 0 0;
-    font-size: 15px;
+    font-size: 17px;
     line-height: 1.7;
     color: #45454a;
+  }
+
+  &__badge {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(79, 124, 255, 0.1);
+    font-size: 14px;
+    font-weight: 700;
+    color: #3a63d8;
+    vertical-align: middle;
+  }
+
+  &__tasks {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    @include flex(column, flex-start, stretch, 8px);
+  }
+
+  &__task {
+    position: relative;
+    padding-left: 14px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: #45454a;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 11px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--color-accent);
+    }
   }
 
   &__block {
@@ -266,7 +359,7 @@ const paneKey = computed(() =>
   }
 
   &__subtitle {
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
     letter-spacing: 0.02em;
     color: var(--color-text);
@@ -286,7 +379,7 @@ const paneKey = computed(() =>
     border-radius: 999px;
     background: var(--color-bg);
     border: 1px solid var(--color-border);
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
     color: #45454a;
     transition: background $transition-base, color $transition-base,

@@ -1,133 +1,504 @@
 <template>
-  <Transition name="fade">
-    <div v-if="showIntro" class="intro-overlay" role="presentation">
-      <span class="intro-overlay__circle" aria-hidden="true" />
-      <span class="intro-overlay__mouse">
-        <span class="intro-overlay__wheel" />
-      </span>
+  <Transition name="guide">
+    <div v-if="visible" class="intro-overlay" role="dialog" aria-label="화면 이용 안내">
+      <button class="intro-overlay__close intro-overlay__close--top" @click="close">
+        <AppIcon name="close" :size="18" />
+        <span>닫기</span>
+      </button>
+
+      <span
+        v-for="mark in marks"
+        :key="`frame-${mark.key}`"
+        class="intro-overlay__frame"
+        :class="{
+          'intro-overlay__frame--active': hovered === mark.key,
+          'intro-overlay__frame--muted': hovered && hovered !== mark.key,
+          'intro-overlay__frame--nested': mark.nested,
+        }"
+        :style="frameStyle(mark)"
+      />
+
+      <div
+        v-for="mark in marks"
+        :key="`callout-${mark.key}`"
+        class="intro-overlay__callout"
+        :class="[
+          `intro-overlay__callout--${mark.place}`,
+          {
+            'intro-overlay__callout--active': hovered === mark.key,
+            'intro-overlay__callout--muted': hovered && hovered !== mark.key,
+          },
+        ]"
+        :style="calloutStyle(mark)"
+      >
+        <span class="intro-overlay__pointer">
+          <AppIcon :name="mark.icon" :size="22" />
+        </span>
+        <span class="intro-overlay__body">
+          <span class="intro-overlay__title">{{ mark.title }}</span>
+          <span class="intro-overlay__desc">{{ mark.desc }}</span>
+        </span>
+      </div>
+
+      <div class="intro-overlay__bottom">
+        <button class="intro-overlay__close intro-overlay__close--bottom" @click="close">
+          안내 닫기
+        </button>
+        <span v-if="autoClose" class="intro-overlay__hint">
+          마우스 · 키보드 조작이 없으면
+          <b class="intro-overlay__count">{{ remain }}</b>초 후 자동으로 닫힙니다
+        </span>
+      </div>
     </div>
   </Transition>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onBeforeUnmount } from 'vue'
+import AppIcon from './AppIcon.vue'
 
-const emit = defineEmits(['done'])
+const IDLE = 20000
+const DELAY = 700
+const EDGE = 82
+const EVENTS = ['wheel', 'pointerdown', 'keydown', 'touchstart']
 
-const showIntro = ref(true)
-let timer = null
+const GUIDE = [
+  {
+    key: 'nav',
+    selector: '.sidenav',
+    place: 'right',
+    anchor: 0.46,
+    icon: 'arrow_back',
+    title: 'LNB 메뉴',
+    desc: '소개 · 경력 · 작업 · 기술 · 연락처. 원하는 섹션을 눌러 바로 이동합니다.',
+  },
+  {
+    key: 'collapse',
+    selector: '.sidenav__collapse',
+    nested: true,
+    place: 'right',
+    anchor: 0.5,
+    icon: 'arrow_back',
+    title: '메뉴 접기',
+    desc: '버튼을 누르면 메뉴가 아이콘만 남기고 작아집니다.',
+  },
+  {
+    key: 'stage',
+    selector: '.stage',
+    place: 'center',
+    anchor: 0.5,
+    icon: 'swap_vert',
+    title: '페이지 이동',
+    desc: '마우스 휠 · 터치 · 방향키로 위아래 페이지를 넘깁니다. 경력과 작업은 항목을 하나씩 지나간 뒤 다음 페이지로 이어집니다.',
+  },
+  {
+    key: 'detail',
+    selector: '.detail',
+    place: 'left',
+    anchor: 0.28,
+    icon: 'arrow_forward',
+    title: '상세 패널',
+    desc: '지금 보고 있는 섹션과 항목의 상세 내용이 함께 바뀝니다.',
+  },
+]
 
-function lockScroll() {
-  document.body.style.overflow = 'hidden'
-}
-
-function unlockScroll() {
-  document.body.style.overflow = ''
-}
-
-onMounted(() => {
-  lockScroll()
-  timer = setTimeout(() => {
-    showIntro.value = false
-    unlockScroll()
-    emit('done')
-  }, 3000)
+const props = defineProps({
+  open: { type: Boolean, default: false },
+  autoClose: { type: Boolean, default: false },
 })
 
-onUnmounted(() => {
-  clearTimeout(timer)
-  unlockScroll()
-})
+const emit = defineEmits(['close'])
+
+const visible = ref(false)
+const rects = ref({})
+const hovered = ref(null)
+const remain = ref(IDLE / 1000)
+
+let firstOpen = true
+
+const marks = computed(() => GUIDE.filter((m) => rects.value[m.key]))
+
+let showTimer = null
+let idleTimer = null
+let tickTimer = null
+let observer = null
+let lastBump = 0
+let lastX = -1
+let lastY = -1
+
+function measure() {
+  const next = {}
+  GUIDE.forEach((m) => {
+    const el = document.querySelector(m.selector)
+    if (!el) return
+    const { left, top, width, height } = el.getBoundingClientRect()
+    if (width && height) next[m.key] = { left, top, width, height }
+  })
+  rects.value = next
+}
+
+function frameStyle({ key }) {
+  const r = rects.value[key]
+  return {
+    left: `${r.left}px`,
+    top: `${r.top}px`,
+    width: `${r.width}px`,
+    height: `${r.height}px`,
+  }
+}
+
+function calloutStyle({ key, place, anchor }) {
+  const r = rects.value[key]
+  const raw = r.top + r.height * anchor
+  const top = `${Math.min(Math.max(raw, EDGE), window.innerHeight - EDGE)}px`
+  if (place === 'left') {
+    return { left: `${r.left - 22}px`, top, transform: 'translate(-100%, -50%)' }
+  }
+  if (place === 'center') {
+    return {
+      left: `${r.left + r.width / 2}px`,
+      top,
+      transform: 'translate(-50%, -50%)',
+    }
+  }
+  return { left: `${r.left + r.width + 22}px`, top, transform: 'translateY(-50%)' }
+}
+
+function hitTest(x, y) {
+  return (
+    marks.value
+      .map((m) => ({ key: m.key, r: rects.value[m.key] }))
+      .filter(
+        ({ r }) =>
+          x >= r.left && x <= r.left + r.width && y >= r.top && y <= r.top + r.height
+      )
+      .sort((a, b) => a.r.width * a.r.height - b.r.width * b.r.height)[0]?.key ??
+    null
+  )
+}
+
+function onMove(e) {
+  const key = hitTest(e.clientX, e.clientY)
+  if (key !== hovered.value) hovered.value = key
+
+  const moved = e.clientX !== lastX || e.clientY !== lastY
+  lastX = e.clientX
+  lastY = e.clientY
+  if (!moved) return
+
+  const now = performance.now()
+  if (now - lastBump < 400) return
+  lastBump = now
+  resetIdle()
+}
+
+function resetIdle() {
+  clearTimeout(idleTimer)
+  clearInterval(tickTimer)
+  idleTimer = null
+  tickTimer = null
+  remain.value = IDLE / 1000
+  if (!props.autoClose) return
+  idleTimer = setTimeout(close, IDLE)
+  tickTimer = setInterval(() => {
+    remain.value = Math.max(0, remain.value - 1)
+  }, 1000)
+}
+
+function onKeydown(e) {
+  if (e.key === 'Escape') close()
+}
+
+function start() {
+  measure()
+  if (!marks.value.length) return
+  hovered.value = null
+  visible.value = true
+  resetIdle()
+  EVENTS.forEach((name) =>
+    window.addEventListener(name, resetIdle, { passive: true })
+  )
+  window.addEventListener('resize', measure)
+  window.addEventListener('keydown', onKeydown)
+  window.addEventListener('mousemove', onMove, { passive: true })
+  observer = new ResizeObserver(measure)
+  GUIDE.forEach((m) => {
+    const el = document.querySelector(m.selector)
+    if (el) observer.observe(el)
+  })
+}
+
+function teardown() {
+  visible.value = false
+  clearTimeout(showTimer)
+  clearTimeout(idleTimer)
+  clearInterval(tickTimer)
+  tickTimer = null
+  observer?.disconnect()
+  observer = null
+  EVENTS.forEach((name) => window.removeEventListener(name, resetIdle))
+  window.removeEventListener('resize', measure)
+  window.removeEventListener('keydown', onKeydown)
+  window.removeEventListener('mousemove', onMove)
+}
+
+function close() {
+  teardown()
+  emit('close')
+}
+
+watch(
+  () => props.open,
+  (open) => {
+    if (!open) {
+      teardown()
+      return
+    }
+    showTimer = setTimeout(start, firstOpen ? DELAY : 0)
+    firstOpen = false
+  },
+  { immediate: true }
+)
+
+onBeforeUnmount(teardown)
 </script>
 
 <style scoped lang="scss">
 .intro-overlay {
   position: fixed;
   inset: 0;
-  z-index: 1000;
-  @include flex-center;
-  overflow: hidden;
-  background: linear-gradient(135deg, #1e1b4b 0%, #7a2a8f 60%, #c13584 100%);
+  z-index: 900;
+  background: rgba(0, 0, 0, 0.5);
+  pointer-events: none;
 
-  &::before {
-    content: '';
+  &__frame {
     position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: rgba(12, 10, 30, 0.4);
+    z-index: 0;
+    box-sizing: border-box;
+    border: 1px dashed rgba(79, 124, 255, 0.9);
+    border-radius: var(--radius-md);
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22),
+      inset 0 0 24px rgba(79, 124, 255, 0.14);
+    animation: frame-breathe 2.6s ease-in-out infinite;
+    transition: backdrop-filter $transition-base, box-shadow $transition-base,
+      border-color $transition-base, opacity $transition-base;
+
+    &--active {
+      border-style: solid;
+      border-color: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 0 0 1px rgba(79, 124, 255, 0.6),
+        0 0 34px rgba(79, 124, 255, 0.45);
+      backdrop-filter: brightness(1.95) saturate(1.08);
+      animation: none;
+      opacity: 1;
+    }
+
+    &--muted {
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: none;
+      animation: none;
+      opacity: 1;
+      backdrop-filter: brightness(0.5) saturate(0.8);
+
+      &.intro-overlay__frame--nested {
+        backdrop-filter: none;
+        opacity: 0.22;
+      }
+    }
   }
 
-  &__circle {
+  &__callout {
+    position: absolute;
+    z-index: 1;
+    @include flex(row, flex-start, center, 12px);
+    width: 268px;
+    padding: 14px 16px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(18, 18, 26, 0.92);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+    color: #fff;
+    transition: opacity $transition-base, background $transition-base,
+      border-color $transition-base, box-shadow $transition-base;
+
+    &--left {
+      flex-direction: row-reverse;
+    }
+
+    &--center {
+      flex-direction: column;
+      width: 292px;
+      text-align: center;
+    }
+
+    &--active {
+      border-color: var(--color-accent);
+      background: rgba(28, 30, 48, 0.96);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.38),
+        0 0 0 1px rgba(79, 124, 255, 0.55);
+    }
+
+    &--muted {
+      opacity: 0.5;
+    }
+  }
+
+  &__pointer {
+    flex-shrink: 0;
+    @include flex-center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #fff;
+
+    .intro-overlay__callout--right.intro-overlay__callout--active & {
+      animation: nudge-left 1.5s ease-in-out infinite;
+    }
+
+    .intro-overlay__callout--left.intro-overlay__callout--active & {
+      animation: nudge-right 1.5s ease-in-out infinite;
+    }
+
+    .intro-overlay__callout--center.intro-overlay__callout--active & {
+      animation: nudge-down 1.5s ease-in-out infinite;
+    }
+  }
+
+  &__body {
+    @include flex(column, flex-start, stretch, 5px);
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  &__desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  &__close {
+    pointer-events: auto;
+    @include flex(row, center, center, 6px);
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(18, 18, 26, 0.92);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.32);
+    transition: background $transition-base, border-color $transition-base;
+
+    &:hover {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+
+    &--top {
+      position: absolute;
+      z-index: 2;
+      top: 20px;
+      right: 20px;
+      padding: 9px 16px 9px 12px;
+    }
+
+    &--bottom {
+      padding: 11px 26px;
+      font-size: 14px;
+    }
+  }
+
+  &__bottom {
     position: absolute;
     z-index: 2;
-    width: 320px;
-    height: 320px;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      rgba(255, 255, 255, 0.28) 0%,
-      rgba(255, 255, 255, 0.1) 45%,
-      rgba(255, 255, 255, 0) 72%
-    );
-    filter: blur(2px);
-    box-shadow: 0 0 80px rgba(255, 255, 255, 0.18);
-    animation: pulse 2.8s ease-in-out infinite;
+    left: 50%;
+    bottom: 28px;
+    @include flex(column, center, center, 9px);
+    transform: translateX(-50%);
   }
 
-  &__mouse {
-    position: relative;
-    z-index: 3;
-    width: 34px;
-    height: 56px;
-    display: flex;
-    justify-content: center;
-    padding-top: 9px;
-    border: 2.5px solid #fff;
-    border-radius: 18px;
+  &__count {
+    display: inline-block;
+    min-width: 18px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
   }
 
-  &__wheel {
-    width: 5px;
-    height: 10px;
-    border-radius: 3px;
-    background: #fff;
-    animation: scroll-wheel 1.6s ease-in-out infinite;
+  &__hint {
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.72);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  }
+
+  @include respond-to($bp-md) {
+    display: none;
   }
 }
 
-@keyframes pulse {
+@keyframes frame-breathe {
   0%,
   100% {
-    transform: scale(1);
-    opacity: 0.85;
+    opacity: 0.55;
   }
   50% {
-    transform: scale(1.12);
     opacity: 1;
   }
 }
 
-@keyframes scroll-wheel {
-  0% {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  35% {
-    opacity: 1;
-  }
+@keyframes nudge-left {
+  0%,
   100% {
-    opacity: 0;
-    transform: translateY(12px);
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-5px);
   }
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
+@keyframes nudge-right {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
 }
 
-.fade-enter-from,
-.fade-leave-to {
+@keyframes nudge-down {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+.guide-enter-active,
+.guide-leave-active {
+  transition: opacity 0.45s ease;
+}
+
+.guide-enter-from,
+.guide-leave-to {
   opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay__frame,
+  .intro-overlay__pointer {
+    animation: none;
+  }
 }
 </style>

@@ -40,6 +40,18 @@
         </button>
       </div>
     </nav>
+
+    <div class="sidenav__foot">
+      <button
+        class="sidenav__guide"
+        :class="{ 'sidenav__guide--on': guideOpen }"
+        :title="collapsed ? '이용 안내' : ''"
+        @click="emit('guide')"
+      >
+        <AppIcon class="sidenav__icon" name="help" :size="20" />
+        <span v-show="!collapsed" class="sidenav__label">이용안내</span>
+      </button>
+    </div>
   </aside>
 </template>
 
@@ -52,9 +64,10 @@ const props = defineProps({
   activeIndex: { type: Number, default: 0 },
   collapsed: { type: Boolean, default: false },
   entered: { type: Boolean, default: false },
+  guideOpen: { type: Boolean, default: false },
 })
 
-const emit = defineEmits(['select', 'toggle'])
+const emit = defineEmits(['select', 'toggle', 'guide'])
 
 const itemEls = ref([])
 const indicatorStyle = ref({ opacity: 0 })
@@ -211,6 +224,45 @@ onBeforeUnmount(() => {
     @include truncate;
   }
 
+  &__foot {
+    margin-top: auto;
+    padding-top: 18px;
+  }
+
+  &__guide {
+    width: 100%;
+    @include flex(row, flex-start, center, 10px);
+    padding: 11px 12px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    font-weight: 500;
+    transition: color $transition-base, background $transition-base,
+      border-color $transition-base;
+
+    &:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    &--on,
+    &--on:hover {
+      color: #fff;
+      background: rgba(79, 124, 255, 0.9);
+      border-color: transparent;
+    }
+
+    &--on:hover {
+      background: var(--color-accent);
+    }
+
+    .sidenav--collapsed & {
+      justify-content: center;
+    }
+  }
+
   @include respond-to($bp-md) {
     &,
     &--collapsed {
@@ -228,6 +280,10 @@ onBeforeUnmount(() => {
 
     &__item--active {
       background: rgba(255, 255, 255, 0.14);
+    }
+
+    &__foot {
+      display: none;
     }
   }
 }
