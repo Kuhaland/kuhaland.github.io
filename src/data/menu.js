@@ -114,8 +114,8 @@ export const menu = [
         type: 'github',
         icon: 'code',
         label: 'GitHub',
-        value: 'github.com/kuhaland',
-        href: 'https://github.com/kuhaland',
+        value: 'Kuhaland/kuhaland.github.io',
+        href: 'https://github.com/Kuhaland/kuhaland.github.io',
         external: true,
       },
       {

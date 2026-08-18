@@ -94,7 +94,7 @@
             <p class="detail__eyebrow">{{ item.labelEn }}</p>
             <h2 class="detail__title">{{ item.label }}</h2>
             <div class="detail__divider" />
-            <p class="detail__text" v-html="item.detail" />
+            <SentenceText class="detail__text" :text="item.detail" />
 
             <ul
               v-if="item.highlights && item.highlights.length"
@@ -110,7 +110,11 @@
               </li>
             </ul>
 
-            <p v-if="item.outro" class="detail__outro">{{ item.outro }}</p>
+            <SentenceText
+              v-if="item.outro"
+              class="detail__outro"
+              :text="item.outro"
+            />
 
             <section
               v-if="item.strengths && item.strengths.length"
@@ -153,6 +157,7 @@
 <script setup>
 import { computed } from 'vue'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
+import SentenceText from './SentenceText.vue'
 
 const props = defineProps({
   item: { type: Object, required: true },

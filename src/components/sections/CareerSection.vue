@@ -5,10 +5,7 @@
       <h1 class="career__title reveal">
         화면을 만들어 온 <em class="career__accent">{{ careerTotal }}</em>
       </h1>
-      <p class="career__summary reveal">
-        디자인에서 퍼블리싱으로, 다시 컴포넌트 설계로.
-        다섯 곳의 팀에서 쌓아 온 {{ careerTotal }}의 기록입니다.
-      </p>
+      <SentenceText class="career__summary reveal" :text="summary" />
     </div>
 
     <div class="career__timeline">
@@ -72,6 +69,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import SentenceText from '../SentenceText.vue'
 import { career, careerTotal } from '../../data/career.js'
 import { useSectionReveal } from '../../composables/useSectionReveal.js'
 
@@ -81,6 +79,8 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['select-career'])
+
+const summary = `디자인에서 퍼블리싱으로, 다시 컴포넌트 설계로. 다섯 곳의 팀에서 쌓아 온 ${careerTotal}의 기록입니다.`
 
 const GAP = 360
 const PAD = 240

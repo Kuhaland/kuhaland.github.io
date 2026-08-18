@@ -3,7 +3,7 @@
     <div class="section__inner">
       <p class="section__eyebrow reveal">{{ item.headlineEn }}</p>
       <h1 class="section__title reveal">{{ item.headline }}</h1>
-      <p class="section__summary reveal">{{ item.intro }}</p>
+      <SentenceText class="section__summary reveal" :text="item.intro" />
 
       <ul class="contact__list">
         <li v-for="c in item.contacts" :key="c.type" class="contact__item reveal">
@@ -52,6 +52,7 @@
 <script setup>
 import { ref } from 'vue'
 import AppIcon from '../AppIcon.vue'
+import SentenceText from '../SentenceText.vue'
 import { useSectionReveal } from '../../composables/useSectionReveal.js'
 
 const props = defineProps({
@@ -101,8 +102,8 @@ useSectionReveal(root, () => props.active)
   }
 
   &__link {
-    @include flex(row, flex-start, center, 14px);
-    padding: 14px 18px;
+    @include flex(row, flex-start, center, 12px);
+    padding: 14px 16px;
     border-radius: var(--radius-md);
     border: 1px solid rgba(255, 255, 255, 0.22);
     background: rgba(255, 255, 255, 0.09);
@@ -136,7 +137,7 @@ useSectionReveal(root, () => props.active)
   }
 
   &__icon {
-    @include icon-button(42px, 50%);
+    @include icon-button(40px, 50%);
     background: rgba(255, 255, 255, 0.18);
   }
 

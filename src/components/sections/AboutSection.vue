@@ -5,7 +5,7 @@
       <img class="section__image reveal" :src="aboutImage" alt="웹퍼블리셔 이형화를 소개하는 대표 이미지"/>
       <p class="section__eyebrow reveal">{{ item.headlineEn }}</p>
       <h1 class="section__title reveal">{{ item.headline }}</h1>
-      <p class="section__summary reveal">{{ item.summary }}</p>
+      <SentenceText class="section__summary reveal" :text="item.summary" />
     </div>
   </section>
 </template>
@@ -14,6 +14,7 @@
 import { ref } from 'vue'
 import aboutImage from '@/assets/images/logo.png'
 import CodeTyping from './CodeTyping.vue'
+import SentenceText from '../SentenceText.vue'
 import { useSectionReveal } from '../../composables/useSectionReveal.js'
 
 const props = defineProps({
