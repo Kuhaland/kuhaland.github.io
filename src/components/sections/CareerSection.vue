@@ -45,6 +45,7 @@
           :aria-label="`${c.year}년 ${c.company} 경력 보기`"
           @click="emit('select-career', i)"
         >
+          <span class="career__pulse" />
           <span class="career__dot" />
           <span class="career__stem" />
           <span class="career__card">
@@ -160,7 +161,34 @@ function pad(n) {
 }
 
 const root = ref(null)
-useSectionReveal(root, () => props.active)
+
+const HEAD_DELAY = 0.35
+const HEAD_DURATION = 0.85
+const HEAD_STAGGER = 0.18
+const HEAD_COUNT = 3
+const HEAD_TAIL = 0.15
+const HUD_DELAY =
+  HEAD_DELAY + HEAD_STAGGER * (HEAD_COUNT - 1) + HEAD_DURATION - HEAD_TAIL
+
+useSectionReveal(root, () => props.active, {
+  selector: '.career__head .reveal',
+  from: { x: -72, opacity: 0, clipPath: 'inset(0 100% 0 0)' },
+  to: { x: 0, opacity: 1, clipPath: 'inset(0 0% 0 0)', clearProps: 'clipPath' },
+  duration: HEAD_DURATION,
+  stagger: HEAD_STAGGER,
+  delay: HEAD_DELAY,
+  ease: 'power3.out',
+})
+
+useSectionReveal(root, () => props.active, {
+  selector: '.career__hud > *',
+  from: { x: 72, opacity: 0, clipPath: 'inset(0 0 0 100%)' },
+  to: { x: 0, opacity: 1, clipPath: 'inset(0 0 0 0%)', clearProps: 'clipPath' },
+  duration: 0.45,
+  stagger: 0.08,
+  delay: HUD_DELAY,
+  ease: 'power3.out',
+})
 </script>
 
 <style scoped lang="scss">
@@ -272,13 +300,29 @@ useSectionReveal(root, () => props.active)
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.4);
     transform: translate(-50%, -50%);
+    z-index: 3;
     transition: transform $transition-nav, background $transition-base,
       box-shadow $transition-base;
+  }
+
+  &__pulse {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    width: 24px;
+    height: 24px;
+    margin: -12px 0 0 -12px;
+    border-radius: 50%;
+    border: 1px solid rgba(158, 232, 246, 0.9);
+    opacity: 0;
+    pointer-events: none;
   }
 
   &__stem {
     position: absolute;
     left: 0;
+    z-index: 1;
     width: 0;
     height: 46px;
     border-left: 1px dashed rgba(255, 255, 255, 0.28);
@@ -337,8 +381,11 @@ useSectionReveal(root, () => props.active)
     .career__dot {
       background: #fff;
       transform: translate(-50%, -50%) scale(1.9);
-      box-shadow: 0 0 0 6px rgba(94, 200, 229, 0.28),
-        0 0 22px rgba(94, 200, 229, 0.6);
+      animation: dot-pulse 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    .career__pulse {
+      animation: dot-ripple 2.4s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
     }
 
     .career__stem {
@@ -488,12 +535,44 @@ useSectionReveal(root, () => props.active)
   }
 }
 
+@keyframes dot-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.24),
+      0 0 18px rgba(94, 200, 229, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(94, 200, 229, 0.14),
+      0 0 26px rgba(94, 200, 229, 0.72);
+  }
+}
+
+@keyframes dot-ripple {
+  0% {
+    opacity: 0.75;
+    transform: scale(0.95);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(2.9);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.9);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .career__track,
   .career__curve-progress,
   .career__card,
   .career__dot {
     transition: none;
+  }
+
+  .career__node--active .career__dot,
+  .career__node--active .career__pulse {
+    animation: none;
   }
 }
 </style>

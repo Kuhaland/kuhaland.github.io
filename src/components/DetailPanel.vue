@@ -9,27 +9,59 @@
         >
           <template v-if="career">
             <p class="detail__eyebrow">{{ career.companyEn }}</p>
-            <h2 class="detail__title">{{ career.company }}</h2>
+            <div class="detail__head">
+              <h2 class="detail__title">{{ career.company }}</h2>
+              <span
+                class="detail__ci"
+                :class="{ 'detail__ci--image': career.logo }"
+              >
+                <img
+                  v-if="career.logo"
+                  class="detail__ci-img"
+                  :src="career.logo"
+                  :alt="`${career.company} CI`"
+                />
+                <span v-else class="detail__ci-mark" aria-hidden="true">
+                  {{ ciMark }}
+                </span>
+              </span>
+            </div>
             <div class="detail__divider" />
 
             <dl class="detail__meta">
               <div v-if="career.team" class="detail__row">
-                <dt class="detail__label">소속</dt>
+                <dt class="detail__label">
+                  <AppIcon class="detail__label-icon" name="apartment" :size="18" />
+                  소속
+                </dt>
                 <dd class="detail__value">{{ career.team }}</dd>
               </div>
               <div class="detail__row">
-                <dt class="detail__label">재직 기간</dt>
+                <dt class="detail__label">
+                  <AppIcon
+                    class="detail__label-icon"
+                    name="calendar_month"
+                    :size="18"
+                  />
+                  재직 기간
+                </dt>
                 <dd class="detail__value">
                   {{ career.period }}
                   <span class="detail__badge">{{ career.duration }}</span>
                 </dd>
               </div>
               <div class="detail__row">
-                <dt class="detail__label">직급</dt>
+                <dt class="detail__label">
+                  <AppIcon class="detail__label-icon" name="badge" :size="18" />
+                  직급
+                </dt>
                 <dd class="detail__value">{{ career.position }}</dd>
               </div>
               <div class="detail__row">
-                <dt class="detail__label">담당 업무</dt>
+                <dt class="detail__label">
+                  <AppIcon class="detail__label-icon" name="checklist" :size="18" />
+                  담당 업무
+                </dt>
                 <dd class="detail__value">
                   <ul class="detail__tasks">
                     <li v-for="t in career.tasks" :key="t" class="detail__task">
@@ -39,7 +71,14 @@
                 </dd>
               </div>
               <div class="detail__row">
-                <dt class="detail__label">주요 직무</dt>
+                <dt class="detail__label">
+                  <AppIcon
+                    class="detail__label-icon"
+                    name="workspace_premium"
+                    :size="18"
+                  />
+                  주요 직무
+                </dt>
                 <dd class="detail__value">
                   <ul class="detail__skills">
                     <li
@@ -47,6 +86,11 @@
                       :key="f"
                       class="detail__chip detail__chip--skill"
                     >
+                      <AppIcon
+                        class="detail__chip-icon"
+                        :name="focusIcon(f)"
+                        :size="16"
+                      />
                       {{ f }}
                     </li>
                   </ul>
@@ -158,6 +202,7 @@
 import { computed } from 'vue'
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-vue'
 import SentenceText from './SentenceText.vue'
+import AppIcon from './AppIcon.vue'
 
 const props = defineProps({
   item: { type: Object, required: true },
@@ -179,6 +224,24 @@ const tasks = computed(() =>
     ? props.project.task.split('/').map((t) => t.trim()).filter(Boolean)
     : []
 )
+
+const FOCUS_ICONS = {
+  GUI: 'palette',
+  반응형웹: 'devices',
+  '웹표준·웹접근성': 'accessibility_new',
+  'UI·UX기획': 'design_services',
+  모바일디자인: 'smartphone',
+}
+
+function focusIcon(name) {
+  return FOCUS_ICONS[name] ?? 'bolt'
+}
+
+const ciMark = computed(() => {
+  const name = props.career?.companyEn ?? ''
+  const caps = name.match(/[A-Z]/g) ?? []
+  return caps.length > 1 ? caps.slice(0, 2).join('') : name.slice(0, 1).toUpperCase()
+})
 
 const paneKey = computed(() => {
   if (props.career) return `career-${props.career.id}`
@@ -274,12 +337,52 @@ const paneKey = computed(() => {
     color: var(--cat-base);
   }
 
+  &__head {
+    @include flex(row, space-between, center, 12px);
+    margin-top: 10px;
+  }
+
   &__title {
     margin-top: 10px;
     font-size: 26px;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--cat-strong);
+
+    .detail__head & {
+      margin-top: 0;
+    }
+  }
+
+  &__ci {
+    flex-shrink: 0;
+    @include flex-center;
+    min-width: 56px;
+    height: 56px;
+    padding: 0 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--cat-line);
+    background: var(--cat-soft);
+
+    &--image {
+      padding: 6px 9px;
+      background: #fff;
+      border-color: var(--color-border);
+    }
+  }
+
+  &__ci-img {
+    display: block;
+    max-width: 90px;
+    max-height: 40px;
+    object-fit: contain;
+  }
+
+  &__ci-mark {
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: var(--cat-base);
   }
 
   &__divider {
@@ -341,21 +444,31 @@ const paneKey = computed(() => {
 
   &__meta {
     margin: 0;
+    @include flex(column, flex-start, stretch, 10px);
   }
 
   &__row {
-    padding: 14px 0;
-
-    & + & {
-      border-top: 1px solid var(--cat-line);
-    }
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--cat-line);
+    background: var(--cat-soft);
   }
 
   &__label {
+    @include flex(row, flex-start, center, 7px);
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.04em;
     color: var(--cat-base);
+  }
+
+  &__label-icon {
+    flex-shrink: 0;
+  }
+
+  &__chip-icon {
+    flex-shrink: 0;
+    opacity: 0.85;
   }
 
   &__value {
@@ -426,6 +539,7 @@ const paneKey = computed(() => {
   }
 
   &__chip {
+    @include flex(row, center, center, 6px);
     padding: 7px 14px;
     border-radius: 999px;
     background: var(--cat-soft);
@@ -442,7 +556,7 @@ const paneKey = computed(() => {
     }
 
     &--skill {
-      background: var(--cat-soft-strong);
+      background: var(--color-panel);
       border-color: var(--cat-edge);
       color: var(--cat-base);
 

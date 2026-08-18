@@ -1,4 +1,17 @@
-export const career = [
+const logos = import.meta.glob(
+  '../assets/images/ci/*.{png,jpg,jpeg,svg,webp}',
+  { eager: true, import: 'default' }
+)
+
+function logoFor(name) {
+  const key = name.toLowerCase()
+  const hit = Object.keys(logos).find((path) =>
+    path.toLowerCase().includes(`/${key}.`)
+  )
+  return hit ? logos[hit] : null
+}
+
+const history = [
   {
     id: 'hantour',
     year: '2008',
@@ -66,5 +79,10 @@ export const career = [
     focus: ['GUI', '반응형웹', '웹표준·웹접근성'],
   },
 ]
+
+export const career = history.map((item) => ({
+  ...item,
+  logo: logoFor(item.companyEn),
+}))
 
 export const careerTotal = '17년 6개월'
