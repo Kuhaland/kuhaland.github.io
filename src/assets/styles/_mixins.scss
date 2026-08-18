@@ -109,6 +109,56 @@
       color: rgba(255, 255, 255, 0.9);
     }
 
+    @media (max-height: 820px) {
+      padding: 4rem;
+
+      &__title {
+        margin-top: 0.875rem;
+        font-size: 2.25rem;
+      }
+
+      &__summary {
+        margin-top: 0.75rem;
+        font-size: 1.125rem;
+      }
+
+      &__sub {
+        margin-top: 1.5rem;
+        padding-top: 1.25rem;
+      }
+
+      &__sub-heading {
+        font-size: 1.125rem;
+      }
+
+      &__sub-body {
+        margin-top: 0.5rem;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-height: 700px) {
+      padding: 3rem 4rem;
+
+      &__title {
+        font-size: 1.875rem;
+      }
+
+      &__summary {
+        font-size: 1rem;
+      }
+
+      &__sub {
+        margin-top: 1rem;
+        padding-top: 0.875rem;
+      }
+
+      &__sub-body {
+        line-height: 1.6;
+        font-size: 0.9375rem;
+      }
+    }
+
     @include respond-to($bp-md) {
       min-height: auto;
       padding: 4rem 1.75rem;

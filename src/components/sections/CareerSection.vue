@@ -210,7 +210,7 @@ useSectionReveal(root, () => props.active, {
   &__head {
     position: relative;
     z-index: 2;
-    max-width: 38.75rem;
+    max-width: min(38.75rem, calc(100% - 10rem));
     text-shadow: 0 0.0625rem 0.75rem rgba(0, 0, 0, 0.35);
   }
 
@@ -251,6 +251,7 @@ useSectionReveal(root, () => props.active, {
     bottom: 0;
     top: 32%;
     z-index: 1;
+    transform-origin: center center;
   }
 
   &__track {
@@ -462,6 +463,54 @@ useSectionReveal(root, () => props.active, {
     font-size: 0.875rem;
     letter-spacing: 0.04em;
     color: rgba(255, 255, 255, 0.45);
+  }
+
+  @media (max-height: 820px) {
+    padding: 4.5rem 4rem;
+
+    &__title {
+      margin-top: 0.75rem;
+      font-size: 2.25rem;
+    }
+
+    &__summary {
+      margin-top: 0.75rem;
+      font-size: 1.0625rem;
+    }
+
+    &__hud {
+      top: 4.5rem;
+    }
+
+    &__timeline {
+      top: 30%;
+      transform: scale(0.88);
+    }
+  }
+
+  @media (max-height: 700px) {
+    padding: 3.25rem 4rem;
+
+    &__eyebrow {
+      font-size: 0.8125rem;
+    }
+
+    &__title {
+      font-size: 1.875rem;
+    }
+
+    &__summary {
+      font-size: 1rem;
+    }
+
+    &__hud {
+      top: 3.25rem;
+    }
+
+    &__timeline {
+      top: 27%;
+      transform: scale(0.74);
+    }
   }
 
   @include respond-to($bp-md) {

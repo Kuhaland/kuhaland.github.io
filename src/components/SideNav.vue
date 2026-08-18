@@ -107,7 +107,7 @@ onBeforeUnmount(() => {
 <style scoped lang="scss">
 .sidenav {
   width: $lnb-width-expanded;
-  min-width: 8.25rem;
+  min-width: 132px;
   flex-shrink: 0;
   @include flex(column);
   padding: 1.25rem 0.875rem;
