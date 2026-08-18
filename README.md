@@ -1,126 +1,140 @@
-# kuhaland.github.io
+<!--
+  GitHub 프로필 README
+  이 파일을 github.com/{username}/{username} 저장소에 두면 프로필 상단에 노출됩니다.
 
-17년차 웹퍼블리셔 **이형화(kuhaland)** 의 개인 포트폴리오 사이트입니다.
-Vue 3 · Vite · SCSS · GSAP로 만든 스크롤 인터랙션 기반 단일 페이지입니다.
+  ── 교체 필요 ──────────────────────────────────
+  {username}       GitHub 계정명            예) Kuhaland
+  {email}          공개할 이메일 주소        예) example@gmail.com
+  {portfolio-url}  포트폴리오 주소          예) https://kuhaland.github.io
+  {blog-url}       블로그 주소 (없으면 삭제)
+  {project-url}    프로젝트 공개 URL (없으면 링크 없이 텍스트만 유지)
+  {banner-image}   대표 이미지 경로 (선택 · 사용하지 않으면 해당 블록 삭제)
+  ───────────────────────────────────────────────
+-->
 
-**Live** · <https://kuhaland.github.io>
+<h1 align="center">디자인을 이해하는 퍼블리셔, 구조를 설계하는 개발자</h1>
 
----
+<p align="center">
+  <em>A publisher who understands design, a developer who architects structure</em>
+</p>
 
-## 화면 구성
+<p align="center">
+  17년차 웹퍼블리셔입니다. 반응형 웹 · 웹표준 · 웹접근성을 기준으로 재사용 가능한 공통 컴포넌트를 설계하고,<br />
+  국내외 서비스를 오래 운영해 왔습니다. 처음 만드는 완성도만큼 <strong>오래 관리할 수 있는 코드</strong>를 지향합니다.
+</p>
 
-좌측 **LNB 메뉴** — 가운데 **본문(Stage)** — 우측 **상세 패널**의 3-컬럼 레이아웃입니다.
-본문은 마우스 휠 · 터치 · 방향키로 섹션이 세로로 전환되고, 선택한 항목에 맞춰 상세 패널 내용이 함께 바뀝니다.
+<!-- 선택 : 대표 이미지 배너. 사용하려면 아래 주석을 해제하고 {banner-image} 를 교체하세요.
+<p align="center">
+  <img src="{banner-image}" alt="이형화 포트폴리오 대표 이미지" width="720" />
+</p>
+-->
 
-| 섹션 | 내용 |
-| --- | --- |
-| 소개 | 헤드라인, 코드 타이핑 배경, 핵심 역량·기술 스택 |
-| 경력 | 곡선 타임라인. 스크롤할 때마다 시점이 이동하며 회사별 상세를 표시 |
-| 작업 | 프로젝트를 가로 슬라이드로 순회 |
-| 기술 | 프레임워크 · 스타일링 · 모션 스택 소개 |
-| 연락처 | 이메일 · 전화 · GitHub · 포트폴리오 링크 |
-
-### 주요 인터랙션
-
-- **섹션 전환** — 경력과 작업은 내부 항목을 하나씩 지나간 뒤 다음 섹션으로 이어집니다
-- **경력 타임라인** — 베지어 곡선 위 노드를 따라 진행선이 차오르고, 활성 노드에 pulse 애니메이션 표시
-- **이용 안내 오버레이** — 최초 진입 시 레이아웃 각 영역을 화살표로 설명. 영역에 마우스를 올리면 해당 영역만 밝아지고, 20초간 조작이 없으면 자동으로 닫힙니다. LNB 하단 `이용안내` 버튼으로 다시 열 수 있습니다
-- **진입 애니메이션** — GSAP 기반. 경력 헤드는 좌→우, 카운터는 우→좌로 순차 등장
-
----
-
-## 기술 스택
-
-![Vue.js](https://img.shields.io/badge/Vue.js%203-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite%206-646CFF?style=flat-square&logo=vite&logoColor=white)
-![Sass](https://img.shields.io/badge/SCSS-CC6699?style=flat-square&logo=sass&logoColor=white)
-![GSAP](https://img.shields.io/badge/GSAP-88CE02?style=flat-square&logo=greensock&logoColor=black)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)
-
-- **Vue 3** Composition API (`<script setup>`)
-- **Vite 6** 개발 서버 및 번들링
-- **SCSS** BEM 클래스 구조, 변수·믹스인 분리, 디자인 토큰을 CSS 변수로 노출
-- **GSAP** 섹션 진입 리빌 애니메이션
-- **OverlayScrollbars** 상세 패널 커스텀 스크롤바
+<p align="center">
+  <a href="{portfolio-url}">
+    <img src="https://img.shields.io/badge/Portfolio-4F7CFF?style=flat&logo=googlechrome&logoColor=white" alt="포트폴리오 사이트 바로가기" />
+  </a>
+  <a href="mailto:{email}">
+    <img src="https://img.shields.io/badge/Email-EA4335?style=flat&logo=gmail&logoColor=white" alt="이메일 보내기" />
+  </a>
+  <a href="https://github.com/{username}">
+    <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" alt="GitHub 프로필 바로가기" />
+  </a>
+</p>
 
 ---
 
-## 시작하기
+## 👋 About Me
 
-```bash
-npm install     # 의존성 설치
-npm run dev     # 개발 서버 (http://localhost:5173)
-npm run build   # 프로덕션 빌드 → dist/
-npm run preview # 빌드 결과 미리보기
-```
-
-Node.js 20 이상을 권장합니다.
+- 웹디자인으로 시작해 퍼블리싱, 프론트엔드 구조 설계까지 역할을 넓혀 왔습니다. **디자인 의도를 읽고 코드로 옮기는 과정**에 강점이 있습니다.
+- **GUI 설계 · 반응형 웹 · 웹표준/웹접근성 · 컴포넌트 기반 퍼블리싱 · UI/UX 기획 이해**를 핵심 역량으로 삼고 있습니다.
+- ERP(국내/해외) 공통 컴포넌트를 만들고 유지보수하며, 여러 서비스가 함께 쓰는 UI를 표준화하는 일을 해왔습니다.
+- 자사 서비스 장기 운영과 SI 프로젝트를 모두 경험해, 오래 관리되는 코드의 구조를 먼저 고민합니다.
+- 팀 리딩과 퍼블리싱 품질 관리를 맡아 코드 컨벤션과 산출물 기준을 정리해 왔습니다.
 
 ---
 
-## 프로젝트 구조
+## 🛠 Tech Stack
 
-```
-src/
-├─ App.vue                 레이아웃 조립, 섹션·항목 상태 관리
-├─ components/
-│  ├─ SideNav.vue          LNB 메뉴, 접기 토글, 이용안내 버튼
-│  ├─ MainContent.vue      섹션 전환(휠·터치·키보드) 제어
-│  ├─ DetailPanel.vue      우측 상세 패널
-│  ├─ IntroOverlay.vue     이용 안내 오버레이
-│  ├─ SentenceText.vue     문장 단위 줄바꿈 렌더링
-│  ├─ AppIcon.vue          Material Symbols 아이콘
-│  └─ sections/            소개·경력·작업·기술·연락처 섹션
-├─ composables/
-│  └─ useSectionReveal.js  섹션 진입 애니메이션 (옵션으로 방향·속도 지정)
-├─ data/                   화면에 표시되는 모든 콘텐츠
-│  ├─ menu.js              메뉴 항목, 소개·연락처 내용
-│  ├─ career.js            경력 5건, 회사 CI 자동 매칭
-│  └─ projects.js          작업 프로젝트 12건
-├─ utils/text.js           마침표 기준 문장 분리
-└─ assets/styles/          변수 · 믹스인 · 전역 스타일
-```
+**Markup & Style**
 
----
+![HTML](https://img.shields.io/badge/HTML-E34F26?style=flat&logo=html5&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-1572B6?style=flat&logo=css3&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![SCSS](https://img.shields.io/badge/SCSS-CC6699?style=flat&logo=sass&logoColor=white)
+![SASS](https://img.shields.io/badge/SASS-CC6699?style=flat&logo=sass&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white)
 
-## 콘텐츠 수정
+**Script**
 
-화면 문구와 항목은 모두 `src/data/` 안에서 관리합니다. 컴포넌트를 건드릴 필요가 없습니다.
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![jQuery](https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jquery&logoColor=white)
+![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?style=flat&logo=vuedotjs&logoColor=white)
 
-- **메뉴·소개·연락처** → `menu.js`
-- **경력** → `career.js` (기간·직급·담당 업무·주요 직무)
-- **작업 프로젝트** → `projects.js`
+**Language**
 
-### 회사 CI 추가
+![JAVA](https://img.shields.io/badge/JAVA-007396?style=flat&logo=openjdk&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat&logo=php&logoColor=white)
 
-`src/assets/images/ci/` 에 **회사 영문명**으로 이미지를 넣으면 경력 상세 패널에 자동으로 표시됩니다.
-`png` · `jpg` · `svg` · `webp` 를 지원하며, 파일이 없으면 영문명에서 만든 모노그램이 대신 표시됩니다.
+**Tools**
 
-```
-src/assets/images/ci/smartscore.jpg   → 주식회사 스마트스코어
-src/assets/images/ci/plusn.jpg        → (주)플러스앤
-```
+![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)
+![GitLab](https://img.shields.io/badge/GitLab-FC6D26?style=flat&logo=gitlab&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)
+![VSCode](https://img.shields.io/badge/VSCode-007ACC?style=flat&logo=visualstudiocode&logoColor=white)
+![IntelliJ](https://img.shields.io/badge/IntelliJ-000000?style=flat&logo=intellijidea&logoColor=white)
+![Jira](https://img.shields.io/badge/Jira-0052CC?style=flat&logo=jira&logoColor=white)
+![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat&logo=amazonwebservices&logoColor=white)
 
 ---
 
-## 반응형 · 접근성
+## 📁 Featured Projects
 
-- 루트 폰트 크기를 `clamp()` 로 지정해 **해상도에 따라 폰트와 여백이 함께 조절**됩니다 (14px ~ 18px)
-- 모든 스타일 단위를 `rem` 으로 통일 (테두리 두께·브레이크포인트 제외)
-- 860px 이하에서는 3-컬럼이 세로로 쌓이고, 경력 타임라인은 세로 목록으로 전환됩니다
-- 세로 해상도가 낮은 화면(휴대용 모니터 등)에서도 콘텐츠가 잘리지 않도록 높이 기준 미디어쿼리를 적용했습니다
-- 시맨틱 마크업, 아이콘 버튼 `aria-label`, `:focus-visible` 포커스 스타일, `prefers-reduced-motion` 대응
+<!-- 공개 가능한 URL이 있는 항목만 [프로젝트명]({project-url}) 형태로 링크를 걸고, 나머지는 텍스트만 두세요. -->
 
----
-
-## 배포
-
-`main` 브랜치에 push하면 GitHub Actions가 빌드 후 GitHub Pages로 배포합니다.
-설정은 [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) 을 참고하세요.
+| 프로젝트 | 설명 | 담당 업무 |
+| --- | --- | --- |
+| [**Portfolio**]({portfolio-url}) | Vue 3 · Vite · GSAP 기반 개인 포트폴리오. 스크롤 연동 섹션 전환과 경력 타임라인 구현 | 기획 · 디자인 · 퍼블리싱 |
+| **스마트스코어** | 자사 웹·앱과 ERP(국내/해외) 공통 컴포넌트 제작 및 유지보수 | 퍼블리싱 |
+| **플러스앤** | 복지몰 · 회원권 · 휴양소 예약 · 엑스트라넷 등 기업 복지 플랫폼 | 퍼블리싱 · 웹디자인 |
+| **저스트고** | 국내외 항공 · 국내 숙박 · 제주 렌터카 예약 시스템 | 퍼블리싱 · 웹디자인 |
+| **해외 항공·호텔 예약 시스템** | 다음카카오 · 노랑풍선 · 롯데JTB · 에어픽 등 여행사 예약 시스템 | 퍼블리싱 · 웹디자인 |
+| **캠핑 예약 웹사이트** | 스테리움(제천·서천·변산), 임진각평화누리캠핑장 정보·예약 서비스 | 퍼블리싱 · 웹디자인 |
 
 ---
 
-## 연락처
+## 📊 GitHub Stats
 
-- **Email** · [leehx78@gmail.com](mailto:leehx78@gmail.com)
-- **GitHub** · [github.com/Kuhaland](https://github.com/Kuhaland)
+<!-- 선택 섹션입니다. 필요 없으면 이 섹션 전체를 삭제하세요. -->
+
+<p>
+  <img src="https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&hide_border=true" alt="GitHub 활동 통계 : 커밋 · 이슈 · PR 수" height="160" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact&hide_border=true" alt="가장 많이 사용한 언어 순위" height="160" />
+</p>
+
+<p>
+  <img src="https://streak-stats.demolab.com?user={username}&hide_border=true" alt="연속 커밋 기록" height="160" />
+</p>
+
+---
+
+## 📮 Contact
+
+새로운 프로젝트, 협업 제안, 가벼운 안부까지 모두 환영합니다.
+
+<p>
+  <a href="mailto:{email}">
+    <img src="https://img.shields.io/badge/Email-EA4335?style=flat&logo=gmail&logoColor=white" alt="이메일 보내기" />
+  </a>
+  <a href="https://github.com/{username}">
+    <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" alt="GitHub 프로필 바로가기" />
+  </a>
+  <a href="{portfolio-url}">
+    <img src="https://img.shields.io/badge/Portfolio-4F7CFF?style=flat&logo=googlechrome&logoColor=white" alt="포트폴리오 사이트 바로가기" />
+  </a>
+</p>
+
+- **Email** · [{email}](mailto:{email})
+- **GitHub** · [github.com/{username}](https://github.com/{username})
+- **Portfolio** · [{portfolio-url}]({portfolio-url})
+<!-- 블로그를 운영한다면 추가 : - **Blog** · [{blog-url}]({blog-url}) -->
