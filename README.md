@@ -4,7 +4,6 @@
 
   ── 교체 필요 ──────────────────────────────────
   {username}       GitHub 계정명            예) Kuhaland
-  {email}          공개할 이메일 주소        예) example@gmail.com
   {portfolio-url}  포트폴리오 주소          예) https://kuhaland.github.io
   {blog-url}       블로그 주소 (없으면 삭제)
   {project-url}    프로젝트 공개 URL (없으면 링크 없이 텍스트만 유지)
@@ -26,7 +25,7 @@
 -->
 
 <p align="center">
-  <a href="mailto:{email}">
+  <a href="mailto:leehx78@gmail.com">
     <img src="https://img.shields.io/badge/Email-EA4335?style=flat&logo=gmail&logoColor=white" alt="이메일 보내기" />
   </a>
 </p>
@@ -98,12 +97,10 @@
 새로운 프로젝트, 협업 제안, 가벼운 안부까지 모두 환영합니다.
 
 <p>
-  <a href="mailto:{email}">
+  <a href="mailto:leehx78@gmail.com">
     <img src="https://img.shields.io/badge/Email-EA4335?style=flat&logo=gmail&logoColor=white" alt="이메일 보내기" />
   </a>
 </p>
 
-- **Email** · [{email}](mailto:{email})
-- **GitHub** · [github.com/{username}](https://github.com/{username})
-- **Portfolio** · [{portfolio-url}]({portfolio-url})
+- **Email** · [leehx78@gmail.com](mailto:leehx78@gmail.com)
 <!-- 블로그를 운영한다면 추가 : - **Blog** · [{blog-url}]({blog-url}) -->
