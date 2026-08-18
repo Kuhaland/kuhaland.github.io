@@ -15,10 +15,6 @@
 <h1 align="center">디자인을 이해하는 퍼블리셔, 구조를 설계하는 개발자</h1>
 
 <p align="center">
-  <em>A publisher who understands design, a developer who architects structure</em>
-</p>
-
-<p align="center">
   17년차 웹퍼블리셔입니다. 반응형 웹 · 웹표준 · 웹접근성을 기준으로 재사용 가능한 공통 컴포넌트를 설계하고,<br />
   국내외 서비스를 오래 운영해 왔습니다. 처음 만드는 완성도만큼 <strong>오래 관리할 수 있는 코드</strong>를 지향합니다.
 </p>
@@ -30,14 +26,8 @@
 -->
 
 <p align="center">
-  <a href="{portfolio-url}">
-    <img src="https://img.shields.io/badge/Portfolio-4F7CFF?style=flat&logo=googlechrome&logoColor=white" alt="포트폴리오 사이트 바로가기" />
-  </a>
   <a href="mailto:{email}">
     <img src="https://img.shields.io/badge/Email-EA4335?style=flat&logo=gmail&logoColor=white" alt="이메일 보내기" />
-  </a>
-  <a href="https://github.com/{username}">
-    <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" alt="GitHub 프로필 바로가기" />
   </a>
 </p>
 
@@ -103,21 +93,6 @@
 
 ---
 
-## 📊 GitHub Stats
-
-<!-- 선택 섹션입니다. 필요 없으면 이 섹션 전체를 삭제하세요. -->
-
-<p>
-  <img src="https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&hide_border=true" alt="GitHub 활동 통계 : 커밋 · 이슈 · PR 수" height="160" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact&hide_border=true" alt="가장 많이 사용한 언어 순위" height="160" />
-</p>
-
-<p>
-  <img src="https://streak-stats.demolab.com?user={username}&hide_border=true" alt="연속 커밋 기록" height="160" />
-</p>
-
----
-
 ## 📮 Contact
 
 새로운 프로젝트, 협업 제안, 가벼운 안부까지 모두 환영합니다.
@@ -125,12 +100,6 @@
 <p>
   <a href="mailto:{email}">
     <img src="https://img.shields.io/badge/Email-EA4335?style=flat&logo=gmail&logoColor=white" alt="이메일 보내기" />
-  </a>
-  <a href="https://github.com/{username}">
-    <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white" alt="GitHub 프로필 바로가기" />
-  </a>
-  <a href="{portfolio-url}">
-    <img src="https://img.shields.io/badge/Portfolio-4F7CFF?style=flat&logo=googlechrome&logoColor=white" alt="포트폴리오 사이트 바로가기" />
   </a>
 </p>
 
