@@ -282,7 +282,7 @@ const paneKey = computed(() => {
     --cat-line: #{rgba(#5b6bbf, 0.18)};
     --cat-edge: #{rgba(#5b6bbf, 0.32)};
 
-    padding: 40px 32px;
+    padding: 2.5rem 2rem;
 
     &--career {
       --cat-base: #26766f;
@@ -330,7 +330,7 @@ const paneKey = computed(() => {
   }
 
   &__eyebrow {
-    font-size: 15px;
+    font-size: 0.9375rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -338,13 +338,13 @@ const paneKey = computed(() => {
   }
 
   &__head {
-    @include flex(row, space-between, center, 12px);
-    margin-top: 10px;
+    @include flex(row, space-between, center, 0.75rem);
+    margin-top: 0.625rem;
   }
 
   &__title {
-    margin-top: 10px;
-    font-size: 26px;
+    margin-top: 0.625rem;
+    font-size: 1.625rem;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--cat-strong);
@@ -357,15 +357,15 @@ const paneKey = computed(() => {
   &__ci {
     flex-shrink: 0;
     @include flex-center;
-    min-width: 56px;
-    height: 56px;
-    padding: 0 10px;
+    min-width: 3.5rem;
+    height: 3.5rem;
+    padding: 0 0.625rem;
     border-radius: var(--radius-sm);
     border: 1px solid var(--cat-line);
     background: var(--cat-soft);
 
     &--image {
-      padding: 6px 9px;
+      padding: 0.375rem 0.5625rem;
       background: #fff;
       border-color: var(--color-border);
     }
@@ -373,44 +373,44 @@ const paneKey = computed(() => {
 
   &__ci-img {
     display: block;
-    max-width: 90px;
-    max-height: 40px;
+    max-width: 5.625rem;
+    max-height: 2.5rem;
     object-fit: contain;
   }
 
   &__ci-mark {
-    font-size: 19px;
+    font-size: 1.1875rem;
     font-weight: 800;
     letter-spacing: 0.02em;
     color: var(--cat-base);
   }
 
   &__divider {
-    height: 1px;
-    margin: 22px 0;
+    height: 0.0625rem;
+    margin: 1.375rem 0;
     background: var(--cat-line);
   }
 
   &__text {
-    font-size: 17px;
+    font-size: 1.0625rem;
     line-height: 1.85;
     color: var(--cat-body);
   }
 
   &__highlights {
-    margin: 20px 0 0;
+    margin: 1.25rem 0 0;
     padding: 0;
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.625rem;
   }
 
   &__highlight {
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    padding: 13px 16px;
+    gap: 0.3125rem;
+    padding: 0.8125rem 1rem;
     border-radius: var(--radius-sm);
     background: var(--cat-soft);
     border-left: 3px solid var(--cat-base);
@@ -418,45 +418,45 @@ const paneKey = computed(() => {
 
     &:hover {
       background: var(--cat-soft-strong);
-      transform: translateX(2px);
+      transform: translateX(0.125rem);
     }
   }
 
   &__highlight-label {
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     color: var(--cat-base);
   }
 
   &__highlight-value {
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 1.6;
     color: var(--cat-body);
   }
 
   &__outro {
-    margin-top: 18px;
-    font-size: 16px;
+    margin-top: 1.125rem;
+    font-size: 1rem;
     line-height: 1.8;
     color: var(--cat-muted);
   }
 
   &__meta {
     margin: 0;
-    @include flex(column, flex-start, stretch, 10px);
+    @include flex(column, flex-start, stretch, 0.625rem);
   }
 
   &__row {
-    padding: 14px 16px;
+    padding: 0.875rem 1rem;
     border-radius: var(--radius-sm);
     border: 1px solid var(--cat-line);
     background: var(--cat-soft);
   }
 
   &__label {
-    @include flex(row, flex-start, center, 7px);
-    font-size: 14px;
+    @include flex(row, flex-start, center, 0.4375rem);
+    font-size: 0.875rem;
     font-weight: 700;
     letter-spacing: 0.04em;
     color: var(--cat-base);
@@ -472,19 +472,19 @@ const paneKey = computed(() => {
   }
 
   &__value {
-    margin: 8px 0 0;
-    font-size: 17px;
+    margin: 0.5rem 0 0;
+    font-size: 1.0625rem;
     line-height: 1.7;
     color: var(--cat-body);
   }
 
   &__badge {
     display: inline-block;
-    margin-left: 8px;
-    padding: 3px 10px;
-    border-radius: 999px;
+    margin-left: 0.5rem;
+    padding: 0.1875rem 0.625rem;
+    border-radius: 62.4375rem;
     background: var(--cat-soft-strong);
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 700;
     color: var(--cat-base);
     vertical-align: middle;
@@ -494,13 +494,13 @@ const paneKey = computed(() => {
     margin: 0;
     padding: 0;
     list-style: none;
-    @include flex(column, flex-start, stretch, 8px);
+    @include flex(column, flex-start, stretch, 0.5rem);
   }
 
   &__task {
     position: relative;
-    padding-left: 14px;
-    font-size: 16px;
+    padding-left: 0.875rem;
+    font-size: 1rem;
     line-height: 1.65;
     color: var(--cat-body);
 
@@ -508,43 +508,43 @@ const paneKey = computed(() => {
       content: '';
       position: absolute;
       left: 0;
-      top: 11px;
-      width: 5px;
-      height: 5px;
+      top: 0.6875rem;
+      width: 0.3125rem;
+      height: 0.3125rem;
       border-radius: 50%;
       background: var(--cat-base);
     }
   }
 
   &__block {
-    margin-top: 26px;
-    padding-top: 24px;
+    margin-top: 1.625rem;
+    padding-top: 1.5rem;
     border-top: 1px solid var(--cat-line);
   }
 
   &__subtitle {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.02em;
     color: var(--cat-strong);
   }
 
   &__skills {
-    margin-top: 14px;
+    margin-top: 0.875rem;
     padding: 0;
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 0.5rem;
   }
 
   &__chip {
-    @include flex(row, center, center, 6px);
-    padding: 7px 14px;
-    border-radius: 999px;
+    @include flex(row, center, center, 0.375rem);
+    padding: 0.4375rem 0.875rem;
+    border-radius: 62.4375rem;
     background: var(--cat-soft);
     border: 1px solid var(--cat-line);
-    font-size: 15px;
+    font-size: 0.9375rem;
     font-weight: 600;
     color: var(--cat-body);
     transition: background $transition-base, color $transition-base,
@@ -575,7 +575,7 @@ const paneKey = computed(() => {
     border-top: 1px solid var(--color-border);
 
     &__inner {
-      padding: 28px 24px;
+      padding: 1.75rem 1.5rem;
     }
   }
 }
@@ -587,12 +587,12 @@ const paneKey = computed(() => {
 
 .slide-enter-from {
   opacity: 0;
-  transform: translateX(12px);
+  transform: translateX(0.75rem);
 }
 
 .slide-leave-to {
   opacity: 0;
-  transform: translateX(-12px);
+  transform: translateX(-0.75rem);
 }
 
 @media (prefers-reduced-motion: reduce) {

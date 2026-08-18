@@ -72,21 +72,21 @@ useSectionReveal(root, () => props.active)
 @include section-styles;
 
 .section {
-  padding: 72px 64px;
+  padding: 4.5rem 4rem;
 
   &__eyebrow {
-    font-size: 17px;
+    font-size: 1.0625rem;
     font-weight: 500;
     letter-spacing: 0.04em;
     color: rgba(255, 255, 255, 0.82);
   }
 
   &__title {
-    margin-top: 10px;
+    margin-top: 0.625rem;
   }
 
   &__summary {
-    max-width: 680px;
+    max-width: 42.5rem;
   }
 }
 
@@ -94,20 +94,20 @@ useSectionReveal(root, () => props.active)
   &__list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    max-width: 760px;
-    margin: 36px 0 0;
+    gap: 0.75rem;
+    max-width: 47.5rem;
+    margin: 2.25rem 0 0;
     padding: 0;
     list-style: none;
   }
 
   &__link {
-    @include flex(row, flex-start, center, 12px);
-    padding: 14px 16px;
+    @include flex(row, flex-start, center, 0.75rem);
+    padding: 0.875rem 1rem;
     border-radius: var(--radius-md);
     border: 1px solid rgba(255, 255, 255, 0.22);
     background: rgba(255, 255, 255, 0.09);
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(0.375rem);
     color: #fff;
     text-decoration: none;
     text-shadow: none;
@@ -117,12 +117,12 @@ useSectionReveal(root, () => props.active)
     &:hover {
       background: rgba(255, 255, 255, 0.18);
       border-color: rgba(255, 255, 255, 0.5);
-      transform: translateY(-2px);
+      transform: translateY(-0.125rem);
     }
 
     &:focus-visible {
       outline: 2px solid #fff;
-      outline-offset: 3px;
+      outline-offset: 0.1875rem;
     }
 
     &--static {
@@ -137,17 +137,17 @@ useSectionReveal(root, () => props.active)
   }
 
   &__icon {
-    @include icon-button(40px, 50%);
+    @include icon-button(2.5rem, 50%);
     background: rgba(255, 255, 255, 0.18);
   }
 
   &__meta {
-    @include flex(column, flex-start, stretch, 2px);
+    @include flex(column, flex-start, stretch, 0.125rem);
     min-width: 0;
   }
 
   &__label {
-    font-size: 13px;
+    font-size: 0.8125rem;
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -155,7 +155,7 @@ useSectionReveal(root, () => props.active)
   }
 
   &__value {
-    font-size: 17px;
+    font-size: 1.0625rem;
     font-weight: 600;
     @include truncate;
   }
@@ -167,12 +167,12 @@ useSectionReveal(root, () => props.active)
   }
 
   &__socials {
-    @include flex(row, flex-start, center, 10px);
-    margin-top: 26px;
+    @include flex(row, flex-start, center, 0.625rem);
+    margin-top: 1.625rem;
   }
 
   &__social {
-    @include icon-button(48px, 50%);
+    @include icon-button(3rem, 50%);
     border: 1px solid rgba(255, 255, 255, 0.26);
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
@@ -183,34 +183,34 @@ useSectionReveal(root, () => props.active)
     &:hover {
       background: rgba(255, 255, 255, 0.22);
       border-color: rgba(255, 255, 255, 0.55);
-      transform: translateY(-2px);
+      transform: translateY(-0.125rem);
     }
 
     &:focus-visible {
       outline: 2px solid #fff;
-      outline-offset: 3px;
+      outline-offset: 0.1875rem;
     }
   }
 
   @include respond-to($bp-md) {
     &__list {
       grid-template-columns: minmax(0, 1fr);
-      margin-top: 28px;
+      margin-top: 1.75rem;
     }
   }
 
   @media (max-height: 780px) {
     &__list {
-      margin-top: 26px;
-      gap: 10px;
+      margin-top: 1.625rem;
+      gap: 0.625rem;
     }
 
     &__link {
-      padding: 11px 16px;
+      padding: 0.6875rem 1rem;
     }
 
     &__socials {
-      margin-top: 18px;
+      margin-top: 1.125rem;
     }
   }
 }

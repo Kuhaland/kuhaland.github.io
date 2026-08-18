@@ -28,7 +28,7 @@ useSectionReveal(root, () => props.active)
   height: 100%;
   min-height: 100vh;
   @include flex(column, flex-end, flex-start);
-  padding: 88px 64px 128px;
+  padding: 5.5rem 4rem 8rem;
   background-size: cover;
   background-position: center;
   color: #fff;
@@ -49,11 +49,11 @@ useSectionReveal(root, () => props.active)
     position: relative;
     z-index: 1;
     width: 100%;
-    text-shadow: 0 1px 14px rgba(0, 0, 0, 0.35);
+    text-shadow: 0 0.0625rem 0.875rem rgba(0, 0, 0, 0.35);
   }
 
   &__id {
-    font-size: 17px;
+    font-size: 1.0625rem;
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -61,8 +61,8 @@ useSectionReveal(root, () => props.active)
   }
 
   &__title {
-    margin-top: 12px;
-    font-size: 70px;
+    margin-top: 0.75rem;
+    font-size: 4.375rem;
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.05;
@@ -70,10 +70,10 @@ useSectionReveal(root, () => props.active)
 
   @include respond-to($bp-md) {
     min-height: 60vh;
-    padding: 56px 28px 72px;
+    padding: 3.5rem 1.75rem 4.5rem;
 
     &__title {
-      font-size: 42px;
+      font-size: 2.625rem;
     }
   }
 }

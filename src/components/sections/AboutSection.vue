@@ -53,27 +53,27 @@ useSectionReveal(root, () => props.active)
 
   &__image {
     display: block;
-    height: 56px;
+    height: 3.5rem;
     width: auto;
-    max-width: 220px;
-    margin-bottom: 26px;
+    max-width: 13.75rem;
+    margin-bottom: 1.625rem;
     object-fit: contain;
-    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(0 0.5rem 1.25rem rgba(0, 0, 0, 0.4));
   }
 
   &__eyebrow {
-    max-width: 560px;
-    font-size: 17px;
+    max-width: 35rem;
+    font-size: 1.0625rem;
     font-weight: 500;
     letter-spacing: 0.01em;
     line-height: 1.5;
     color: rgba(255, 255, 255, 0.82);
-    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.4);
+    text-shadow: 0 0.0625rem 0.625rem rgba(0, 0, 0, 0.4);
   }
 
   &__title {
-    margin-top: 10px;
-    max-width: 660px;
+    margin-top: 0.625rem;
+    max-width: 41.25rem;
   }
 }
 </style>

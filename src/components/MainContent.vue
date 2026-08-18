@@ -188,7 +188,7 @@ onBeforeUnmount(() => {
   background: var(--color-bg);
   outline: none;
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(1.5rem);
   transition: opacity $transition-enter, transform $transition-enter;
   transition-delay: 0.06s;
 

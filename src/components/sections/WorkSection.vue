@@ -71,17 +71,17 @@ const hStyle = computed(() => ({
 
   &__dots {
     position: absolute;
-    left: 64px;
-    bottom: 60px;
+    left: 4rem;
+    bottom: 3.75rem;
     z-index: 5;
-    @include flex(row, center, center, 8px);
+    @include flex(row, center, center, 0.5rem);
     max-width: 90%;
     flex-wrap: wrap;
   }
 
   &__dot {
-    width: 8px;
-    height: 8px;
+    width: 0.5rem;
+    height: 0.5rem;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.45);
     transition: $transition-base;

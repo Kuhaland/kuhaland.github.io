@@ -10,11 +10,11 @@ $font-sans: "Inter", "Pretendard", -apple-system, BlinkMacSystemFont,
   "Segoe UI", Roboto, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 
 $lnb-width-expanded: 10%;
-$lnb-width-collapsed: 76px;
+$lnb-width-collapsed: 4.75rem;
 
-$radius-lg: 20px;
-$radius-md: 14px;
-$radius-sm: 10px;
+$radius-lg: 1.25rem;
+$radius-md: 0.875rem;
+$radius-sm: 0.625rem;
 
 $transition-lnb: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 $transition-base: 0.2s ease;

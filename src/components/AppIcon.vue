@@ -35,7 +35,7 @@ const symbols = {
 
 const symbol = computed(() => symbols[props.name] || props.name)
 const styles = computed(() => ({
-  'font-size': `${props.size}px`,
+  'font-size': `${props.size / 16}rem`,
   'font-variation-settings': `'FILL' ${props.fill ? 1 : 0}, 'wght' 400, 'GRAD' 0, 'opsz' ${props.size}`,
 }))
 </script>

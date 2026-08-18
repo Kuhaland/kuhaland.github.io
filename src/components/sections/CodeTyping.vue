@@ -156,16 +156,16 @@ onBeforeUnmount(() => {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
 
   &__bar {
-    @include flex(row, flex-start, center, 8px);
-    height: 40px;
-    padding: 0 18px;
+    @include flex(row, flex-start, center, 0.5rem);
+    height: 2.5rem;
+    padding: 0 1.125rem;
     background: rgba(255, 255, 255, 0.06);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
   &__dot {
-    width: 11px;
-    height: 11px;
+    width: 0.6875rem;
+    height: 0.6875rem;
     border-radius: 50%;
     background: #30363d;
 
@@ -181,28 +181,28 @@ onBeforeUnmount(() => {
   }
 
   &__file {
-    margin-left: 10px;
-    font-size: 15px;
+    margin-left: 0.625rem;
+    font-size: 0.9375rem;
     color: rgba(255, 255, 255, 0.6);
   }
 
   &__list {
     margin: 0;
-    padding: 22px 26px;
+    padding: 1.375rem 1.625rem;
     list-style: none;
     counter-reset: line;
-    font-size: 17px;
+    font-size: 1.0625rem;
     line-height: 1.8;
   }
 
   &__line {
-    @include flex(row, flex-start, flex-start, 20px);
+    @include flex(row, flex-start, flex-start, 1.25rem);
 
     &::before {
       counter-increment: line;
       content: counter(line);
       flex-shrink: 0;
-      width: 26px;
+      width: 1.625rem;
       text-align: right;
       color: rgba(255, 255, 255, 0.4);
     }
@@ -215,9 +215,9 @@ onBeforeUnmount(() => {
 
   &__caret {
     display: inline-block;
-    width: 8px;
+    width: 0.5rem;
     height: 1.05em;
-    margin-left: 1px;
+    margin-left: 0.0625rem;
     background: #c4b5fd;
     vertical-align: text-bottom;
     animation: caret-blink 1s steps(1) infinite;

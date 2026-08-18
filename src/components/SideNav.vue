@@ -107,10 +107,10 @@ onBeforeUnmount(() => {
 <style scoped lang="scss">
 .sidenav {
   width: $lnb-width-expanded;
-  min-width: 132px;
+  min-width: 8.25rem;
   flex-shrink: 0;
   @include flex(column);
-  padding: 20px 14px;
+  padding: 1.25rem 0.875rem;
   background: var(--color-sidebar);
   color: #fff;
   overflow: hidden;
@@ -131,12 +131,12 @@ onBeforeUnmount(() => {
 
   &__top {
     @include flex(row, space-between, center);
-    min-height: 44px;
-    margin-bottom: 28px;
+    min-height: 2.75rem;
+    margin-bottom: 1.75rem;
 
     .sidenav--collapsed & {
       flex-direction: column;
-      gap: 16px;
+      gap: 1rem;
     }
   }
 
@@ -152,7 +152,7 @@ onBeforeUnmount(() => {
 
   &__logo-img {
     display: block;
-    height: 30px;
+    height: 1.875rem;
     width: auto;
     max-width: 100%;
     object-fit: contain;
@@ -164,7 +164,7 @@ onBeforeUnmount(() => {
   }
 
   &__collapse {
-    @include icon-button(36px, 10px);
+    @include icon-button(2.25rem, 0.625rem);
     color: rgba(255, 255, 255, 0.65);
     transition: $transition-base;
 
@@ -176,7 +176,7 @@ onBeforeUnmount(() => {
 
   &__list {
     position: relative;
-    @include flex(column, flex-start, stretch, 6px);
+    @include flex(column, flex-start, stretch, 0.375rem);
   }
 
   &__indicator {
@@ -195,11 +195,11 @@ onBeforeUnmount(() => {
   &__item {
     position: relative;
     z-index: 1;
-    @include flex(row, flex-start, center, 14px);
-    padding: 12px;
+    @include flex(row, flex-start, center, 0.875rem);
+    padding: 0.75rem;
     border-radius: var(--radius-md);
     color: rgba(255, 255, 255, 0.6);
-    font-size: 15px;
+    font-size: 0.9375rem;
     font-weight: 500;
     transition: color $transition-base;
 
@@ -226,17 +226,17 @@ onBeforeUnmount(() => {
 
   &__foot {
     margin-top: auto;
-    padding-top: 18px;
+    padding-top: 1.125rem;
   }
 
   &__guide {
     width: 100%;
-    @include flex(row, flex-start, center, 10px);
-    padding: 11px 12px;
+    @include flex(row, flex-start, center, 0.625rem);
+    padding: 0.6875rem 0.75rem;
     border-radius: var(--radius-md);
     border: 1px solid rgba(255, 255, 255, 0.14);
     color: rgba(255, 255, 255, 0.6);
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 500;
     transition: color $transition-base, background $transition-base,
       border-color $transition-base;

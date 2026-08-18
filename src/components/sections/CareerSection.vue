@@ -198,7 +198,7 @@ useSectionReveal(root, () => props.active, {
   height: 100%;
   min-height: 100vh;
   overflow: hidden;
-  padding: 96px 64px;
+  padding: 6rem 4rem;
   color: #fff;
   background: radial-gradient(
       120% 90% at 12% 0%,
@@ -210,12 +210,12 @@ useSectionReveal(root, () => props.active, {
   &__head {
     position: relative;
     z-index: 2;
-    max-width: 620px;
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+    max-width: 38.75rem;
+    text-shadow: 0 0.0625rem 0.75rem rgba(0, 0, 0, 0.35);
   }
 
   &__eyebrow {
-    font-size: 15px;
+    font-size: 0.9375rem;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -223,8 +223,8 @@ useSectionReveal(root, () => props.active, {
   }
 
   &__title {
-    margin-top: 14px;
-    font-size: 42px;
+    margin-top: 0.875rem;
+    font-size: 2.625rem;
     font-weight: 700;
     letter-spacing: -0.02em;
   }
@@ -238,8 +238,8 @@ useSectionReveal(root, () => props.active, {
   }
 
   &__summary {
-    margin-top: 16px;
-    font-size: 19px;
+    margin-top: 1rem;
+    font-size: 1.1875rem;
     line-height: 1.7;
     color: rgba(255, 255, 255, 0.78);
   }
@@ -278,7 +278,7 @@ useSectionReveal(root, () => props.active, {
     stroke: url(#careerLine);
     stroke-width: 3;
     stroke-linecap: round;
-    filter: drop-shadow(0 0 10px rgba(94, 200, 229, 0.5));
+    filter: drop-shadow(0 0 0.625rem rgba(94, 200, 229, 0.5));
     transition: stroke-dasharray 0.6s cubic-bezier(0.7, 0, 0.3, 1);
   }
 
@@ -295,8 +295,8 @@ useSectionReveal(root, () => props.active, {
     position: absolute;
     left: 0;
     top: 0;
-    width: 12px;
-    height: 12px;
+    width: 0.75rem;
+    height: 0.75rem;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.4);
     transform: translate(-50%, -50%);
@@ -310,9 +310,9 @@ useSectionReveal(root, () => props.active, {
     left: 0;
     top: 0;
     z-index: 2;
-    width: 24px;
-    height: 24px;
-    margin: -12px 0 0 -12px;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: -0.75rem 0 0 -0.75rem;
     border-radius: 50%;
     border: 1px solid rgba(158, 232, 246, 0.9);
     opacity: 0;
@@ -324,7 +324,7 @@ useSectionReveal(root, () => props.active, {
     left: 0;
     z-index: 1;
     width: 0;
-    height: 46px;
+    height: 2.875rem;
     border-left: 1px dashed rgba(255, 255, 255, 0.28);
     transition: border-color $transition-base;
   }
@@ -334,13 +334,13 @@ useSectionReveal(root, () => props.active, {
     left: 50%;
     display: flex;
     flex-direction: column;
-    gap: 3px;
-    width: 224px;
-    padding: 13px 15px;
+    gap: 0.1875rem;
+    width: 14rem;
+    padding: 0.8125rem 0.9375rem;
     border-radius: var(--radius-sm);
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(6px);
+    backdrop-filter: blur(0.375rem);
     opacity: 0.55;
     transform: translateX(-50%);
     transition: opacity $transition-base, background $transition-base,
@@ -353,7 +353,7 @@ useSectionReveal(root, () => props.active, {
     }
 
     .career__card {
-      top: 58px;
+      top: 3.625rem;
     }
   }
 
@@ -363,7 +363,7 @@ useSectionReveal(root, () => props.active, {
     }
 
     .career__card {
-      bottom: 58px;
+      bottom: 3.625rem;
     }
   }
 
@@ -405,61 +405,61 @@ useSectionReveal(root, () => props.active, {
   }
 
   &__year {
-    font-size: 22px;
+    font-size: 1.375rem;
     font-weight: 700;
     letter-spacing: -0.01em;
     color: #9ff0cd;
   }
 
   &__company {
-    margin-top: 2px;
-    font-size: 17px;
+    margin-top: 0.125rem;
+    font-size: 1.0625rem;
     font-weight: 700;
   }
 
   &__team {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.62);
   }
 
   &__period {
-    margin-top: 6px;
-    font-size: 14px;
+    margin-top: 0.375rem;
+    font-size: 0.875rem;
     font-weight: 600;
     letter-spacing: 0.02em;
     color: rgba(255, 255, 255, 0.8);
   }
 
   &__duration {
-    font-size: 14px;
+    font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.55);
   }
 
   &__hud {
     position: absolute;
-    right: 64px;
-    top: 96px;
+    right: 4rem;
+    top: 6rem;
     z-index: 3;
-    @include flex(column, flex-start, flex-end, 8px);
+    @include flex(column, flex-start, flex-end, 0.5rem);
     text-align: right;
   }
 
   &__count {
-    font-size: 15px;
+    font-size: 0.9375rem;
     font-weight: 600;
     letter-spacing: 0.08em;
     color: rgba(255, 255, 255, 0.5);
 
     b {
-      font-size: 20px;
+      font-size: 1.25rem;
       color: #fff;
     }
   }
 
   &__hint {
-    padding-top: 8px;
+    padding-top: 0.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: 14px;
+    font-size: 0.875rem;
     letter-spacing: 0.04em;
     color: rgba(255, 255, 255, 0.45);
   }
@@ -467,22 +467,22 @@ useSectionReveal(root, () => props.active, {
   @include respond-to($bp-md) {
     height: auto;
     min-height: auto;
-    padding: 64px 28px;
+    padding: 4rem 1.75rem;
 
     &__title {
-      font-size: 32px;
+      font-size: 2rem;
     }
 
     &__timeline {
       position: static;
-      margin-top: 36px;
+      margin-top: 2.25rem;
       overflow: visible;
     }
 
     &__track {
       position: static;
-      @include flex(column, flex-start, stretch, 14px);
-      padding-left: 24px;
+      @include flex(column, flex-start, stretch, 0.875rem);
+      padding-left: 1.5rem;
       border-left: 2px solid rgba(255, 255, 255, 0.18);
       transform: none !important;
     }
@@ -500,13 +500,13 @@ useSectionReveal(root, () => props.active, {
     }
 
     &__dot {
-      left: -25px;
-      top: 30px;
+      left: -1.5625rem;
+      top: 1.875rem;
     }
 
     &__node--active .career__dot {
       transform: translate(-50%, -50%) scale(1.4);
-      box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.25);
+      box-shadow: 0 0 0 0.25rem rgba(94, 200, 229, 0.25);
     }
 
     &__stem {
@@ -524,7 +524,7 @@ useSectionReveal(root, () => props.active, {
 
     &__hud {
       position: static;
-      margin-top: 28px;
+      margin-top: 1.75rem;
       align-items: flex-start;
       text-align: left;
     }
@@ -538,12 +538,12 @@ useSectionReveal(root, () => props.active, {
 @keyframes dot-pulse {
   0%,
   100% {
-    box-shadow: 0 0 0 4px rgba(94, 200, 229, 0.24),
-      0 0 18px rgba(94, 200, 229, 0.5);
+    box-shadow: 0 0 0 0.25rem rgba(94, 200, 229, 0.24),
+      0 0 1.125rem rgba(94, 200, 229, 0.5);
   }
   50% {
-    box-shadow: 0 0 0 7px rgba(94, 200, 229, 0.14),
-      0 0 26px rgba(94, 200, 229, 0.72);
+    box-shadow: 0 0 0 0.4375rem rgba(94, 200, 229, 0.14),
+      0 0 1.625rem rgba(94, 200, 229, 0.72);
   }
 }
 

@@ -277,8 +277,8 @@ onBeforeUnmount(teardown)
     box-sizing: border-box;
     border: 1px dashed rgba(79, 124, 255, 0.9);
     border-radius: var(--radius-md);
-    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.22),
-      inset 0 0 24px rgba(79, 124, 255, 0.14);
+    box-shadow: 0 0 0 0.0625rem rgba(255, 255, 255, 0.22),
+      inset 0 0 1.5rem rgba(79, 124, 255, 0.14);
     animation: frame-breathe 2.6s ease-in-out infinite;
     transition: backdrop-filter $transition-base, box-shadow $transition-base,
       border-color $transition-base, opacity $transition-base;
@@ -286,8 +286,8 @@ onBeforeUnmount(teardown)
     &--active {
       border-style: solid;
       border-color: rgba(255, 255, 255, 0.85);
-      box-shadow: 0 0 0 1px rgba(79, 124, 255, 0.6),
-        0 0 34px rgba(79, 124, 255, 0.45);
+      box-shadow: 0 0 0 0.0625rem rgba(79, 124, 255, 0.6),
+        0 0 2.125rem rgba(79, 124, 255, 0.45);
       backdrop-filter: brightness(1.95) saturate(1.08);
       animation: none;
       opacity: 1;
@@ -310,14 +310,14 @@ onBeforeUnmount(teardown)
   &__callout {
     position: absolute;
     z-index: 1;
-    @include flex(row, flex-start, center, 12px);
-    width: 268px;
-    padding: 14px 16px;
+    @include flex(row, flex-start, center, 0.75rem);
+    width: 16.75rem;
+    padding: 0.875rem 1rem;
     border-radius: var(--radius-md);
     border: 1px solid rgba(255, 255, 255, 0.16);
     background: rgba(18, 18, 26, 0.92);
-    backdrop-filter: blur(8px);
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.34);
+    backdrop-filter: blur(0.5rem);
+    box-shadow: 0 0.875rem 2.125rem rgba(0, 0, 0, 0.34);
     color: #fff;
     transition: opacity $transition-base, background $transition-base,
       border-color $transition-base, box-shadow $transition-base;
@@ -328,15 +328,15 @@ onBeforeUnmount(teardown)
 
     &--center {
       flex-direction: column;
-      width: 292px;
+      width: 18.25rem;
       text-align: center;
     }
 
     &--active {
       border-color: var(--color-accent);
       background: rgba(28, 30, 48, 0.96);
-      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.38),
-        0 0 0 1px rgba(79, 124, 255, 0.55);
+      box-shadow: 0 0.875rem 2.125rem rgba(0, 0, 0, 0.38),
+        0 0 0 0.0625rem rgba(79, 124, 255, 0.55);
     }
 
     &--muted {
@@ -347,8 +347,8 @@ onBeforeUnmount(teardown)
   &__pointer {
     flex-shrink: 0;
     @include flex-center;
-    width: 34px;
-    height: 34px;
+    width: 2.125rem;
+    height: 2.125rem;
     border-radius: 50%;
     background: var(--color-accent);
     color: #fff;
@@ -367,33 +367,33 @@ onBeforeUnmount(teardown)
   }
 
   &__body {
-    @include flex(column, flex-start, stretch, 5px);
+    @include flex(column, flex-start, stretch, 0.3125rem);
     min-width: 0;
   }
 
   &__title {
-    font-size: 15px;
+    font-size: 0.9375rem;
     font-weight: 700;
     letter-spacing: -0.01em;
   }
 
   &__desc {
-    font-size: 13px;
+    font-size: 0.8125rem;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.72);
   }
 
   &__close {
     pointer-events: auto;
-    @include flex(row, center, center, 6px);
-    border-radius: 999px;
+    @include flex(row, center, center, 0.375rem);
+    border-radius: 62.4375rem;
     border: 1px solid rgba(255, 255, 255, 0.18);
     background: rgba(18, 18, 26, 0.92);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(0.5rem);
     color: #fff;
-    font-size: 13px;
+    font-size: 0.8125rem;
     font-weight: 600;
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.32);
+    box-shadow: 0 0.625rem 1.625rem rgba(0, 0, 0, 0.32);
     transition: background $transition-base, border-color $transition-base;
 
     &:hover {
@@ -404,14 +404,14 @@ onBeforeUnmount(teardown)
     &--top {
       position: absolute;
       z-index: 2;
-      top: 20px;
-      right: 20px;
-      padding: 9px 16px 9px 12px;
+      top: 1.25rem;
+      right: 1.25rem;
+      padding: 0.5625rem 1rem 0.5625rem 0.75rem;
     }
 
     &--bottom {
-      padding: 11px 26px;
-      font-size: 14px;
+      padding: 0.6875rem 1.625rem;
+      font-size: 0.875rem;
     }
   }
 
@@ -419,25 +419,25 @@ onBeforeUnmount(teardown)
     position: absolute;
     z-index: 2;
     left: 50%;
-    bottom: 28px;
-    @include flex(column, center, center, 9px);
+    bottom: 1.75rem;
+    @include flex(column, center, center, 0.5625rem);
     transform: translateX(-50%);
   }
 
   &__count {
     display: inline-block;
-    min-width: 18px;
+    min-width: 1.125rem;
     text-align: center;
-    font-size: 13px;
+    font-size: 0.8125rem;
     font-weight: 700;
     color: #fff;
   }
 
   &__hint {
-    font-size: 12px;
+    font-size: 0.75rem;
     letter-spacing: 0.02em;
     color: rgba(255, 255, 255, 0.72);
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 0.0625rem 0.5rem rgba(0, 0, 0, 0.6);
   }
 
   @include respond-to($bp-md) {
@@ -461,7 +461,7 @@ onBeforeUnmount(teardown)
     transform: translateX(0);
   }
   50% {
-    transform: translateX(-5px);
+    transform: translateX(-0.3125rem);
   }
 }
 
@@ -471,7 +471,7 @@ onBeforeUnmount(teardown)
     transform: translateX(0);
   }
   50% {
-    transform: translateX(5px);
+    transform: translateX(0.3125rem);
   }
 }
 
@@ -481,7 +481,7 @@ onBeforeUnmount(teardown)
     transform: translateY(0);
   }
   50% {
-    transform: translateY(5px);
+    transform: translateY(0.3125rem);
   }
 }
 
