@@ -41,12 +41,24 @@
       </div>
 
       <div class="intro-overlay__bottom">
-        <button class="intro-overlay__close intro-overlay__close--bottom" @click="close">
-          안내 닫기
-        </button>
+        <div class="intro-overlay__actions">
+          <button
+            class="intro-overlay__close intro-overlay__close--bottom"
+            @click="close"
+          >
+            안내 닫기
+          </button>
+          <span
+            v-if="autoClose"
+            class="intro-overlay__timer"
+            :style="timerStyle"
+            :aria-label="`${remain}초 후 자동으로 닫힘`"
+          >
+            {{ remain }}
+          </span>
+        </div>
         <span v-if="autoClose" class="intro-overlay__hint">
-          마우스 · 키보드 조작이 없으면
-          <b class="intro-overlay__count">{{ remain }}</b>초 후 자동으로 닫힙니다
+          마우스 · 키보드 조작이 없으면 자동으로 닫힙니다
         </span>
       </div>
     </div>
@@ -60,7 +72,19 @@ import AppIcon from './AppIcon.vue'
 const IDLE = 20000
 const DELAY = 700
 const EDGE = 82
+const NARROW = 860
 const EVENTS = ['wheel', 'pointerdown', 'keydown', 'touchstart']
+const NAV_KEYS = [
+  'ArrowDown',
+  'ArrowUp',
+  'ArrowLeft',
+  'ArrowRight',
+  'PageDown',
+  'PageUp',
+  'Home',
+  'End',
+  ' ',
+]
 
 const GUIDE = [
   {
@@ -118,6 +142,10 @@ let firstOpen = true
 
 const marks = computed(() => GUIDE.filter((m) => rects.value[m.key]))
 
+const timerStyle = computed(() => ({
+  '--progress': `${(remain.value / (IDLE / 1000)) * 100}%`,
+}))
+
 let showTimer = null
 let idleTimer = null
 let tickTimer = null
@@ -126,7 +154,15 @@ let lastBump = 0
 let lastX = -1
 let lastY = -1
 
+function isNarrow() {
+  return window.matchMedia(`(max-width: ${NARROW}px)`).matches
+}
+
 function measure() {
+  if (isNarrow()) {
+    close()
+    return
+  }
   const next = {}
   GUIDE.forEach((m) => {
     const el = document.querySelector(m.selector)
@@ -209,7 +245,24 @@ function onKeydown(e) {
   if (e.key === 'Escape') close()
 }
 
+function blockWheel(e) {
+  e.preventDefault()
+  e.stopPropagation()
+  resetIdle()
+}
+
+function blockKeys(e) {
+  if (!NAV_KEYS.includes(e.key)) return
+  e.preventDefault()
+  e.stopPropagation()
+  resetIdle()
+}
+
 function start() {
+  if (isNarrow()) {
+    emit('close')
+    return
+  }
   measure()
   if (!marks.value.length) return
   hovered.value = null
@@ -221,6 +274,8 @@ function start() {
   window.addEventListener('resize', measure)
   window.addEventListener('keydown', onKeydown)
   window.addEventListener('mousemove', onMove, { passive: true })
+  window.addEventListener('wheel', blockWheel, { passive: false, capture: true })
+  window.addEventListener('keydown', blockKeys, { capture: true })
   observer = new ResizeObserver(measure)
   GUIDE.forEach((m) => {
     const el = document.querySelector(m.selector)
@@ -240,6 +295,8 @@ function teardown() {
   window.removeEventListener('resize', measure)
   window.removeEventListener('keydown', onKeydown)
   window.removeEventListener('mousemove', onMove)
+  window.removeEventListener('wheel', blockWheel, { capture: true })
+  window.removeEventListener('keydown', blockKeys, { capture: true })
 }
 
 function close() {
@@ -333,6 +390,7 @@ onBeforeUnmount(teardown)
     }
 
     &--active {
+      z-index: 2;
       border-color: var(--color-accent);
       background: rgba(28, 30, 48, 0.96);
       box-shadow: 0 0.875rem 2.125rem rgba(0, 0, 0, 0.38),
@@ -403,7 +461,7 @@ onBeforeUnmount(teardown)
 
     &--top {
       position: absolute;
-      z-index: 2;
+      z-index: 3;
       top: 1.25rem;
       right: 1.25rem;
       padding: 0.5625rem 1rem 0.5625rem 0.75rem;
@@ -417,20 +475,53 @@ onBeforeUnmount(teardown)
 
   &__bottom {
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     left: 50%;
     bottom: 1.75rem;
-    @include flex(column, center, center, 0.5625rem);
+    @include flex(column, center, center, 0.75rem);
     transform: translateX(-50%);
   }
 
-  &__count {
-    display: inline-block;
-    min-width: 1.125rem;
-    text-align: center;
-    font-size: 0.8125rem;
+  &__actions {
+    @include flex(row, center, center, 0.625rem);
+  }
+
+  &__timer {
+    position: relative;
+    flex-shrink: 0;
+    @include flex-center;
+    width: 2.625rem;
+    height: 2.625rem;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(18, 18, 26, 0.92);
+    backdrop-filter: blur(0.5rem);
+    font-size: 0.875rem;
     font-weight: 700;
+    font-variant-numeric: tabular-nums;
     color: #fff;
+    box-shadow: 0 0.625rem 1.625rem rgba(0, 0, 0, 0.32);
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -0.25rem;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--color-accent) var(--progress, 100%),
+        rgba(255, 255, 255, 0.16) 0
+      );
+      -webkit-mask: radial-gradient(
+        farthest-side,
+        transparent calc(100% - 0.1875rem),
+        #000 calc(100% - 0.1875rem)
+      );
+      mask: radial-gradient(
+        farthest-side,
+        transparent calc(100% - 0.1875rem),
+        #000 calc(100% - 0.1875rem)
+      );
+    }
   }
 
   &__hint {
