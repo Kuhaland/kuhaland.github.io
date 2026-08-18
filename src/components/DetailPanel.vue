@@ -8,9 +8,8 @@
           :key="paneKey"
         >
           <template v-if="career">
-            <p class="detail__eyebrow">Career</p>
+            <p class="detail__eyebrow">{{ career.companyEn }}</p>
             <h2 class="detail__title">{{ career.company }}</h2>
-            <p class="detail__subtitle-en">{{ career.companyEn }}</p>
             <div class="detail__divider" />
 
             <dl class="detail__meta">
@@ -57,9 +56,8 @@
           </template>
 
           <template v-else-if="project">
-            <p class="detail__eyebrow">Work</p>
+            <p class="detail__eyebrow">{{ project.titleEn }}</p>
             <h2 class="detail__title">{{ project.title }}</h2>
-            <p class="detail__subtitle-en">{{ project.titleEn }}</p>
             <div class="detail__divider" />
 
             <dl class="detail__meta">
@@ -93,11 +91,8 @@
           </template>
 
           <template v-else>
-            <p class="detail__eyebrow">Detail</p>
+            <p class="detail__eyebrow">{{ item.labelEn }}</p>
             <h2 class="detail__title">{{ item.label }}</h2>
-            <p v-if="item.labelEn" class="detail__subtitle-en">
-              {{ item.labelEn }}
-            </p>
             <div class="detail__divider" />
             <p class="detail__text" v-html="item.detail" />
 
@@ -280,13 +275,6 @@ const paneKey = computed(() => {
     font-weight: 700;
     letter-spacing: -0.02em;
     color: var(--cat-strong);
-  }
-
-  &__subtitle-en {
-    margin-top: 4px;
-    font-size: 17px;
-    font-weight: 500;
-    color: var(--cat-muted);
   }
 
   &__divider {

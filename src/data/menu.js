@@ -89,7 +89,77 @@ export const menu = [
     label: '연락처',
     labelEn: 'Contact',
     icon: 'mail',
+    headlineEn: "Let's work together",
+    headline: '함께 만들어요',
+    intro:
+      '새로운 프로젝트, 협업 제안, 가벼운 안부까지 모두 환영합니다. 편한 채널로 연락 주시면 확인하는 대로 답변드리겠습니다.',
     detail:
       '새로운 프로젝트, 협업, 혹은 그냥 안부 인사도 환영합니다. 이메일이나 소셜 채널을 통해 편하게 연락 주시면 빠르게 답변드리겠습니다. 좋은 아이디어는 대화에서 시작된다고 믿어요.',
+    contacts: [
+      {
+        type: 'email',
+        icon: 'mail',
+        label: 'Email',
+        value: 'hello@example.com',
+        href: 'mailto:hello@example.com',
+      },
+      {
+        type: 'phone',
+        icon: 'call',
+        label: 'Phone',
+        value: '010-0000-0000',
+        href: 'tel:+821000000000',
+      },
+      {
+        type: 'github',
+        icon: 'code',
+        label: 'GitHub',
+        value: 'github.com/kuhaland',
+        href: 'https://github.com/kuhaland',
+        external: true,
+      },
+      {
+        type: 'gitlab',
+        icon: 'account_tree',
+        label: 'GitLab',
+        value: 'gitlab.com/username',
+        href: 'https://gitlab.com/username',
+        external: true,
+      },
+      {
+        type: 'site',
+        icon: 'language',
+        label: 'Portfolio',
+        value: 'kuhaland.github.io',
+        href: 'https://kuhaland.github.io',
+        external: true,
+      },
+      {
+        type: 'location',
+        icon: 'place',
+        label: 'Location',
+        value: 'Seoul, Korea',
+      },
+    ],
+    socials: [
+      {
+        type: 'github',
+        icon: 'code',
+        label: 'GitHub 프로필 새 탭으로 열기',
+        href: 'https://github.com/kuhaland',
+      },
+      {
+        type: 'gitlab',
+        icon: 'account_tree',
+        label: 'GitLab 프로필 새 탭으로 열기',
+        href: 'https://gitlab.com/username',
+      },
+      {
+        type: 'site',
+        icon: 'language',
+        label: '포트폴리오 사이트 새 탭으로 열기',
+        href: 'https://kuhaland.github.io',
+      },
+    ],
   },
 ]

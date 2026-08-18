@@ -25,6 +25,11 @@
           :active="i === sectionIndex"
           @select-project="(n) => setInner('work', n)"
         />
+        <ContactSection
+          v-else-if="item.id === 'contact'"
+          :item="item"
+          :active="i === sectionIndex"
+        />
         <component
           :is="sectionMap[item.id]"
           v-else
@@ -61,7 +66,6 @@ const emit = defineEmits([
 
 const sectionMap = {
   skills: SkillsSection,
-  contact: ContactSection,
 }
 
 const INNER = {
@@ -200,6 +204,7 @@ onBeforeUnmount(() => {
 
   &__section {
     height: 100vh;
+    overflow: hidden;
   }
 
   @include respond-to($bp-md) {
@@ -212,6 +217,7 @@ onBeforeUnmount(() => {
 
     &__section {
       height: auto;
+      overflow: visible;
     }
   }
 }
