@@ -32,7 +32,7 @@
         </li>
       </ul>
 
-      <div class="contact__socials reveal">
+      <div v-if="item.socials?.length" class="contact__socials reveal">
         <a
           v-for="s in item.socials"
           :key="s.type"
