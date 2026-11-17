@@ -7,14 +7,6 @@
     <list default="true" id="dace1f6e-7003-4c03-93c4-347a20ad4a26" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/images/profile.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DetailPanel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DetailPanel.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HorseAvatar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HorseAvatar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/IntroOverlay.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IntroOverlay.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MainContent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MainContent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProfileCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProfileCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sections/AboutSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/AboutSection.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/sections/CareerSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/CareerSection.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/sections/ProfileSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/ProfileSection.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/menu.js" afterDir="false" />
     </list>
@@ -87,7 +79,7 @@
       <workItem from="1787534025281" duration="597000" />
       <workItem from="1788753912523" duration="702000" />
       <workItem from="1789981822797" duration="980000" />
-      <workItem from="1794806326900" duration="4490000" />
+      <workItem from="1794806326900" duration="5633000" />
     </task>
     <servers />
   </component>

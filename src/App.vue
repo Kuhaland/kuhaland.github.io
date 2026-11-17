@@ -50,7 +50,7 @@ const sectionIndex = ref(0)
 const workIndex = ref(0)
 const careerIndex = ref(0)
 const isCollapsed = ref(false)
-const guideOpen = ref(true)
+const guideOpen = ref(false)
 const guideAuto = ref(true)
 const pageEntered = ref(false)
 

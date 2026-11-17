@@ -26,8 +26,8 @@
           </div>
           <div class="pf__field">
             <dt class="pf__label">Availability</dt>
-            <dd class="pf__value">
-              <span class="pf__status">{{ item.availability }}</span>
+            <dd class="pf__value pf__value--status">
+              <span v-for="a in item.availability" :key="a" class="pf__status">{{ a }}</span>
             </dd>
           </div>
           <div class="pf__field">
@@ -41,9 +41,14 @@
 
       <article class="pf__card pf__card--skills reveal">
         <h2 class="pf__card-title">Skills</h2>
-        <ul class="pf__chips">
-          <li v-for="s in item.skills" :key="s" class="pf__chip">{{ s }}</li>
-        </ul>
+        <div class="pf__skill-groups">
+          <section v-for="g in item.skills" :key="g.group" class="pf__skill-group">
+            <h3 class="pf__skill-label">{{ g.group }}</h3>
+            <ul class="pf__chips">
+              <li v-for="s in g.items" :key="s" class="pf__chip">{{ s }}</li>
+            </ul>
+          </section>
+        </div>
       </article>
 
     </div>
@@ -204,6 +209,12 @@ useSectionReveal(root, () => props.active, { stagger: 0.08 })
     &--tags {
       color: #d4d4d8;
     }
+
+    &--status {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.375rem;
+    }
   }
 
   &__status {
@@ -225,8 +236,33 @@ useSectionReveal(root, () => props.active, { stagger: 0.08 })
     }
   }
 
+  &__skill-groups {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem 1.5rem;
+    margin-top: 1rem;
+  }
+
+  &__skill-group {
+    min-width: 0;
+    padding-left: 0.875rem;
+    border-left: 2px solid var(--pf-line);
+
+    &:first-child {
+      grid-column: span 2;
+    }
+  }
+
+  &__skill-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--pf-green);
+  }
+
   &__chips {
-    margin: 1rem 0 0;
+    margin: 0.5rem 0 0;
     padding: 0;
     list-style: none;
     display: flex;
@@ -272,8 +308,13 @@ useSectionReveal(root, () => props.active, { stagger: 0.08 })
       font-size: 0.875rem;
     }
 
-    &__chips {
+    &__skill-groups {
+      gap: 0.625rem 1.25rem;
       margin-top: 0.75rem;
+    }
+
+    &__chips {
+      margin-top: 0.375rem;
     }
 
     &__chip {
@@ -300,6 +341,10 @@ useSectionReveal(root, () => props.active, { stagger: 0.08 })
     &__details {
       grid-template-columns: 1fr;
       padding: 0;
+    }
+
+    &__skill-groups {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 }
