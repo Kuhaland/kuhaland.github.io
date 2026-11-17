@@ -19,12 +19,14 @@
       @update:section-index="sectionIndex = $event"
       @update:work-index="workIndex = $event"
       @update:career-index="careerIndex = $event"
+      @contact="onSelect(menu.findIndex((m) => m.id === 'contact'))"
     />
     <DetailPanel
       :item="activeItem"
       :project="currentProject"
       :career="currentCareer"
       :entered="pageEntered"
+      :hidden="activeItem.id !== 'career'"
     />
     <IntroOverlay
       :open="guideOpen"
@@ -82,6 +84,7 @@ function onSelect(index) {
 
 <style scoped lang="scss">
 .layout {
+  position: relative;
   display: flex;
   height: 100vh;
   overflow: hidden;

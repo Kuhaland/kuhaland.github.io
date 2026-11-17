@@ -94,7 +94,7 @@ const GUIDE = [
     anchor: 0.46,
     icon: 'arrow_back',
     title: 'LNB 메뉴',
-    desc: '소개 · 경력 · 작업 · 기술 · 연락처. 원하는 섹션을 눌러 바로 이동합니다.',
+    desc: '소개 · 프로필 · 경력 · 작업 · 연락처. 원하는 섹션을 눌러 바로 이동합니다.',
   },
   {
     key: 'collapse',

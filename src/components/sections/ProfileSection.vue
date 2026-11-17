@@ -1,51 +1,58 @@
 <template>
-  <section ref="root" class="section">
-    <div class="section__inner">
-      <span class="section__tag reveal">{{ item.labelEn }}</span>
-      <h1 class="section__title reveal">{{ item.headline }}</h1>
-      <SentenceText class="section__summary reveal" :text="item.detail" />
+  <section ref="root" class="pf">
+    <header class="pf__head reveal">
+      <h1 class="pf__title">{{ item.labelEn }}</h1>
+      <SentenceText class="pf__sub" :text="item.headline" />
+    </header>
 
-      <ul v-if="item.highlights?.length" class="profile-sec__grid reveal">
-        <li v-for="h in item.highlights" :key="h.label" class="profile-sec__card">
-          <span class="profile-sec__label">{{ h.label }}</span>
-          <span class="profile-sec__value">{{ h.value }}</span>
-        </li>
-      </ul>
-
-      <SentenceText
-        v-if="item.outro"
-        class="profile-sec__outro reveal"
-        :text="item.outro"
-      />
-
-      <div class="profile-sec__groups reveal">
-        <div v-if="item.strengths?.length" class="profile-sec__group">
-          <h2 class="profile-sec__heading">핵심 역량</h2>
-          <ul class="profile-sec__chips">
-            <li v-for="s in item.strengths" :key="s" class="profile-sec__chip">
-              {{ s }}
-            </li>
-          </ul>
+    <div class="pf__grid">
+      <article class="pf__card pf__card--user reveal">
+        <h2 class="pf__name">{{ item.name }}</h2>
+        <p class="pf__role">{{ item.role }}</p>
+        <div class="pf__avatar">
+          <HorseAvatar class="pf__avatar-img" :label="`${item.name} 프로필 이미지`" />
         </div>
-        <div v-if="item.skills?.length" class="profile-sec__group">
-          <h2 class="profile-sec__heading">Skills</h2>
-          <ul class="profile-sec__chips">
-            <li
-              v-for="s in item.skills"
-              :key="s"
-              class="profile-sec__chip profile-sec__chip--line"
-            >
-              {{ s }}
-            </li>
-          </ul>
+      </article>
+
+      <article class="pf__card pf__card--bio reveal">
+        <div class="pf__card-head">
+          <h2 class="pf__card-title">Bio &amp; other details</h2>
+          <span class="pf__dot" aria-hidden="true" />
         </div>
-      </div>
+        <dl class="pf__details">
+          <div v-for="h in item.highlights" :key="h.label" class="pf__field">
+            <dt class="pf__label">{{ h.label }}</dt>
+            <dd class="pf__value">{{ h.value }}</dd>
+          </div>
+          <div class="pf__field">
+            <dt class="pf__label">Availability</dt>
+            <dd class="pf__value">
+              <span class="pf__status">{{ item.availability }}</span>
+            </dd>
+          </div>
+          <div class="pf__field">
+            <dt class="pf__label">핵심 역량</dt>
+            <dd class="pf__value pf__value--tags">
+              {{ item.strengths.map((s) => `#${s.replace(/\s/g, '')}`).join(', ') }}
+            </dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="pf__card pf__card--skills reveal">
+        <h2 class="pf__card-title">Skills</h2>
+        <ul class="pf__chips">
+          <li v-for="s in item.skills" :key="s" class="pf__chip">{{ s }}</li>
+        </ul>
+      </article>
+
     </div>
   </section>
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import HorseAvatar from '../HorseAvatar.vue'
 import SentenceText from '../SentenceText.vue'
 import { useSectionReveal } from '../../composables/useSectionReveal.js'
 
@@ -55,84 +62,171 @@ const props = defineProps({
 })
 
 const root = ref(null)
-useSectionReveal(root, () => props.active)
+useSectionReveal(root, () => props.active, { stagger: 0.08 })
 </script>
 
 <style scoped lang="scss">
-@include section-styles;
+.pf {
+  --pf-bg: #1c1c1f;
+  --pf-card: #222226;
+  --pf-line: #34343a;
+  --pf-text: #f4f4f5;
+  --pf-muted: #8e8e96;
+  --pf-green: #7ee26b;
 
-.section {
-  justify-content: center;
+  @include flex(column, flex-start, stretch);
   height: 100vh;
-  background: linear-gradient(160deg, #18181b 0%, #26232f 55%, #3a2348 100%);
+  padding: 2.5rem 3rem;
+  background: var(--pf-bg);
+  color: var(--pf-text);
 
-  &::before {
-    background: none;
+  &__head {
+    padding-bottom: 1.25rem;
+    border-bottom: 1px dashed var(--pf-line);
   }
 
-  &__summary {
-    max-width: 48rem;
-    font-size: 1.125rem;
+  &__title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
-}
 
-.profile-sec {
+  &__sub {
+    margin-top: 0.375rem;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--pf-muted);
+  }
+
   &__grid {
-    margin: 1.75rem 0 0;
-    padding: 0;
-    list-style: none;
+    flex: 1;
+    min-height: 0;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem;
-    max-width: 56rem;
+    grid-template-columns: minmax(16rem, 1fr) 2fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
   }
 
   &__card {
-    @include flex(column, flex-start, flex-start, 0.375rem);
-    padding: 1rem 1.125rem;
-    border-radius: var(--radius-md);
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    text-shadow: none;
+    min-width: 0;
+    min-height: 0;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    background: var(--pf-card);
+    border: 1px solid var(--pf-line);
+
+    &--user {
+      @include flex(column, flex-start, center);
+      text-align: center;
+    }
+
+    &--skills {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__name {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  &__role {
+    margin-top: 0.25rem;
+    font-size: 0.9375rem;
+    color: var(--pf-green);
+  }
+
+  &__avatar {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    @include flex-center;
+    margin-top: 1.25rem;
+
+  }
+
+  &__avatar-img {
+    height: 100%;
+    max-height: 17rem;
+    width: auto;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 0.75rem solid #3a3a40;
+    clip-path: circle(50%);
+  }
+
+  &__avatar {
+    filter: drop-shadow(0 1rem 1.5rem rgba(0, 0, 0, 0.35));
+  }
+
+  &__card-head {
+    @include flex(row, space-between, center);
+  }
+
+  &__card-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+  }
+
+  &__dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    background: var(--pf-green);
+    box-shadow: 0 0 0 0.25rem rgba(126, 226, 107, 0.15);
+  }
+
+  &__details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2rem;
+    margin: 1rem 0 0;
+    padding: 0 0.75rem;
+  }
+
+  &__field {
+    padding: 0.875rem 0;
+    border-bottom: 1px solid var(--pf-line);
   }
 
   &__label {
-    font-size: 0.875rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    color: #c4a8ff;
+    font-size: 0.8125rem;
+    color: var(--pf-muted);
   }
 
   &__value {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.88);
+    margin: 0.3125rem 0 0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    color: var(--pf-text);
+
+    &--tags {
+      color: #d4d4d8;
+    }
   }
 
-  &__outro {
-    margin-top: 1.25rem;
-    max-width: 48rem;
-    font-size: 1rem;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.65);
-  }
+  &__status {
+    @include flex(row, flex-start, center, 0.5rem);
+    display: inline-flex;
+    padding: 0.3125rem 0.875rem;
+    border-radius: 62.4375rem;
+    background: rgba(126, 226, 107, 0.12);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--pf-green);
 
-  &__groups {
-    @include flex(column, flex-start, stretch, 1.25rem);
-    margin-top: 1.75rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.14);
-    max-width: 56rem;
-  }
-
-  &__heading {
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
+    &::before {
+      content: '';
+      width: 0.4375rem;
+      height: 0.4375rem;
+      border-radius: 50%;
+      background: currentColor;
+    }
   }
 
   &__chips {
-    margin: 0.75rem 0 0;
+    margin: 1rem 0 0;
     padding: 0;
     list-style: none;
     display: flex;
@@ -141,49 +235,72 @@ useSectionReveal(root, () => props.active)
   }
 
   &__chip {
-    padding: 0.375rem 0.875rem;
-    border-radius: 62.4375rem;
-    background: rgba(255, 255, 255, 0.12);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    text-shadow: none;
-
-    &--line {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      color: rgba(255, 255, 255, 0.85);
-    }
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.5rem;
+    background: #2c2c31;
+    border: 1px solid var(--pf-line);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #d4d4d8;
   }
 
   @media (max-height: 820px) {
+    padding: 1.75rem 2.5rem;
+
+    &__head {
+      padding-bottom: 0.875rem;
+    }
+
+    &__title {
+      font-size: 1.625rem;
+    }
+
     &__grid {
-      margin-top: 1.125rem;
+      gap: 1rem;
+      margin-top: 1rem;
     }
 
     &__card {
-      padding: 0.75rem 1rem;
+      padding: 1.125rem 1.25rem;
     }
 
-    &__outro {
-      display: none;
+    &__field {
+      padding: 0.5rem 0;
     }
 
-    &__groups {
-      margin-top: 1.125rem;
-      padding-top: 1rem;
+    &__value {
+      font-size: 0.875rem;
+    }
+
+    &__chips {
+      margin-top: 0.75rem;
+    }
+
+    &__chip {
+      padding: 0.25rem 0.625rem;
+      font-size: 0.8125rem;
     }
   }
 
   @include respond-to($bp-md) {
+    height: auto;
+    padding: 2.5rem 1.25rem;
+
     &__grid {
       grid-template-columns: 1fr;
+      grid-template-rows: none;
     }
-  }
-}
 
-@include respond-to($bp-md) {
-  .section {
-    height: auto;
+    &__avatar-img {
+      height: auto;
+      width: 70%;
+      max-width: 15rem;
+    }
+
+    &__details {
+      grid-template-columns: 1fr;
+      padding: 0;
+    }
   }
 }
 </style>

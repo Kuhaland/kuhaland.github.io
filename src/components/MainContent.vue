@@ -10,6 +10,13 @@
       <div v-for="(item, i) in items" :key="item.id" class="stage__section">
         <AboutSection
           v-if="item.id === 'about'"
+          ref="aboutRef"
+          :item="item"
+          :active="i === sectionIndex"
+          @contact="emit('contact')"
+        />
+        <ProfileSection
+          v-else-if="item.id === 'profile'"
           :item="item"
           :active="i === sectionIndex"
         />
@@ -30,11 +37,6 @@
           :item="item"
           :active="i === sectionIndex"
         />
-        <component
-          :is="sectionMap[item.id]"
-          v-else
-          :active="i === sectionIndex"
-        />
       </div>
     </div>
   </main>
@@ -43,9 +45,9 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import AboutSection from './sections/AboutSection.vue'
+import ProfileSection from './sections/ProfileSection.vue'
 import CareerSection from './sections/CareerSection.vue'
 import WorkSection from './sections/WorkSection.vue'
-import SkillsSection from './sections/SkillsSection.vue'
 import ContactSection from './sections/ContactSection.vue'
 import { projects } from '../data/projects.js'
 import { career } from '../data/career.js'
@@ -62,11 +64,8 @@ const emit = defineEmits([
   'update:sectionIndex',
   'update:workIndex',
   'update:careerIndex',
+  'contact',
 ])
-
-const sectionMap = {
-  skills: SkillsSection,
-}
 
 const INNER = {
   work: {
@@ -82,6 +81,7 @@ const INNER = {
 }
 
 const stage = ref(null)
+const aboutRef = ref(null)
 const isAnimating = ref(false)
 let touchStartY = 0
 
@@ -112,6 +112,19 @@ function goSection(index) {
 
 function step(direction) {
   if (isAnimating.value) return
+  if (activeId.value === 'about' && direction > 0) {
+    const about = Array.isArray(aboutRef.value)
+      ? aboutRef.value[0]
+      : aboutRef.value
+    if (about?.leave) {
+      isAnimating.value = true
+      about.leave().then(() => {
+        isAnimating.value = false
+        goSection(props.sectionIndex + 1)
+      })
+      return
+    }
+  }
   const cfg = INNER[activeId.value]
   if (cfg) {
     const next = cfg.current() + (direction > 0 ? 1 : -1)

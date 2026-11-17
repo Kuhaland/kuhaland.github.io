@@ -1,13 +1,13 @@
 <template>
   <svg
     class="horse"
-    viewBox="0 0 400 400"
+    :viewBox="viewBox"
     preserveAspectRatio="xMidYMid slice"
     role="img"
     :aria-label="label"
   >
     <defs>
-      <linearGradient :id="`${uid}-bg`" x1="0" y1="0" x2="0" y2="1">
+      <linearGradient :id="`${uid}-bg`" x1="0" y1="0" x2="0" y2="400" gradientUnits="userSpaceOnUse">
         <stop offset="0" stop-color="#e3e8ec" />
         <stop offset="1" stop-color="#cfd6dc" />
       </linearGradient>
@@ -21,7 +21,7 @@
       </linearGradient>
     </defs>
 
-    <rect width="400" height="400" :fill="`url(#${uid}-bg)`" />
+    <rect x="-400" y="-400" width="1200" height="1200" :fill="`url(#${uid}-bg)`" />
     <path
       d="M70 400 C80 330 130 300 200 300 C270 300 320 330 330 400 Z"
       :fill="`url(#${uid}-knit)`"
@@ -59,10 +59,23 @@
     <ellipse cx="200" cy="232" rx="56" ry="44" fill="#d9a07a" />
     <ellipse cx="180" cy="220" rx="7" ry="5" fill="#4a2a17" />
     <ellipse cx="220" cy="220" rx="7" ry="5" fill="#4a2a17" />
-    <path d="M165 240 Q200 275 235 240 Q200 258 165 240 Z" fill="#5a2a1a" />
-    <path d="M175 243 Q200 254 225 243 L222 249 Q200 257 178 249 Z" fill="#fff" />
+    <g :opacity="1 - open">
+      <path d="M165 240 Q200 275 235 240 Q200 258 165 240 Z" fill="#5a2a1a" />
+      <path d="M175 243 Q200 254 225 243 L222 249 Q200 257 178 249 Z" fill="#fff" />
+    </g>
+    <path
+      d="M174 246 Q200 260 226 246"
+      :opacity="open"
+      stroke="#5a2a1a"
+      stroke-width="4"
+      fill="none"
+      stroke-linecap="round"
+    />
 
-    <g v-if="watching">
+    <g
+      :opacity="open"
+      :transform="`translate(0 158) scale(1 ${Math.max(open, 0.05)}) translate(0 -158)`"
+    >
       <ellipse cx="172" cy="158" rx="12" ry="13" fill="#fff" />
       <ellipse cx="228" cy="158" rx="12" ry="13" fill="#fff" />
       <g :transform="`translate(${pupil.x} ${pupil.y})`">
@@ -74,7 +87,7 @@
       <path d="M159 152 Q172 140 185 152" stroke="#2b1a10" stroke-width="4" fill="none" stroke-linecap="round" />
       <path d="M215 152 Q228 140 241 152" stroke="#2b1a10" stroke-width="4" fill="none" stroke-linecap="round" />
     </g>
-    <g v-else>
+    <g :opacity="1 - open">
       <path d="M160 160 Q172 148 184 160" stroke="#2b1a10" stroke-width="5" fill="none" stroke-linecap="round" />
       <path d="M216 160 Q228 148 240 160" stroke="#2b1a10" stroke-width="5" fill="none" stroke-linecap="round" />
     </g>
@@ -82,7 +95,7 @@
     <ellipse cx="240" cy="180" rx="10" ry="6" fill="#e07a6a" opacity="0.45" />
 
     <g
-      v-if="watching"
+      v-if="flying"
       :transform="`translate(${fly.x} ${fly.y}) rotate(${fly.r})`"
     >
       <g class="horse__wing horse__wing--l">
@@ -108,13 +121,17 @@
 <script setup>
 import { ref, reactive, onMounted, onBeforeUnmount, useId } from 'vue'
 
-defineProps({
+const props = defineProps({
   label: { type: String, default: '프로필 이미지' },
+  butterfly: { type: Boolean, default: true },
+  viewBox: { type: String, default: '0 0 400 400' },
 })
 
-const FIRST_SMILE_MS = 3000
-const SMILE_MS = 2000
+const FIRST_SMILE_MS = [2000, 4500]
+const SMILE_MS = [1500, 5000]
 const FLIGHT_MS = 2200
+const OPEN_MS = 280
+const CLOSE_MS = 420
 const EYES = [
   { x: 172, y: 158 },
   { x: 228, y: 158 },
@@ -122,15 +139,37 @@ const EYES = [
 const PUPIL_RANGE = 5
 
 const uid = `horse-${useId()}`
-const watching = ref(false)
+const flying = ref(false)
+const open = ref(0)
 const fly = reactive({ x: -40, y: 80, r: 0 })
 const pupil = reactive({ x: 0, y: 0 })
 
 let timer = null
 let frame = null
+let eyeFrame = null
 
 function rand(min, max) {
   return min + Math.random() * (max - min)
+}
+
+function easeInOut(t) {
+  return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2
+}
+
+function animateEyes(target, duration) {
+  cancelAnimationFrame(eyeFrame)
+  const from = open.value
+  const start = performance.now()
+  const step = (now) => {
+    const t = Math.min(1, (now - start) / duration)
+    open.value = from + (target - from) * easeInOut(t)
+    if (t < 1) eyeFrame = requestAnimationFrame(step)
+  }
+  eyeFrame = requestAnimationFrame(step)
+}
+
+function scheduleFlight([min, max]) {
+  timer = setTimeout(startFlight, rand(min, max))
 }
 
 function randomPath() {
@@ -168,7 +207,8 @@ function lookAt(x, y) {
 function startFlight() {
   const path = randomPath()
   const start = performance.now()
-  watching.value = true
+  flying.value = true
+  animateEyes(1, OPEN_MS)
 
   const step = (now) => {
     const t = Math.min(1, (now - start) / FLIGHT_MS)
@@ -181,21 +221,26 @@ function startFlight() {
     if (t < 1) {
       frame = requestAnimationFrame(step)
     } else {
-      watching.value = false
-      timer = setTimeout(startFlight, SMILE_MS)
+      flying.value = false
+      pupil.x = pupil.x * 0.6
+      pupil.y = pupil.y * 0.6
+      animateEyes(0, CLOSE_MS)
+      scheduleFlight(SMILE_MS)
     }
   }
   frame = requestAnimationFrame(step)
 }
 
 onMounted(() => {
+  if (!props.butterfly) return
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-  timer = setTimeout(startFlight, FIRST_SMILE_MS)
+  scheduleFlight(FIRST_SMILE_MS)
 })
 
 onBeforeUnmount(() => {
   clearTimeout(timer)
   cancelAnimationFrame(frame)
+  cancelAnimationFrame(eyeFrame)
 })
 </script>
 

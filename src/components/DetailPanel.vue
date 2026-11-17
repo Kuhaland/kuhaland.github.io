@@ -1,5 +1,9 @@
 <template>
-  <aside class="detail" :class="{ 'is-entered': entered }">
+  <aside
+    class="detail"
+    :class="{ 'is-entered': entered, 'is-hidden': hidden }"
+    :aria-hidden="hidden"
+  >
     <OverlayScrollbarsComponent class="detail__scroll" :options="osOptions" defer>
       <Transition name="slide" mode="out-in">
         <div
@@ -209,11 +213,12 @@ const props = defineProps({
   project: { type: Object, default: null },
   career: { type: Object, default: null },
   entered: { type: Boolean, default: false },
+  hidden: { type: Boolean, default: false },
 })
 
 const osOptions = {
   scrollbars: {
-    theme: 'os-theme-dark',
+    theme: 'os-theme-light',
     autoHide: 'leave',
     autoHideDelay: 400,
   },
@@ -252,19 +257,39 @@ const paneKey = computed(() => {
 
 <style scoped lang="scss">
 .detail {
-  width: 30%;
-  height: 100%;
-  flex-shrink: 0;
-  background: var(--color-panel);
-  border-left: 1px solid var(--color-border);
-  transform: translateX(100%);
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 5;
+  width: min(30rem, 32%);
+  border-radius: 2rem;
+  background: rgba(24, 24, 28, 0.58);
+  backdrop-filter: blur(1.5rem) saturate(140%);
+  -webkit-backdrop-filter: blur(1.5rem) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  color: #fff;
+  transform: translateX(calc(100% + 2rem));
   opacity: 0;
-  transition: transform $transition-enter, opacity $transition-enter;
+  overflow: hidden;
+  transition: transform $transition-enter, opacity $transition-enter,
+    visibility 0s linear 0s;
   transition-delay: 0.12s;
 
   &.is-entered {
     transform: translateX(0);
     opacity: 1;
+  }
+
+  &.is-hidden {
+    transform: translateX(calc(100% + 2rem));
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform $transition-enter, opacity $transition-enter,
+      visibility 0s linear 0.6s;
   }
 
   &__scroll {
@@ -285,14 +310,14 @@ const paneKey = computed(() => {
     padding: 2.5rem 2rem;
 
     &--career {
-      --cat-base: #26766f;
-      --cat-strong: #1a5651;
-      --cat-body: #3b4d4b;
-      --cat-muted: #5f7a78;
-      --cat-soft: #{rgba(#26766f, 0.07)};
-      --cat-soft-strong: #{rgba(#26766f, 0.13)};
-      --cat-line: #{rgba(#26766f, 0.18)};
-      --cat-edge: #{rgba(#26766f, 0.32)};
+      --cat-base: #7de3b6;
+      --cat-strong: #ffffff;
+      --cat-body: rgba(255, 255, 255, 0.86);
+      --cat-muted: rgba(255, 255, 255, 0.6);
+      --cat-soft: rgba(255, 255, 255, 0.06);
+      --cat-soft-strong: #{rgba(#7de3b6, 0.16)};
+      --cat-line: rgba(255, 255, 255, 0.12);
+      --cat-edge: #{rgba(#7de3b6, 0.45)};
     }
 
     &--work {
@@ -304,17 +329,6 @@ const paneKey = computed(() => {
       --cat-soft-strong: #{rgba(#a1602f, 0.13)};
       --cat-line: #{rgba(#a1602f, 0.18)};
       --cat-edge: #{rgba(#a1602f, 0.32)};
-    }
-
-    &--skills {
-      --cat-base: #3f7a3c;
-      --cat-strong: #2b5529;
-      --cat-body: #414d40;
-      --cat-muted: #667a63;
-      --cat-soft: #{rgba(#3f7a3c, 0.07)};
-      --cat-soft-strong: #{rgba(#3f7a3c, 0.13)};
-      --cat-line: #{rgba(#3f7a3c, 0.18)};
-      --cat-edge: #{rgba(#3f7a3c, 0.32)};
     }
 
     &--contact {
@@ -556,23 +570,30 @@ const paneKey = computed(() => {
     }
 
     &--skill {
-      background: var(--color-panel);
+      background: transparent;
       border-color: var(--cat-edge);
       color: var(--cat-base);
 
       &:hover {
         background: var(--cat-base);
         border-color: var(--cat-base);
-        color: #fff;
+        color: #0f2027;
       }
     }
   }
 
   @include respond-to($bp-md) {
-    width: 100%;
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    width: auto;
     height: auto;
-    border-left: none;
-    border-top: 1px solid var(--color-border);
+    margin: 1rem;
+
+    &.is-hidden {
+      display: none;
+    }
 
     &__inner {
       padding: 1.75rem 1.5rem;
