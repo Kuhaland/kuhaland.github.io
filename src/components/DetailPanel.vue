@@ -1,51 +1,59 @@
 <template>
-  <aside
-    class="detail"
-    :class="{ 'is-entered': entered, 'is-hidden': hidden }"
-    :aria-hidden="hidden"
+  <aside class="detail"
+         :class="{ 'is-entered': entered, 'is-hidden': hidden }"
+         :aria-hidden="hidden"
   >
-    <OverlayScrollbarsComponent class="detail__scroll" :options="osOptions" defer>
-      <Transition name="slide" mode="out-in">
-        <div
-          class="detail__inner"
-          :class="`detail__inner--${item.id}`"
-          :key="paneKey"
+    <OverlayScrollbarsComponent class="detail__scroll"
+                                :options="osOptions"
+                                defer
+    >
+      <Transition name="slide"
+                  mode="out-in"
+      >
+        <div class="detail__inner"
+             :class="`detail__inner--${item.id}`"
+             :key="paneKey"
         >
+          <!-- Career -->
           <template v-if="career">
             <p class="detail__eyebrow">{{ career.companyEn }}</p>
             <div class="detail__head">
               <h2 class="detail__title">{{ career.company }}</h2>
-              <span
-                class="detail__ci"
-                :class="{ 'detail__ci--image': career.logo }"
+              <span class="detail__ci"
+                    :class="{ 'detail__ci--image': career.logo }"
               >
-                <img
-                  v-if="career.logo"
-                  class="detail__ci-img"
-                  :src="career.logo"
-                  :alt="`${career.company} CI`"
+                <img v-if="career.logo"
+                     class="detail__ci-img"
+                     :src="career.logo"
+                     :alt="`${career.company} CI`"
                 />
-                <span v-else class="detail__ci-mark" aria-hidden="true">
+                <span v-else
+                      class="detail__ci-mark"
+                      aria-hidden="true"
+                >
                   {{ ciMark }}
                 </span>
               </span>
             </div>
             <div class="detail__divider" />
-
             <dl class="detail__meta">
-              <div v-if="career.team" class="detail__row">
+              <div v-if="career.team"
+                   class="detail__row"
+              >
                 <dt class="detail__label">
-                  <AppIcon class="detail__label-icon" name="apartment" :size="18" />
+                  <AppIcon class="detail__label-icon"
+                           name="apartment"
+                           :size="18"
+                  />
                   소속
                 </dt>
                 <dd class="detail__value">{{ career.team }}</dd>
               </div>
               <div class="detail__row">
                 <dt class="detail__label">
-                  <AppIcon
-                    class="detail__label-icon"
-                    name="calendar_month"
-                    :size="18"
+                  <AppIcon class="detail__label-icon"
+                           name="calendar_month"
+                           :size="18"
                   />
                   재직 기간
                 </dt>
@@ -56,19 +64,28 @@
               </div>
               <div class="detail__row">
                 <dt class="detail__label">
-                  <AppIcon class="detail__label-icon" name="badge" :size="18" />
+                  <AppIcon class="detail__label-icon"
+                           name="badge"
+                           :size="18"
+                  />
                   직급
                 </dt>
                 <dd class="detail__value">{{ career.position }}</dd>
               </div>
               <div class="detail__row">
                 <dt class="detail__label">
-                  <AppIcon class="detail__label-icon" name="checklist" :size="18" />
+                  <AppIcon class="detail__label-icon"
+                           name="checklist"
+                           :size="18"
+                  />
                   담당 업무
                 </dt>
                 <dd class="detail__value">
                   <ul class="detail__tasks">
-                    <li v-for="t in career.tasks" :key="t" class="detail__task">
+                    <li v-for="t in career.tasks"
+                        :key="t"
+                        class="detail__task"
+                    >
                       {{ t }}
                     </li>
                   </ul>
@@ -76,24 +93,21 @@
               </div>
               <div class="detail__row">
                 <dt class="detail__label">
-                  <AppIcon
-                    class="detail__label-icon"
-                    name="workspace_premium"
-                    :size="18"
+                  <AppIcon class="detail__label-icon"
+                           name="workspace_premium"
+                           :size="18"
                   />
                   주요 직무
                 </dt>
                 <dd class="detail__value">
                   <ul class="detail__skills">
-                    <li
-                      v-for="f in career.focus"
-                      :key="f"
-                      class="detail__chip detail__chip--skill"
+                    <li v-for="f in career.focus"
+                        :key="f"
+                        class="detail__chip detail__chip--skill"
                     >
-                      <AppIcon
-                        class="detail__chip-icon"
-                        :name="focusIcon(f)"
-                        :size="16"
+                      <AppIcon class="detail__chip-icon"
+                               :name="focusIcon(f)"
+                               :size="16"
                       />
                       {{ f }}
                     </li>
@@ -102,18 +116,19 @@
               </div>
             </dl>
           </template>
-
+          <!-- Project -->
           <template v-else-if="project">
             <p class="detail__eyebrow">{{ project.titleEn }}</p>
             <h2 class="detail__title">{{ project.title }}</h2>
             <div class="detail__divider" />
-
             <dl class="detail__meta">
               <div class="detail__row">
                 <dt class="detail__label">프로젝트</dt>
                 <dd class="detail__value">{{ project.project }}</dd>
               </div>
-              <div v-if="project.clients" class="detail__row">
+              <div v-if="project.clients"
+                   class="detail__row"
+              >
                 <dt class="detail__label">참여사</dt>
                 <dd class="detail__value">{{ project.clients }}</dd>
               </div>
@@ -125,7 +140,10 @@
                 <dt class="detail__label">담당 업무</dt>
                 <dd class="detail__value">
                   <ul class="detail__skills">
-                    <li v-for="t in tasks" :key="t" class="detail__chip">
+                    <li v-for="t in tasks"
+                        :key="t"
+                        class="detail__chip"
+                    >
                       {{ t }}
                     </li>
                   </ul>
@@ -137,59 +155,50 @@
               </div>
             </dl>
           </template>
-
+          <!-- Default -->
           <template v-else>
             <p class="detail__eyebrow">{{ item.labelEn }}</p>
             <h2 class="detail__title">{{ item.label }}</h2>
             <div class="detail__divider" />
-            <SentenceText class="detail__text" :text="item.detail" />
-
-            <ul
-              v-if="item.highlights && item.highlights.length"
-              class="detail__highlights"
+            <SentenceText class="detail__text"
+                          :text="item.detail"
+            />
+            <ul v-if="item.highlights && item.highlights.length"
+                class="detail__highlights"
             >
-              <li
-                v-for="h in item.highlights"
-                :key="h.label"
-                class="detail__highlight"
+              <li v-for="h in item.highlights"
+                  :key="h.label"
+                  class="detail__highlight"
               >
                 <span class="detail__highlight-label">{{ h.label }}</span>
                 <span class="detail__highlight-value">{{ h.value }}</span>
               </li>
             </ul>
-
-            <SentenceText
-              v-if="item.outro"
-              class="detail__outro"
-              :text="item.outro"
+            <SentenceText v-if="item.outro"
+                          class="detail__outro"
+                          :text="item.outro"
             />
-
-            <section
-              v-if="item.strengths && item.strengths.length"
-              class="detail__block"
+            <section v-if="item.strengths && item.strengths.length"
+                     class="detail__block"
             >
               <h3 class="detail__subtitle">핵심 역량</h3>
               <ul class="detail__skills">
-                <li
-                  v-for="s in item.strengths"
-                  :key="s"
-                  class="detail__chip"
+                <li v-for="s in item.strengths"
+                    :key="s"
+                    class="detail__chip"
                 >
                   {{ s }}
                 </li>
               </ul>
             </section>
-
-            <section
-              v-if="item.skills && item.skills.length"
-              class="detail__block"
+            <section v-if="item.skills && item.skills.length"
+                     class="detail__block"
             >
               <h3 class="detail__subtitle">Skills</h3>
               <ul class="detail__skills">
-                <li
-                  v-for="s in item.skills"
-                  :key="s"
-                  class="detail__chip detail__chip--skill"
+                <li v-for="s in item.skills"
+                    :key="s"
+                    class="detail__chip detail__chip--skill"
                 >
                   {{ s }}
                 </li>
@@ -257,51 +266,36 @@ const paneKey = computed(() => {
 
 <style scoped lang="scss">
 .detail {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  bottom: 1.5rem;
-  z-index: 5;
+  position: absolute; top: 1.5rem; right: 1.5rem; bottom: 1.5rem; z-index: 5;
   width: min(30rem, 32%);
   border-radius: 2rem;
-  background: rgba(24, 24, 28, 0.58);
-  backdrop-filter: blur(1.5rem) saturate(140%);
-  -webkit-backdrop-filter: blur(1.5rem) saturate(140%);
+  background: rgba(24, 24, 28, 0.58); backdrop-filter: blur(1.5rem) saturate(140%); -webkit-backdrop-filter: blur(1.5rem) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.35),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
   color: #fff;
-  transform: translateX(calc(100% + 2rem));
-  opacity: 0;
+  transform: translateX(calc(100% + 2rem)); opacity: 0;
   overflow: hidden;
   transition: transform $transition-enter, opacity $transition-enter,
     visibility 0s linear 0s;
   transition-delay: 0.12s;
 
   &.is-entered {
-    transform: translateX(0);
-    opacity: 1;
+    transform: translateX(0); opacity: 1;
   }
 
   &.is-hidden {
-    transform: translateX(calc(100% + 2rem));
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+    transform: translateX(calc(100% + 2rem)); opacity: 0; visibility: hidden; pointer-events: none;
     transition: transform $transition-enter, opacity $transition-enter,
       visibility 0s linear 0.6s;
   }
 
   &__scroll {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
   }
 
   &__inner {
-    --cat-base: #5b6bbf;
-    --cat-strong: #35407a;
-    --cat-body: #454a63;
-    --cat-muted: #6e7288;
+    --cat-base: #5b6bbf; --cat-strong: #35407a; --cat-body: #454a63; --cat-muted: #6e7288;
     --cat-soft: #{rgba(#5b6bbf, 0.07)};
     --cat-soft-strong: #{rgba(#5b6bbf, 0.13)};
     --cat-line: #{rgba(#5b6bbf, 0.18)};
@@ -310,21 +304,14 @@ const paneKey = computed(() => {
     padding: 2.5rem 2rem;
 
     &--career {
-      --cat-base: #7de3b6;
-      --cat-strong: #ffffff;
-      --cat-body: rgba(255, 255, 255, 0.86);
-      --cat-muted: rgba(255, 255, 255, 0.6);
-      --cat-soft: rgba(255, 255, 255, 0.06);
+      --cat-base: #7de3b6; --cat-strong: #ffffff; --cat-body: rgba(255, 255, 255, 0.86); --cat-muted: rgba(255, 255, 255, 0.6); --cat-soft: rgba(255, 255, 255, 0.06);
       --cat-soft-strong: #{rgba(#7de3b6, 0.16)};
       --cat-line: rgba(255, 255, 255, 0.12);
       --cat-edge: #{rgba(#7de3b6, 0.45)};
     }
 
     &--work {
-      --cat-base: #a1602f;
-      --cat-strong: #70431f;
-      --cat-body: #554a41;
-      --cat-muted: #7d7166;
+      --cat-base: #a1602f; --cat-strong: #70431f; --cat-body: #554a41; --cat-muted: #7d7166;
       --cat-soft: #{rgba(#a1602f, 0.07)};
       --cat-soft-strong: #{rgba(#a1602f, 0.13)};
       --cat-line: #{rgba(#a1602f, 0.18)};
@@ -332,10 +319,7 @@ const paneKey = computed(() => {
     }
 
     &--contact {
-      --cat-base: #7159a3;
-      --cat-strong: #4e3a75;
-      --cat-body: #4a4459;
-      --cat-muted: #75708a;
+      --cat-base: #7159a3; --cat-strong: #4e3a75; --cat-body: #4a4459; --cat-muted: #75708a;
       --cat-soft: #{rgba(#7159a3, 0.07)};
       --cat-soft-strong: #{rgba(#7159a3, 0.13)};
       --cat-line: #{rgba(#7159a3, 0.18)};
@@ -344,11 +328,7 @@ const paneKey = computed(() => {
   }
 
   &__eyebrow {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--cat-base);
+    font-size: 0.9375rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cat-base);
   }
 
   &__head {
@@ -358,10 +338,7 @@ const paneKey = computed(() => {
 
   &__title {
     margin-top: 0.625rem;
-    font-size: 1.625rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--cat-strong);
+    font-size: 1.625rem; font-weight: 700; letter-spacing: -0.02em; color: var(--cat-strong);
 
     .detail__head & {
       margin-top: 0;
@@ -371,11 +348,9 @@ const paneKey = computed(() => {
   &__ci {
     flex-shrink: 0;
     @include flex-center;
-    min-width: 3.5rem;
-    height: 3.5rem;
+    min-width: 3.5rem; height: 3.5rem;
     padding: 0 0.625rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--cat-line);
+    border-radius: var(--radius-sm); border: 1px solid var(--cat-line);
     background: var(--cat-soft);
 
     &--image {
@@ -387,16 +362,12 @@ const paneKey = computed(() => {
 
   &__ci-img {
     display: block;
-    max-width: 5.625rem;
-    max-height: 2.5rem;
+    max-width: 5.625rem; max-height: 2.5rem;
     object-fit: contain;
   }
 
   &__ci-mark {
-    font-size: 1.1875rem;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    color: var(--cat-base);
+    font-size: 1.1875rem; font-weight: 800; letter-spacing: 0.02em; color: var(--cat-base);
   }
 
   &__divider {
@@ -406,24 +377,17 @@ const paneKey = computed(() => {
   }
 
   &__text {
-    font-size: 1.0625rem;
-    line-height: 1.85;
-    color: var(--cat-body);
+    font-size: 1.0625rem; line-height: 1.85; color: var(--cat-body);
   }
 
   &__highlights {
-    margin: 1.25rem 0 0;
-    padding: 0;
+    margin: 1.25rem 0 0; padding: 0;
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
+    display: flex; flex-direction: column; gap: 0.625rem;
   }
 
   &__highlight {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3125rem;
+    display: flex; flex-direction: column; gap: 0.3125rem;
     padding: 0.8125rem 1rem;
     border-radius: var(--radius-sm);
     background: var(--cat-soft);
@@ -437,23 +401,16 @@ const paneKey = computed(() => {
   }
 
   &__highlight-label {
-    font-size: 0.875rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    color: var(--cat-base);
+    font-size: 0.875rem; font-weight: 700; letter-spacing: 0.06em; color: var(--cat-base);
   }
 
   &__highlight-value {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--cat-body);
+    font-size: 1rem; line-height: 1.6; color: var(--cat-body);
   }
 
   &__outro {
     margin-top: 1.125rem;
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--cat-muted);
+    font-size: 1rem; line-height: 1.8; color: var(--cat-muted);
   }
 
   &__meta {
@@ -463,17 +420,13 @@ const paneKey = computed(() => {
 
   &__row {
     padding: 0.875rem 1rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--cat-line);
+    border-radius: var(--radius-sm); border: 1px solid var(--cat-line);
     background: var(--cat-soft);
   }
 
   &__label {
     @include flex(row, flex-start, center, 0.4375rem);
-    font-size: 0.875rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--cat-base);
+    font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; color: var(--cat-base);
   }
 
   &__label-icon {
@@ -487,26 +440,20 @@ const paneKey = computed(() => {
 
   &__value {
     margin: 0.5rem 0 0;
-    font-size: 1.0625rem;
-    line-height: 1.7;
-    color: var(--cat-body);
+    font-size: 1.0625rem; line-height: 1.7; color: var(--cat-body);
   }
 
   &__badge {
     display: inline-block;
-    margin-left: 0.5rem;
-    padding: 0.1875rem 0.625rem;
+    margin-left: 0.5rem; padding: 0.1875rem 0.625rem;
     border-radius: 62.4375rem;
     background: var(--cat-soft-strong);
-    font-size: 0.875rem;
-    font-weight: 700;
-    color: var(--cat-base);
+    font-size: 0.875rem; font-weight: 700; color: var(--cat-base);
     vertical-align: middle;
   }
 
   &__tasks {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     list-style: none;
     @include flex(column, flex-start, stretch, 0.5rem);
   }
@@ -514,42 +461,30 @@ const paneKey = computed(() => {
   &__task {
     position: relative;
     padding-left: 0.875rem;
-    font-size: 1rem;
-    line-height: 1.65;
-    color: var(--cat-body);
+    font-size: 1rem; line-height: 1.65; color: var(--cat-body);
 
     &::before {
       content: '';
-      position: absolute;
-      left: 0;
-      top: 0.6875rem;
-      width: 0.3125rem;
-      height: 0.3125rem;
+      position: absolute; left: 0; top: 0.6875rem;
+      width: 0.3125rem; height: 0.3125rem;
       border-radius: 50%;
       background: var(--cat-base);
     }
   }
 
   &__block {
-    margin-top: 1.625rem;
-    padding-top: 1.5rem;
+    margin-top: 1.625rem; padding-top: 1.5rem;
     border-top: 1px solid var(--cat-line);
   }
 
   &__subtitle {
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: var(--cat-strong);
+    font-size: 1rem; font-weight: 700; letter-spacing: 0.02em; color: var(--cat-strong);
   }
 
   &__skills {
-    margin-top: 0.875rem;
-    padding: 0;
+    margin-top: 0.875rem; padding: 0;
     list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
   }
 
   &__chip {
@@ -558,9 +493,7 @@ const paneKey = computed(() => {
     border-radius: 62.4375rem;
     background: var(--cat-soft);
     border: 1px solid var(--cat-line);
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: var(--cat-body);
+    font-size: 0.9375rem; font-weight: 600; color: var(--cat-body);
     transition: background $transition-base, color $transition-base,
       border-color $transition-base;
 
@@ -583,12 +516,8 @@ const paneKey = computed(() => {
   }
 
   @include respond-to($bp-md) {
-    position: relative;
-    top: auto;
-    right: auto;
-    bottom: auto;
-    width: auto;
-    height: auto;
+    position: relative; top: auto; right: auto; bottom: auto;
+    width: auto; height: auto;
     margin: 1rem;
 
     &.is-hidden {
@@ -607,20 +536,16 @@ const paneKey = computed(() => {
 }
 
 .slide-enter-from {
-  opacity: 0;
-  transform: translateX(0.75rem);
+  opacity: 0; transform: translateX(0.75rem);
 }
 
 .slide-leave-to {
-  opacity: 0;
-  transform: translateX(-0.75rem);
+  opacity: 0; transform: translateX(-0.75rem);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .detail {
-    transform: none;
-    opacity: 1;
-    transition: none;
+    transform: none; opacity: 1; transition: none;
   }
 }
 </style>

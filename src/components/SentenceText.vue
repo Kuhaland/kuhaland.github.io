@@ -1,6 +1,9 @@
 <template>
   <component :is="tag">
-    <span v-for="(line, i) in lines" :key="i" class="sentence__line">
+    <span v-for="(line, i) in lines"
+          :key="i"
+          class="sentence__line"
+    >
       {{ line }}
     </span>
   </component>

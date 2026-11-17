@@ -1,37 +1,39 @@
 <template>
-  <div class="layout">
-    <SideNav
-      :items="menu"
-      :active-index="sectionIndex"
-      :collapsed="isCollapsed"
-      :entered="pageEntered"
-      :guide-open="guideOpen"
-      @select="onSelect"
-      @toggle="isCollapsed = !isCollapsed"
-      @guide="onGuide"
+  <div class="layout"
+       :class="{ 'layout--collapsed': isCollapsed }"
+  >
+    <!-- Navigation -->
+    <SideNav :items="menu"
+             :active-index="sectionIndex"
+             :collapsed="isCollapsed"
+             :entered="pageEntered"
+             :guide-open="guideOpen"
+             @select="onSelect"
+             @toggle="isCollapsed = !isCollapsed"
+             @guide="onGuide"
     />
-    <MainContent
-      :items="menu"
-      :section-index="sectionIndex"
-      :work-index="workIndex"
-      :career-index="careerIndex"
-      :entered="pageEntered"
-      @update:section-index="sectionIndex = $event"
-      @update:work-index="workIndex = $event"
-      @update:career-index="careerIndex = $event"
-      @contact="onSelect(menu.findIndex((m) => m.id === 'contact'))"
+    <!-- Content -->
+    <MainContent :items="menu"
+                 :section-index="sectionIndex"
+                 :work-index="workIndex"
+                 :career-index="careerIndex"
+                 :entered="pageEntered"
+                 @update:section-index="sectionIndex = $event"
+                 @update:work-index="workIndex = $event"
+                 @update:career-index="careerIndex = $event"
+                 @contact="onSelect(menu.findIndex((m) => m.id === 'contact'))"
     />
-    <DetailPanel
-      :item="activeItem"
-      :project="currentProject"
-      :career="currentCareer"
-      :entered="pageEntered"
-      :hidden="activeItem.id !== 'career'"
+    <!-- Detail Panel -->
+    <DetailPanel :item="activeItem"
+                 :project="currentProject"
+                 :career="currentCareer"
+                 :entered="pageEntered"
+                 :hidden="activeItem.id !== 'career'"
     />
-    <IntroOverlay
-      :open="guideOpen"
-      :auto-close="guideAuto"
-      @close="guideOpen = false"
+    <!-- Guide Overlay -->
+    <IntroOverlay :open="guideOpen"
+                  :auto-close="guideAuto"
+                  @close="guideOpen = false"
     />
   </div>
 </template>
@@ -84,16 +86,19 @@ function onSelect(index) {
 
 <style scoped lang="scss">
 .layout {
+  --nav-space: calc(max(10vw, 132px) + 3rem);
   position: relative;
   display: flex;
   height: 100vh;
   overflow: hidden;
 
   @include respond-to($bp-md) {
-    height: auto;
-    min-height: 100vh;
-    flex-direction: column;
-    overflow: visible;
+    height: auto; min-height: 100vh;
+    flex-direction: column; overflow: visible;
+  }
+
+  &--collapsed {
+    --nav-space: calc(#{$lnb-width-collapsed} + 3rem);
   }
 }
 </style>

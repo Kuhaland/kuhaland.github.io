@@ -1,48 +1,58 @@
 <template>
-  <section ref="root" class="section" :style="bg">
+  <section ref="root"
+           class="section"
+           :style="bg"
+  >
+    <!-- Content -->
     <div class="section__inner">
       <p class="section__eyebrow reveal">{{ item.headlineEn }}</p>
       <h1 class="section__title reveal">{{ item.headline }}</h1>
-      <SentenceText class="section__summary reveal" :text="item.intro" />
-
+      <SentenceText class="section__summary reveal"
+                    :text="item.intro"
+      />
       <ul class="contact__list">
-        <li v-for="c in item.contacts" :key="c.type" class="contact__item reveal">
-          <component
-            :is="c.href ? 'a' : 'span'"
-            class="contact__link"
-            :class="{ 'contact__link--static': !c.href }"
-            :href="c.href"
-            :target="c.external ? '_blank' : null"
-            :rel="c.external ? 'noopener noreferrer' : null"
+        <li v-for="c in item.contacts"
+            :key="c.type"
+            class="contact__item reveal"
+        >
+          <component :is="c.href ? 'a' : 'span'"
+                     class="contact__link"
+                     :class="{ 'contact__link--static': !c.href }"
+                     :href="c.href"
+                     :target="c.external ? '_blank' : null"
+                     :rel="c.external ? 'noopener noreferrer' : null"
           >
             <span class="contact__icon">
-              <AppIcon :name="c.icon" :size="22" />
+              <AppIcon :name="c.icon"
+                       :size="22"
+              />
             </span>
             <span class="contact__meta">
               <span class="contact__label">{{ c.label }}</span>
               <span class="contact__value">{{ c.value }}</span>
             </span>
-            <AppIcon
-              v-if="c.external"
-              class="contact__out"
-              name="open_in_new"
-              :size="18"
+            <AppIcon v-if="c.external"
+                     class="contact__out"
+                     name="open_in_new"
+                     :size="18"
             />
           </component>
         </li>
       </ul>
-
-      <div v-if="item.socials?.length" class="contact__socials reveal">
-        <a
-          v-for="s in item.socials"
-          :key="s.type"
-          class="contact__social"
-          :href="s.href"
-          :aria-label="s.label"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div v-if="item.socials?.length"
+           class="contact__socials reveal"
+      >
+        <a v-for="s in item.socials"
+           :key="s.type"
+           class="contact__social"
+           :href="s.href"
+           :aria-label="s.label"
+           target="_blank"
+           rel="noopener noreferrer"
         >
-          <AppIcon :name="s.icon" :size="22" />
+          <AppIcon :name="s.icon"
+                   :size="22"
+          />
         </a>
       </div>
     </div>
@@ -75,10 +85,7 @@ useSectionReveal(root, () => props.active)
   padding: 4.5rem 4rem;
 
   &__eyebrow {
-    font-size: 1.0625rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: rgba(255, 255, 255, 0.82);
+    font-size: 1.0625rem; font-weight: 500; letter-spacing: 0.04em; color: rgba(255, 255, 255, 0.82);
   }
 
   &__title {
@@ -92,25 +99,18 @@ useSectionReveal(root, () => props.active)
 
 .contact {
   &__list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem;
     max-width: 47.5rem;
-    margin: 2.25rem 0 0;
-    padding: 0;
+    margin: 2.25rem 0 0; padding: 0;
     list-style: none;
   }
 
   &__link {
     @include flex(row, flex-start, center, 0.75rem);
     padding: 0.875rem 1rem;
-    border-radius: var(--radius-md);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    background: rgba(255, 255, 255, 0.09);
-    backdrop-filter: blur(0.375rem);
-    color: #fff;
-    text-decoration: none;
-    text-shadow: none;
+    border-radius: var(--radius-md); border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.09); backdrop-filter: blur(0.375rem);
+    color: #fff; text-decoration: none; text-shadow: none;
     transition: background $transition-base, border-color $transition-base,
       transform $transition-base;
 
@@ -121,8 +121,7 @@ useSectionReveal(root, () => props.active)
     }
 
     &:focus-visible {
-      outline: 2px solid #fff;
-      outline-offset: 0.1875rem;
+      outline: 2px solid #fff; outline-offset: 0.1875rem;
     }
 
     &--static {
@@ -147,16 +146,11 @@ useSectionReveal(root, () => props.active)
   }
 
   &__label {
-    font-size: 0.8125rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255, 255, 255, 0.68);
   }
 
   &__value {
-    font-size: 1.0625rem;
-    font-weight: 600;
+    font-size: 1.0625rem; font-weight: 600;
     @include truncate;
   }
 
@@ -175,8 +169,7 @@ useSectionReveal(root, () => props.active)
     @include icon-button(3rem, 50%);
     border: 1px solid rgba(255, 255, 255, 0.26);
     background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    text-decoration: none;
+    color: #fff; text-decoration: none;
     transition: background $transition-base, border-color $transition-base,
       transform $transition-base;
 
@@ -187,8 +180,7 @@ useSectionReveal(root, () => props.active)
     }
 
     &:focus-visible {
-      outline: 2px solid #fff;
-      outline-offset: 0.1875rem;
+      outline: 2px solid #fff; outline-offset: 0.1875rem;
     }
   }
 

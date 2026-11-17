@@ -1,21 +1,25 @@
 <template>
-  <section ref="root" class="section">
+  <section ref="root"
+           class="section"
+  >
+    <!-- Background -->
     <CodeTyping class="section__bg" />
+    <!-- Content -->
     <div class="section__inner">
-      <ProfileCard
-        class="section__card"
-        :profile="item.profile"
-        :active="active"
-        @contact="emit('contact')"
+      <ProfileCard class="section__card"
+                   :profile="item.profile"
+                   :active="active"
+                   @contact="emit('contact')"
       >
-        <img
-          class="section__image"
-          :src="aboutImage"
-          alt="웹퍼블리셔 이형화를 소개하는 대표 이미지"
+        <img class="section__image"
+             :src="aboutImage"
+             alt="웹퍼블리셔 이형화를 소개하는 대표 이미지"
         />
         <p class="section__eyebrow">{{ item.headlineEn }}</p>
         <h1 class="section__title">{{ item.headline }}</h1>
-        <SentenceText class="section__summary" :text="item.summary" />
+        <SentenceText class="section__summary"
+                      :text="item.summary"
+        />
       </ProfileCard>
     </div>
   </section>
@@ -127,31 +131,23 @@ defineExpose({ leave })
 
   &__image {
     display: block;
-    height: 2.5rem;
-    width: auto;
-    max-width: 10rem;
+    height: 2.5rem; width: auto; max-width: 10rem;
     margin-bottom: 1rem;
     object-fit: contain;
   }
 
   &__eyebrow {
-    font-size: 0.9375rem;
-    font-weight: 500;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9375rem; font-weight: 500; line-height: 1.5; color: rgba(255, 255, 255, 0.6);
   }
 
   &__title {
     margin-top: 0.5rem;
-    font-size: 1.625rem;
-    line-height: 1.35;
+    font-size: 1.625rem; line-height: 1.35;
   }
 
   &__summary {
     margin-top: 0.75rem;
-    font-size: 1rem;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.72);
+    font-size: 1rem; line-height: 1.7; color: rgba(255, 255, 255, 0.72);
   }
 
   &__inner {
@@ -162,9 +158,7 @@ defineExpose({ leave })
   }
 
   &__card {
-    width: 100%;
-    min-width: 18rem;
-    max-width: 30rem;
+    width: 100%; min-width: 18rem; max-width: 30rem;
   }
 
   @media (max-width: 1180px) {
@@ -202,8 +196,7 @@ defineExpose({ leave })
   }
 
   .section__card {
-    width: 100%;
-    max-width: 30rem;
+    width: 100%; max-width: 30rem;
   }
 }
 </style>

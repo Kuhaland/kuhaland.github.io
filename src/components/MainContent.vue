@@ -1,41 +1,42 @@
 <template>
-  <main
-    ref="stage"
-    class="stage"
-    :class="{ 'is-entered': entered }"
-    tabindex="0"
-    @keydown="onKeydown"
+  <main ref="stage"
+        class="stage"
+        :class="{ 'is-entered': entered }"
+        tabindex="0"
+        @keydown="onKeydown"
   >
-    <div class="stage__track" :style="vStyle" @transitionend="onTransitionEnd">
-      <div v-for="(item, i) in items" :key="item.id" class="stage__section">
-        <AboutSection
-          v-if="item.id === 'about'"
-          ref="aboutRef"
-          :item="item"
-          :active="i === sectionIndex"
-          @contact="emit('contact')"
+    <!-- Sections -->
+    <div class="stage__track"
+         :style="vStyle"
+         @transitionend="onTransitionEnd"
+    >
+      <div v-for="(item, i) in items"
+           :key="item.id"
+           class="stage__section"
+      >
+        <AboutSection v-if="item.id === 'about'"
+                      ref="aboutRef"
+                      :item="item"
+                      :active="i === sectionIndex"
+                      @contact="emit('contact')"
         />
-        <ProfileSection
-          v-else-if="item.id === 'profile'"
-          :item="item"
-          :active="i === sectionIndex"
+        <ProfileSection v-else-if="item.id === 'profile'"
+                        :item="item"
+                        :active="i === sectionIndex"
         />
-        <CareerSection
-          v-else-if="item.id === 'career'"
-          :inner-index="careerIndex"
-          :active="i === sectionIndex"
-          @select-career="(n) => setInner('career', n)"
+        <CareerSection v-else-if="item.id === 'career'"
+                       :inner-index="careerIndex"
+                       :active="i === sectionIndex"
+                       @select-career="(n) => setInner('career', n)"
         />
-        <WorkSection
-          v-else-if="item.id === 'work'"
-          :inner-index="workIndex"
-          :active="i === sectionIndex"
-          @select-project="(n) => setInner('work', n)"
+        <WorkSection v-else-if="item.id === 'work'"
+                     :inner-index="workIndex"
+                     :active="i === sectionIndex"
+                     @select-project="(n) => setInner('work', n)"
         />
-        <ContactSection
-          v-else-if="item.id === 'contact'"
-          :item="item"
-          :active="i === sectionIndex"
+        <ContactSection v-else-if="item.id === 'contact'"
+                        :item="item"
+                        :active="i === sectionIndex"
         />
       </div>
     </div>
@@ -195,29 +196,28 @@ onBeforeUnmount(() => {
 <style scoped lang="scss">
 .stage {
   flex: 1;
-  min-width: 0;
-  height: 100%;
+  min-width: 0; height: 100%;
   overflow: hidden;
   background: var(--color-bg);
   outline: none;
-  opacity: 0;
-  transform: translateY(1.5rem);
-  transition: opacity $transition-enter, transform $transition-enter;
-  transition-delay: 0.06s;
+  opacity: 0; transform: translateY(1.5rem); transition: opacity $transition-enter, transform $transition-enter; transition-delay: 0.06s;
 
   &.is-entered {
-    opacity: 1;
-    transform: translateY(0);
+    opacity: 1; transform: translateY(0);
   }
 
   &__track {
-    transition: $transition-slide;
-    will-change: transform;
+    transition: $transition-slide; will-change: transform;
   }
 
   &__section {
     height: 100vh;
     overflow: hidden;
+
+    > * {
+      border-left: var(--nav-space, 0) solid transparent;
+      transition: border-left-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
   }
 
   @include respond-to($bp-md) {
@@ -231,15 +231,17 @@ onBeforeUnmount(() => {
     &__section {
       height: auto;
       overflow: visible;
+
+      > * {
+        border-left-width: 0;
+      }
     }
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .stage {
-    opacity: 1;
-    transform: none;
-    transition: none;
+    opacity: 1; transform: none; transition: none;
   }
 }
 </style>

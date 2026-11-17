@@ -1,15 +1,24 @@
 <template>
-  <div class="code-typing" aria-hidden="true">
+  <div class="code-typing"
+       aria-hidden="true"
+  >
+    <!-- Title Bar -->
     <div class="code-typing__bar">
       <span class="code-typing__dot" />
       <span class="code-typing__dot" />
       <span class="code-typing__dot" />
       <span class="code-typing__file">{{ fileName }}</span>
     </div>
+    <!-- Code -->
     <ol class="code-typing__list">
-      <li v-for="(ln, i) in shown" :key="i" class="code-typing__line">
+      <li v-for="(ln, i) in shown"
+          :key="i"
+          class="code-typing__line"
+      >
         <code class="code-typing__text">{{ ln
-          }}<span v-if="i === shown.length - 1" class="code-typing__caret" /></code>
+          }}<span v-if="i === shown.length - 1"
+                  class="code-typing__caret"
+            /></code>
       </li>
     </ol>
   </div>
@@ -142,9 +151,7 @@ onBeforeUnmount(() => {
 
 <style scoped lang="scss">
 .code-typing {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+  position: absolute; inset: 0; z-index: 0;
   overflow: hidden;
   background: linear-gradient(
     135deg,
@@ -164,8 +171,7 @@ onBeforeUnmount(() => {
   }
 
   &__dot {
-    width: 0.6875rem;
-    height: 0.6875rem;
+    width: 0.6875rem; height: 0.6875rem;
     border-radius: 50%;
     background: #30363d;
 
@@ -182,17 +188,14 @@ onBeforeUnmount(() => {
 
   &__file {
     margin-left: 0.625rem;
-    font-size: 0.9375rem;
-    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9375rem; color: rgba(255, 255, 255, 0.6);
   }
 
   &__list {
-    margin: 0;
-    padding: 1.375rem 1.625rem;
+    margin: 0; padding: 1.375rem 1.625rem;
     list-style: none;
     counter-reset: line;
-    font-size: 1.0625rem;
-    line-height: 1.8;
+    font-size: 1.0625rem; line-height: 1.8;
   }
 
   &__line {
@@ -203,20 +206,17 @@ onBeforeUnmount(() => {
       content: counter(line);
       flex-shrink: 0;
       width: 1.625rem;
-      text-align: right;
-      color: rgba(255, 255, 255, 0.4);
+      text-align: right; color: rgba(255, 255, 255, 0.4);
     }
   }
 
   &__text {
-    white-space: pre;
-    color: rgba(255, 255, 255, 0.94);
+    white-space: pre; color: rgba(255, 255, 255, 0.94);
   }
 
   &__caret {
     display: inline-block;
-    width: 0.5rem;
-    height: 1.05em;
+    width: 0.5rem; height: 1.05em;
     margin-left: 0.0625rem;
     background: #c4b5fd;
     vertical-align: text-bottom;

@@ -1,23 +1,27 @@
 <template>
   <div class="work">
-    <div class="work__track" :style="hStyle">
-      <div v-for="(p, i) in projects" :key="p.id" class="work__panel">
-        <ProjectPanel
-          :project="p"
-          :bg="gradients[i % gradients.length]"
-          :active="active && i === innerIndex"
+    <!-- Slides -->
+    <div class="work__track"
+         :style="hStyle"
+    >
+      <div v-for="(p, i) in projects"
+           :key="p.id"
+           class="work__panel"
+      >
+        <ProjectPanel :project="p"
+                      :bg="gradients[i % gradients.length]"
+                      :active="active && i === innerIndex"
         />
       </div>
     </div>
-
+    <!-- Pagination -->
     <div class="work__dots">
-      <button
-        v-for="(p, i) in projects"
-        :key="p.id"
-        class="work__dot"
-        :class="{ 'work__dot--active': i === innerIndex }"
-        :aria-label="`${p.title} 프로젝트로 이동`"
-        @click="emit('select-project', i)"
+      <button v-for="(p, i) in projects"
+              :key="p.id"
+              class="work__dot"
+              :class="{ 'work__dot--active': i === innerIndex }"
+              :aria-label="`${p.title} 프로젝트로 이동`"
+              @click="emit('select-project', i)"
       />
     </div>
   </div>
@@ -52,36 +56,29 @@ const hStyle = computed(() => ({
 <style scoped lang="scss">
 .work {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   overflow: hidden;
 
   &__track {
     display: flex;
     height: 100%;
-    transition: $transition-slide;
-    will-change: transform;
+    transition: $transition-slide; will-change: transform;
   }
 
   &__panel {
     flex: 0 0 100%;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
   }
 
   &__dots {
-    position: absolute;
-    left: 4rem;
-    bottom: 3.75rem;
-    z-index: 5;
+    position: absolute; left: 4rem; bottom: 3.75rem; z-index: 5;
     @include flex(row, center, center, 0.5rem);
     max-width: 90%;
     flex-wrap: wrap;
   }
 
   &__dot {
-    width: 0.5rem;
-    height: 0.5rem;
+    width: 0.5rem; height: 0.5rem;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.45);
     transition: $transition-base;

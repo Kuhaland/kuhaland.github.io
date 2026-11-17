@@ -1,5 +1,9 @@
 <template>
-  <section ref="root" class="project" :style="{ backgroundImage: bg }">
+  <section ref="root"
+           class="project"
+           :style="{ backgroundImage: bg }"
+  >
+    <!-- Content -->
     <div class="project__inner">
       <p class="project__id reveal">{{ project.id }}</p>
       <h2 class="project__title reveal">{{ project.titleEn }}</h2>
@@ -24,19 +28,15 @@ useSectionReveal(root, () => props.active)
 <style scoped lang="scss">
 .project {
   position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 100vh;
+  width: 100%; height: 100%; min-height: 100vh;
   @include flex(column, flex-end, flex-start);
   padding: 5.5rem 4rem 8rem;
-  background-size: cover;
-  background-position: center;
+  background-size: cover; background-position: center;
   color: #fff;
 
   &::before {
     content: '';
-    position: absolute;
-    inset: 0;
+    position: absolute; inset: 0;
     background: linear-gradient(
       180deg,
       rgba(0, 0, 0, 0.2) 0%,
@@ -46,26 +46,18 @@ useSectionReveal(root, () => props.active)
   }
 
   &__inner {
-    position: relative;
-    z-index: 1;
+    position: relative; z-index: 1;
     width: 100%;
     text-shadow: 0 0.0625rem 0.875rem rgba(0, 0, 0, 0.35);
   }
 
   &__id {
-    font-size: 1.0625rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.75);
+    font-size: 1.0625rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.75);
   }
 
   &__title {
     margin-top: 0.75rem;
-    font-size: 4.375rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.05;
+    font-size: 4.375rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.05;
   }
 
   @include respond-to($bp-md) {

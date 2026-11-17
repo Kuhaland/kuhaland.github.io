@@ -1,63 +1,68 @@
 <template>
   <Transition name="guide">
-    <div v-if="visible" class="intro-overlay" role="dialog" aria-label="화면 이용 안내">
-      <button class="intro-overlay__close intro-overlay__close--top" @click="close">
-        <AppIcon name="close" :size="18" />
+    <div v-if="visible"
+         class="intro-overlay"
+         role="dialog"
+         aria-label="화면 이용 안내"
+    >
+      <button class="intro-overlay__close intro-overlay__close--top"
+              @click="close"
+      >
+        <AppIcon name="close"
+                 :size="18"
+        />
         <span>닫기</span>
       </button>
-
-      <span
-        v-for="mark in marks"
-        :key="`frame-${mark.key}`"
-        class="intro-overlay__frame"
-        :class="{
+      <span v-for="mark in marks"
+            :key="`frame-${mark.key}`"
+            class="intro-overlay__frame"
+            :class="{
           'intro-overlay__frame--active': hovered === mark.key,
           'intro-overlay__frame--muted': hovered && hovered !== mark.key,
           'intro-overlay__frame--nested': mark.nested,
         }"
-        :style="frameStyle(mark)"
+            :style="frameStyle(mark)"
       />
-
-      <div
-        v-for="mark in marks"
-        :key="`callout-${mark.key}`"
-        class="intro-overlay__callout"
-        :class="[
+      <div v-for="mark in marks"
+           :key="`callout-${mark.key}`"
+           class="intro-overlay__callout"
+           :class="[
           `intro-overlay__callout--${mark.place}`,
           {
             'intro-overlay__callout--active': hovered === mark.key,
             'intro-overlay__callout--muted': hovered && hovered !== mark.key,
           },
         ]"
-        :style="calloutStyle(mark)"
+           :style="calloutStyle(mark)"
       >
         <span class="intro-overlay__pointer">
-          <AppIcon :name="mark.icon" :size="22" />
+          <AppIcon :name="mark.icon"
+                   :size="22"
+          />
         </span>
         <span class="intro-overlay__body">
           <span class="intro-overlay__title">{{ mark.title }}</span>
           <span class="intro-overlay__desc">{{ mark.desc }}</span>
         </span>
       </div>
-
       <div class="intro-overlay__bottom">
         <div class="intro-overlay__actions">
-          <button
-            class="intro-overlay__close intro-overlay__close--bottom"
-            @click="close"
+          <button class="intro-overlay__close intro-overlay__close--bottom"
+                  @click="close"
           >
             안내 닫기
           </button>
-          <span
-            v-if="autoClose"
-            class="intro-overlay__timer"
-            :style="timerStyle"
-            :aria-label="`${remain}초 후 자동으로 닫힘`"
+          <span v-if="autoClose"
+                class="intro-overlay__timer"
+                :style="timerStyle"
+                :aria-label="`${remain}초 후 자동으로 닫힘`"
           >
             {{ remain }}
           </span>
         </div>
-        <span v-if="autoClose" class="intro-overlay__hint">
+        <span v-if="autoClose"
+              class="intro-overlay__hint"
+        >
           마우스 · 키보드 조작이 없으면 자동으로 닫힙니다
         </span>
       </div>
@@ -322,18 +327,14 @@ onBeforeUnmount(teardown)
 
 <style scoped lang="scss">
 .intro-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 900;
+  position: fixed; inset: 0; z-index: 900;
   background: rgba(0, 0, 0, 0.5);
   pointer-events: none;
 
   &__frame {
-    position: absolute;
-    z-index: 0;
+    position: absolute; z-index: 0;
     box-sizing: border-box;
-    border: 1px dashed rgba(79, 124, 255, 0.9);
-    border-radius: var(--radius-md);
+    border: 1px dashed rgba(79, 124, 255, 0.9); border-radius: var(--radius-md);
     box-shadow: 0 0 0 0.0625rem rgba(255, 255, 255, 0.22),
       inset 0 0 1.5rem rgba(79, 124, 255, 0.14);
     animation: frame-breathe 2.6s ease-in-out infinite;
@@ -341,20 +342,17 @@ onBeforeUnmount(teardown)
       border-color $transition-base, opacity $transition-base;
 
     &--active {
-      border-style: solid;
-      border-color: rgba(255, 255, 255, 0.85);
+      border-style: solid; border-color: rgba(255, 255, 255, 0.85);
       box-shadow: 0 0 0 0.0625rem rgba(79, 124, 255, 0.6),
         0 0 2.125rem rgba(79, 124, 255, 0.45);
       backdrop-filter: brightness(1.95) saturate(1.08);
-      animation: none;
-      opacity: 1;
+      animation: none; opacity: 1;
     }
 
     &--muted {
       border-color: rgba(255, 255, 255, 0.1);
       box-shadow: none;
-      animation: none;
-      opacity: 1;
+      animation: none; opacity: 1;
       backdrop-filter: brightness(0.5) saturate(0.8);
 
       &.intro-overlay__frame--nested {
@@ -365,16 +363,12 @@ onBeforeUnmount(teardown)
   }
 
   &__callout {
-    position: absolute;
-    z-index: 1;
+    position: absolute; z-index: 1;
     @include flex(row, flex-start, center, 0.75rem);
     width: 16.75rem;
     padding: 0.875rem 1rem;
-    border-radius: var(--radius-md);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    background: rgba(18, 18, 26, 0.92);
-    backdrop-filter: blur(0.5rem);
-    box-shadow: 0 0.875rem 2.125rem rgba(0, 0, 0, 0.34);
+    border-radius: var(--radius-md); border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(18, 18, 26, 0.92); backdrop-filter: blur(0.5rem); box-shadow: 0 0.875rem 2.125rem rgba(0, 0, 0, 0.34);
     color: #fff;
     transition: opacity $transition-base, background $transition-base,
       border-color $transition-base, box-shadow $transition-base;
@@ -405,8 +399,7 @@ onBeforeUnmount(teardown)
   &__pointer {
     flex-shrink: 0;
     @include flex-center;
-    width: 2.125rem;
-    height: 2.125rem;
+    width: 2.125rem; height: 2.125rem;
     border-radius: 50%;
     background: var(--color-accent);
     color: #fff;
@@ -430,27 +423,19 @@ onBeforeUnmount(teardown)
   }
 
   &__title {
-    font-size: 0.9375rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
+    font-size: 0.9375rem; font-weight: 700; letter-spacing: -0.01em;
   }
 
   &__desc {
-    font-size: 0.8125rem;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.8125rem; line-height: 1.6; color: rgba(255, 255, 255, 0.72);
   }
 
   &__close {
     pointer-events: auto;
     @include flex(row, center, center, 0.375rem);
-    border-radius: 62.4375rem;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    background: rgba(18, 18, 26, 0.92);
-    backdrop-filter: blur(0.5rem);
-    color: #fff;
-    font-size: 0.8125rem;
-    font-weight: 600;
+    border-radius: 62.4375rem; border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(18, 18, 26, 0.92); backdrop-filter: blur(0.5rem);
+    color: #fff; font-size: 0.8125rem; font-weight: 600;
     box-shadow: 0 0.625rem 1.625rem rgba(0, 0, 0, 0.32);
     transition: background $transition-base, border-color $transition-base;
 
@@ -460,10 +445,7 @@ onBeforeUnmount(teardown)
     }
 
     &--top {
-      position: absolute;
-      z-index: 3;
-      top: 1.25rem;
-      right: 1.25rem;
+      position: absolute; z-index: 3; top: 1.25rem; right: 1.25rem;
       padding: 0.5625rem 1rem 0.5625rem 0.75rem;
     }
 
@@ -474,10 +456,7 @@ onBeforeUnmount(teardown)
   }
 
   &__bottom {
-    position: absolute;
-    z-index: 3;
-    left: 50%;
-    bottom: 1.75rem;
+    position: absolute; z-index: 3; left: 50%; bottom: 1.75rem;
     @include flex(column, center, center, 0.75rem);
     transform: translateX(-50%);
   }
@@ -490,22 +469,15 @@ onBeforeUnmount(teardown)
     position: relative;
     flex-shrink: 0;
     @include flex-center;
-    width: 2.625rem;
-    height: 2.625rem;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    background: rgba(18, 18, 26, 0.92);
-    backdrop-filter: blur(0.5rem);
-    font-size: 0.875rem;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-    color: #fff;
+    width: 2.625rem; height: 2.625rem;
+    border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(18, 18, 26, 0.92); backdrop-filter: blur(0.5rem);
+    font-size: 0.875rem; font-weight: 700; font-variant-numeric: tabular-nums; color: #fff;
     box-shadow: 0 0.625rem 1.625rem rgba(0, 0, 0, 0.32);
 
     &::before {
       content: '';
-      position: absolute;
-      inset: -0.25rem;
+      position: absolute; inset: -0.25rem;
       border-radius: 50%;
       background: conic-gradient(
         var(--color-accent) var(--progress, 100%),
@@ -525,10 +497,7 @@ onBeforeUnmount(teardown)
   }
 
   &__hint {
-    font-size: 0.75rem;
-    letter-spacing: 0.02em;
-    color: rgba(255, 255, 255, 0.72);
-    text-shadow: 0 0.0625rem 0.5rem rgba(0, 0, 0, 0.6);
+    font-size: 0.75rem; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.72); text-shadow: 0 0.0625rem 0.5rem rgba(0, 0, 0, 0.6);
   }
 
   @include respond-to($bp-md) {

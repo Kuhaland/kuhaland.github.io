@@ -1,5 +1,7 @@
 <template>
-  <span class="app-icon material-symbols-outlined" :style="styles">{{
+  <span class="app-icon material-symbols-outlined"
+        :style="styles"
+  >{{
     symbol
   }}</span>
 </template>
@@ -42,11 +44,8 @@ const styles = computed(() => ({
 
 <style scoped lang="scss">
 .app-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1em;
-  height: 1em;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1em; height: 1em;
   overflow: hidden;
   line-height: 1;
   user-select: none;

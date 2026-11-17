@@ -1,49 +1,65 @@
 <template>
-  <section ref="root" class="career">
+  <section ref="root"
+           class="career"
+  >
+    <!-- Header -->
     <div class="career__head">
       <p class="career__eyebrow reveal">Career</p>
       <h1 class="career__title reveal">
         화면을 만들어 온 <em class="career__accent">{{ careerTotal }}</em>
       </h1>
-      <SentenceText class="career__summary reveal" :text="summary" />
+      <SentenceText class="career__summary reveal"
+                    :text="summary"
+      />
     </div>
-
+    <!-- Timeline -->
     <div class="career__timeline">
-      <div class="career__track" :style="trackStyle">
-        <svg
-          class="career__curve"
-          :viewBox="`0 0 ${VB_W} ${VB_H}`"
-          :width="VB_W"
-          :height="VB_H"
-          aria-hidden="true"
+      <div class="career__track"
+           :style="trackStyle"
+      >
+        <svg class="career__curve"
+             :viewBox="`0 0 ${VB_W} ${VB_H}`"
+             :width="VB_W"
+             :height="VB_H"
+             aria-hidden="true"
         >
           <defs>
-            <linearGradient id="careerLine" x1="0" y1="1" x2="1" y2="0">
-              <stop offset="0%" stop-color="#7de3b6" />
-              <stop offset="55%" stop-color="#5ec8e5" />
-              <stop offset="100%" stop-color="#8f8bff" />
+            <linearGradient id="careerLine"
+                            x1="0"
+                            y1="1"
+                            x2="1"
+                            y2="0"
+            >
+              <stop offset="0%"
+                    stop-color="#7de3b6"
+              />
+              <stop offset="55%"
+                    stop-color="#5ec8e5"
+              />
+              <stop offset="100%"
+                    stop-color="#8f8bff"
+              />
             </linearGradient>
           </defs>
-          <path class="career__curve-base" :d="pathD" />
-          <path
-            class="career__curve-progress"
-            :d="pathD"
-            :style="progressStyle"
+          <path class="career__curve-base"
+                :d="pathD"
+          />
+          <path class="career__curve-progress"
+                :d="pathD"
+                :style="progressStyle"
           />
         </svg>
-
-        <button
-          v-for="(c, i) in career"
-          :key="c.id"
-          class="career__node"
-          :class="[
+        <button v-for="(c, i) in career"
+                :key="c.id"
+                class="career__node"
+                :class="[
             `career__node--${i % 2 === 0 ? 'down' : 'up'}`,
             { 'career__node--active': i === innerIndex, 'career__node--past': i < innerIndex },
           ]"
-          :style="nodeStyle(i)"
-          :aria-current="i === innerIndex ? 'true' : undefined"
-          :aria-label="`${c.year}년 ${c.company} 경력 보기`"
-          @click="emit('select-career', i)"
+                :style="nodeStyle(i)"
+                :aria-current="i === innerIndex ? 'true' : undefined"
+                :aria-label="`${c.year}년 ${c.company} 경력 보기`"
+                @click="emit('select-career', i)"
         >
           <span class="career__pulse" />
           <span class="career__dot" />
@@ -51,14 +67,16 @@
           <span class="career__card">
             <span class="career__year">{{ c.year }}</span>
             <span class="career__company">{{ c.company }}</span>
-            <span v-if="c.team" class="career__team">{{ c.team }}</span>
+            <span v-if="c.team"
+                  class="career__team"
+            >{{ c.team }}</span>
             <span class="career__period">{{ c.period }}</span>
             <span class="career__duration">{{ c.duration }}</span>
           </span>
         </button>
       </div>
     </div>
-
+    <!-- Controls -->
     <div class="career__hud">
       <span class="career__count">
         <b>{{ pad(innerIndex + 1) }}</b> / {{ pad(career.length) }}
@@ -194,9 +212,7 @@ useSectionReveal(root, () => props.active, {
 <style scoped lang="scss">
 .career {
   position: relative;
-  width: 100%;
-  height: 100%;
-  min-height: 100vh;
+  width: 100%; height: 100%; min-height: 100vh;
   overflow: hidden;
   padding: 6rem 4rem;
   color: #fff;
@@ -208,25 +224,18 @@ useSectionReveal(root, () => props.active, {
     linear-gradient(150deg, #0f2027 0%, #203a43 55%, #2c5364 100%);
 
   &__head {
-    position: relative;
-    z-index: 2;
+    position: relative; z-index: 2;
     max-width: min(38.75rem, calc(100% - 10rem));
     text-shadow: 0 0.0625rem 0.75rem rgba(0, 0, 0, 0.35);
   }
 
   &__eyebrow {
-    font-size: 0.9375rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9375rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255, 255, 255, 0.7);
   }
 
   &__title {
     margin-top: 0.875rem;
-    font-size: 2.625rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    font-size: 2.625rem; font-weight: 700; letter-spacing: -0.02em;
   }
 
   &__accent {
@@ -239,46 +248,29 @@ useSectionReveal(root, () => props.active, {
 
   &__summary {
     margin-top: 1rem;
-    font-size: 1.1875rem;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.78);
+    font-size: 1.1875rem; line-height: 1.7; color: rgba(255, 255, 255, 0.78);
   }
 
   &__timeline {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 32%;
-    z-index: 1;
+    position: absolute; left: 0; right: 0; bottom: 0; top: 32%; z-index: 1;
     transform-origin: center center;
   }
 
   &__track {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transition: $transition-slide;
-    will-change: transform;
+    position: absolute; left: 50%; top: 50%;
+    transition: $transition-slide; will-change: transform;
   }
 
   &__curve {
-    display: block;
-    overflow: visible;
+    display: block; overflow: visible;
   }
 
   &__curve-base {
-    fill: none;
-    stroke: rgba(255, 255, 255, 0.16);
-    stroke-width: 2;
-    stroke-linecap: round;
+    fill: none; stroke: rgba(255, 255, 255, 0.16); stroke-width: 2; stroke-linecap: round;
   }
 
   &__curve-progress {
-    fill: none;
-    stroke: url(#careerLine);
-    stroke-width: 3;
-    stroke-linecap: round;
+    fill: none; stroke: url(#careerLine); stroke-width: 3; stroke-linecap: round;
     filter: drop-shadow(0 0 0.625rem rgba(94, 200, 229, 0.5));
     transition: stroke-dasharray 0.6s cubic-bezier(0.7, 0, 0.3, 1);
   }
@@ -286,18 +278,14 @@ useSectionReveal(root, () => props.active, {
   &__node {
     position: absolute;
     display: block;
-    width: 0;
-    height: 0;
+    width: 0; height: 0;
     padding: 0;
     text-align: left;
   }
 
   &__dot {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 0.75rem;
-    height: 0.75rem;
+    position: absolute; left: 0; top: 0;
+    width: 0.75rem; height: 0.75rem;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.4);
     transform: translate(-50%, -50%);
@@ -307,43 +295,28 @@ useSectionReveal(root, () => props.active, {
   }
 
   &__pulse {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 2;
-    width: 1.5rem;
-    height: 1.5rem;
+    position: absolute; left: 0; top: 0; z-index: 2;
+    width: 1.5rem; height: 1.5rem;
     margin: -0.75rem 0 0 -0.75rem;
-    border-radius: 50%;
-    border: 1px solid rgba(158, 232, 246, 0.9);
-    opacity: 0;
-    pointer-events: none;
+    border-radius: 50%; border: 1px solid rgba(158, 232, 246, 0.9);
+    opacity: 0; pointer-events: none;
   }
 
   &__stem {
-    position: absolute;
-    left: 0;
-    z-index: 1;
-    width: 0;
-    height: 2.875rem;
+    position: absolute; left: 0; z-index: 1;
+    width: 0; height: 2.875rem;
     border-left: 1px dashed rgba(255, 255, 255, 0.28);
     transition: border-color $transition-base;
   }
 
   &__card {
-    position: absolute;
-    left: 50%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.1875rem;
+    position: absolute; left: 50%;
+    display: flex; flex-direction: column; gap: 0.1875rem;
     width: 14rem;
     padding: 0.8125rem 0.9375rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(0.375rem);
-    opacity: 0.55;
-    transform: translateX(-50%);
+    border-radius: var(--radius-sm); border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(0.375rem);
+    opacity: 0.55; transform: translateX(-50%);
     transition: opacity $transition-base, background $transition-base,
       border-color $transition-base, transform $transition-nav;
   }
@@ -381,8 +354,7 @@ useSectionReveal(root, () => props.active, {
   &__node--active {
     .career__dot {
       background: #fff;
-      transform: translate(-50%, -50%) scale(1.9);
-      animation: dot-pulse 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      transform: translate(-50%, -50%) scale(1.9); animation: dot-pulse 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     }
 
     .career__pulse {
@@ -406,63 +378,45 @@ useSectionReveal(root, () => props.active, {
   }
 
   &__year {
-    font-size: 1.375rem;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    color: #9ff0cd;
+    font-size: 1.375rem; font-weight: 700; letter-spacing: -0.01em; color: #9ff0cd;
   }
 
   &__company {
     margin-top: 0.125rem;
-    font-size: 1.0625rem;
-    font-weight: 700;
+    font-size: 1.0625rem; font-weight: 700;
   }
 
   &__team {
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.875rem; color: rgba(255, 255, 255, 0.62);
   }
 
   &__period {
     margin-top: 0.375rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.875rem; font-weight: 600; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.8);
   }
 
   &__duration {
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.875rem; color: rgba(255, 255, 255, 0.55);
   }
 
   &__hud {
-    position: absolute;
-    right: 4rem;
-    top: 6rem;
-    z-index: 3;
+    position: absolute; right: 4rem; top: 6rem; z-index: 3;
     @include flex(column, flex-start, flex-end, 0.5rem);
     text-align: right;
   }
 
   &__count {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9375rem; font-weight: 600; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.5);
 
     b {
-      font-size: 1.25rem;
-      color: #fff;
+      font-size: 1.25rem; color: #fff;
     }
   }
 
   &__hint {
     padding-top: 0.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: 0.875rem;
-    letter-spacing: 0.04em;
-    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.875rem; letter-spacing: 0.04em; color: rgba(255, 255, 255, 0.45);
   }
 
   @media (max-height: 820px) {
@@ -514,8 +468,7 @@ useSectionReveal(root, () => props.active, {
   }
 
   @include respond-to($bp-md) {
-    height: auto;
-    min-height: auto;
+    height: auto; min-height: auto;
     padding: 4rem 1.75rem;
 
     &__title {
@@ -541,16 +494,12 @@ useSectionReveal(root, () => props.active, {
     }
 
     &__node {
-      position: relative;
-      left: auto !important;
-      top: auto !important;
-      width: 100%;
-      height: auto;
+      position: relative; left: auto !important; top: auto !important;
+      width: 100%; height: auto;
     }
 
     &__dot {
-      left: -1.5625rem;
-      top: 1.875rem;
+      left: -1.5625rem; top: 1.875rem;
     }
 
     &__node--active .career__dot {
@@ -567,8 +516,7 @@ useSectionReveal(root, () => props.active, {
     &__node--up .career__card {
       position: static;
       width: 100%;
-      opacity: 1;
-      transform: none !important;
+      opacity: 1; transform: none !important;
     }
 
     &__hud {
@@ -598,16 +546,13 @@ useSectionReveal(root, () => props.active, {
 
 @keyframes dot-ripple {
   0% {
-    opacity: 0.75;
-    transform: scale(0.95);
+    opacity: 0.75; transform: scale(0.95);
   }
   70% {
-    opacity: 0;
-    transform: scale(2.9);
+    opacity: 0; transform: scale(2.9);
   }
   100% {
-    opacity: 0;
-    transform: scale(2.9);
+    opacity: 0; transform: scale(2.9);
   }
 }
 

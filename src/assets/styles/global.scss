@@ -13,14 +13,11 @@
   --radius-md: #{$radius-md};
   --radius-sm: #{$radius-sm};
 
-  font-family: $font-sans;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: $font-sans; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
 }
 
 * {
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
   box-sizing: border-box;
 }
 
@@ -36,9 +33,7 @@ body,
 
 body {
   background: var(--color-bg);
-  color: var(--color-text);
-  word-break: keep-all;
-  overflow-wrap: break-word;
+  color: var(--color-text); word-break: keep-all; overflow-wrap: break-word;
 }
 
 button {
