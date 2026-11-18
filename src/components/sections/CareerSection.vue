@@ -521,10 +521,7 @@ useSectionReveal(root, () => props.active, {
     }
 
     &__hud {
-      position: static;
-      margin-top: 1.75rem;
-      align-items: flex-start;
-      text-align: left;
+      display: none;
     }
 
     &__hint {

@@ -125,6 +125,7 @@ useSectionReveal(root, () => props.active, { stagger: 0.08 })
 
   &__card {
     min-width: 0; min-height: 0;
+    overflow: hidden auto; scrollbar-width: thin; scrollbar-color: var(--pf-line) transparent;
     padding: 1.5rem;
     border-radius: 1rem;
     background: var(--pf-card);
@@ -297,6 +298,94 @@ useSectionReveal(root, () => props.active, { stagger: 0.08 })
     &__chip {
       padding: 0.25rem 0.625rem;
       font-size: 0.8125rem;
+    }
+  }
+
+  @media (max-height: 700px) {
+    padding: 1.25rem 2rem; padding-left: calc(var(--nav-space, 0px) + 2rem);
+
+    &__head {
+      padding-bottom: 0.625rem;
+    }
+
+    &__title {
+      font-size: 1.375rem;
+    }
+
+    &__sub {
+      margin-top: 0.25rem;
+      font-size: 0.8125rem; line-height: 1.5;
+    }
+
+    &__grid {
+      grid-template-columns: minmax(12rem, 0.8fr) 2fr; gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    &__card {
+      padding: 0.875rem 1rem;
+    }
+
+    &__name {
+      font-size: 1.125rem;
+    }
+
+    &__role {
+      font-size: 0.75rem;
+    }
+
+    &__avatar {
+      margin-top: 0.625rem;
+    }
+
+    &__avatar-img {
+      border-width: 0.5rem;
+    }
+
+    &__card-title {
+      font-size: 0.9375rem;
+    }
+
+    &__details {
+      column-gap: 1.25rem;
+      margin-top: 0.375rem; padding: 0;
+    }
+
+    &__field {
+      padding: 0.375rem 0;
+    }
+
+    &__label {
+      font-size: 0.6875rem;
+    }
+
+    &__value {
+      margin-top: 0.125rem;
+      font-size: 0.8125rem; line-height: 1.4;
+    }
+
+    &__status {
+      padding: 0.1875rem 0.625rem;
+      font-size: 0.75rem;
+    }
+
+    &__skill-groups {
+      display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem;
+      margin-top: 0.5rem;
+    }
+
+    &__skill-label {
+      font-size: 0.6875rem;
+    }
+
+    &__chips {
+      margin-top: 0.25rem;
+      gap: 0.375rem;
+    }
+
+    &__chip {
+      padding: 0.1875rem 0.5rem;
+      font-size: 0.75rem;
     }
   }
 

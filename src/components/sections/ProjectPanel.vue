@@ -61,11 +61,11 @@ useSectionReveal(root, () => props.active)
   }
 
   @include respond-to($bp-md) {
-    min-height: 60vh;
-    padding: 3.5rem 1.75rem 4.5rem;
+    min-height: 22rem;
+    padding: 3rem 1.25rem 3.5rem;
 
     &__title {
-      font-size: 2.625rem;
+      font-size: 2.25rem;
     }
   }
 }

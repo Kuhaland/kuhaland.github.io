@@ -86,7 +86,7 @@ function onSelect(index) {
 
 <style scoped lang="scss">
 .layout {
-  --nav-space: calc(max(10vw, 132px) + 3rem);
+  --nav-space: calc(max(10vw, 9rem) + 3rem);
   position: relative;
   display: flex;
   height: 100vh;

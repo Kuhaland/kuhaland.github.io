@@ -116,7 +116,7 @@ onBeforeUnmount(() => {
 <style scoped lang="scss">
 .sidenav {
   position: fixed; top: 1.5rem; bottom: 1.5rem; left: 1.5rem; z-index: 10;
-  width: $lnb-width-expanded; min-width: 132px;
+  width: $lnb-width-expanded; min-width: 9rem;
   @include flex(column);
   padding: 1.25rem 0.875rem;
   border-radius: 2rem;
@@ -259,17 +259,59 @@ onBeforeUnmount(() => {
   }
 
   @include respond-to($bp-md) {
-    position: relative; top: auto; bottom: auto; left: auto;
-    margin: 1rem 1rem 0;
-    border-radius: 1.5rem;
+    position: sticky; top: 0.75rem; bottom: auto; left: auto;
+    flex-direction: row; align-items: center; gap: 0.75rem;
+    margin: 0.75rem 0.75rem 0; padding: 0.5rem 0.5rem 0.5rem 1rem;
+    border-radius: 62.4375rem;
+    background: rgba(24, 24, 28, 0.78);
 
     &,
     &--collapsed {
-      width: auto;
+      width: auto; min-width: 0;
+    }
+
+    &__top,
+    .sidenav--collapsed &__top {
+      flex-direction: row;
+      min-height: 0;
+      margin-bottom: 0;
+    }
+
+    &__logo-img,
+    .sidenav--collapsed &__logo-img {
+      height: 1.375rem; width: auto;
+    }
+
+    &__collapse {
+      display: none;
+    }
+
+    &__nav {
+      flex: 1;
+      min-width: 0;
+      overflow-x: auto; scrollbar-width: none;
     }
 
     &__list {
-      flex-direction: row; flex-wrap: wrap;
+      flex-direction: row; flex-wrap: nowrap; gap: 0.125rem;
+      width: max-content;
+      margin-left: auto;
+    }
+
+    &__item &__label {
+      display: inline !important;
+    }
+
+    &__item,
+    .sidenav--collapsed &__item {
+      flex-shrink: 0;
+      padding: 0.5rem 0.75rem;
+      border-radius: 62.4375rem;
+      font-size: 0.875rem; white-space: nowrap;
+    }
+
+    &__item &__icon {
+      display: none;
     }
 
     &__indicator {

@@ -391,7 +391,7 @@ const paneKey = computed(() => {
     padding: 0.8125rem 1rem;
     border-radius: var(--radius-sm);
     background: var(--cat-soft);
-    border-left: 3px solid var(--cat-base);
+    border-left: 0.1875rem solid var(--cat-base);
     transition: background $transition-base, transform $transition-base;
 
     &:hover {
