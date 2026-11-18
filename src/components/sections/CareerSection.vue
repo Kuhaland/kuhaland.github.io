@@ -214,7 +214,8 @@ useSectionReveal(root, () => props.active, {
   position: relative;
   width: 100%; height: 100%; min-height: 100vh;
   overflow: hidden;
-  padding: 6rem 4rem;
+  padding: 6rem 4rem; padding-left: calc(var(--nav-space, 0px) + 4rem);
+  transition: padding-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   color: #fff;
   background: radial-gradient(
       120% 90% at 12% 0%,
@@ -252,7 +253,7 @@ useSectionReveal(root, () => props.active, {
   }
 
   &__timeline {
-    position: absolute; left: 0; right: 0; bottom: 0; top: 32%; z-index: 1;
+    position: absolute; left: var(--nav-space, 0px); right: 0; bottom: 0; top: 32%; z-index: 1;
     transform-origin: center center;
   }
 
@@ -420,7 +421,7 @@ useSectionReveal(root, () => props.active, {
   }
 
   @media (max-height: 820px) {
-    padding: 4.5rem 4rem;
+    padding: 4.5rem 4rem; padding-left: calc(var(--nav-space, 0px) + 4rem);
 
     &__title {
       margin-top: 0.75rem;
@@ -443,7 +444,7 @@ useSectionReveal(root, () => props.active, {
   }
 
   @media (max-height: 700px) {
-    padding: 3.25rem 4rem;
+    padding: 3.25rem 4rem; padding-left: calc(var(--nav-space, 0px) + 4rem);
 
     &__eyebrow {
       font-size: 0.8125rem;

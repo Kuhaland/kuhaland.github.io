@@ -97,7 +97,8 @@ useSectionReveal(root, () => props.active, { stagger: 0.08 })
 
   @include flex(column, flex-start, stretch);
   height: 100vh;
-  padding: 2.5rem 3rem;
+  padding: 2.5rem 3rem; padding-left: calc(var(--nav-space, 0px) + 3rem);
+  transition: padding-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   background: var(--pf-bg);
   color: var(--pf-text);
 
@@ -257,7 +258,7 @@ useSectionReveal(root, () => props.active, { stagger: 0.08 })
   }
 
   @media (max-height: 820px) {
-    padding: 1.75rem 2.5rem;
+    padding: 1.75rem 2.5rem; padding-left: calc(var(--nav-space, 0px) + 2.5rem);
 
     &__head {
       padding-bottom: 0.875rem;

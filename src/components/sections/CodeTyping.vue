@@ -165,7 +165,7 @@ onBeforeUnmount(() => {
   &__bar {
     @include flex(row, flex-start, center, 0.5rem);
     height: 2.5rem;
-    padding: 0 1.125rem;
+    padding: 0 1.125rem; padding-left: calc(var(--nav-space, 0px) + 1.125rem);
     background: rgba(255, 255, 255, 0.06);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
@@ -192,7 +192,7 @@ onBeforeUnmount(() => {
   }
 
   &__list {
-    margin: 0; padding: 1.375rem 1.625rem;
+    margin: 0; padding: 1.375rem 1.625rem; padding-left: calc(var(--nav-space, 0px) + 1.625rem);
     list-style: none;
     counter-reset: line;
     font-size: 1.0625rem; line-height: 1.8;

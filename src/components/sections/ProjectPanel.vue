@@ -30,7 +30,7 @@ useSectionReveal(root, () => props.active)
   position: relative;
   width: 100%; height: 100%; min-height: 100vh;
   @include flex(column, flex-end, flex-start);
-  padding: 5.5rem 4rem 8rem;
+  padding: 5.5rem 4rem 8rem; padding-left: calc(var(--nav-space, 0px) + 4rem);
   background-size: cover; background-position: center;
   color: #fff;
 

@@ -71,7 +71,7 @@ const hStyle = computed(() => ({
   }
 
   &__dots {
-    position: absolute; left: 4rem; bottom: 3.75rem; z-index: 5;
+    position: absolute; left: calc(var(--nav-space, 0px) + 4rem); bottom: 3.75rem; z-index: 5;
     @include flex(row, center, center, 0.5rem);
     max-width: 90%;
     flex-wrap: wrap;

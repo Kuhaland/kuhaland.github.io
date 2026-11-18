@@ -213,11 +213,6 @@ onBeforeUnmount(() => {
   &__section {
     height: 100vh;
     overflow: hidden;
-
-    > * {
-      border-left: var(--nav-space, 0) solid transparent;
-      transition: border-left-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
   }
 
   @include respond-to($bp-md) {
@@ -231,10 +226,6 @@ onBeforeUnmount(() => {
     &__section {
       height: auto;
       overflow: visible;
-
-      > * {
-        border-left-width: 0;
-      }
     }
   }
 }

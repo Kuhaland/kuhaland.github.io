@@ -34,7 +34,8 @@
     position: relative;
     min-height: 100vh;
     @include flex(column, flex-end, flex-start);
-    padding: 6rem 4rem;
+    padding: 6rem 4rem; padding-left: calc(var(--nav-space, 0px) + 4rem);
+    transition: padding-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     background-size: cover; background-position: center;
     color: #fff;
 
@@ -88,7 +89,7 @@
     }
 
     @media (max-height: 820px) {
-      padding: 4rem;
+      padding: 4rem; padding-left: calc(var(--nav-space, 0px) + 4rem);
 
       &__title {
         margin-top: 0.875rem;
@@ -115,7 +116,7 @@
     }
 
     @media (max-height: 700px) {
-      padding: 3rem 4rem;
+      padding: 3rem 4rem; padding-left: calc(var(--nav-space, 0px) + 4rem);
 
       &__title {
         font-size: 1.875rem;

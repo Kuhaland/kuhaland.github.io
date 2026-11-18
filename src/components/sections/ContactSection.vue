@@ -82,7 +82,7 @@ useSectionReveal(root, () => props.active)
 @include section-styles;
 
 .section {
-  padding: 4.5rem 4rem;
+  padding: 4.5rem 4rem; padding-left: calc(var(--nav-space, 0px) + 4rem);
 
   &__eyebrow {
     font-size: 1.0625rem; font-weight: 500; letter-spacing: 0.04em; color: rgba(255, 255, 255, 0.82);

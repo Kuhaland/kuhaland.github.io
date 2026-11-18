@@ -100,5 +100,12 @@ function onSelect(index) {
   &--collapsed {
     --nav-space: calc(#{$lnb-width-collapsed} + 3rem);
   }
+
+  &,
+  &--collapsed {
+    @include respond-to($bp-md) {
+      --nav-space: 0px;
+    }
+  }
 }
 </style>
