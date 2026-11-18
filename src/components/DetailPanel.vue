@@ -269,10 +269,10 @@ const paneKey = computed(() => {
   position: absolute; top: 1.5rem; right: 1.5rem; bottom: 1.5rem; z-index: 5;
   width: min(30rem, 32%);
   border-radius: 2rem;
-  background: rgba(24, 24, 28, 0.58); backdrop-filter: blur(1.5rem) saturate(140%); -webkit-backdrop-filter: blur(1.5rem) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.35),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  background: linear-gradient(150deg, rgba(30, 60, 160, 0.42) 0%, rgba(20, 50, 130, 0.36) 55%, rgba(40, 130, 180, 0.32) 100%); backdrop-filter: blur(1.5rem) saturate(140%); -webkit-backdrop-filter: blur(1.5rem) saturate(140%);
+  border: 1px solid rgba(180, 236, 255, 0.35);
+  box-shadow: 0 1.5rem 3rem rgba(2, 10, 60, 0.4), 0 0 2rem rgba(127, 227, 240, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
   color: #fff;
   transform: translateX(calc(100% + 2rem)); opacity: 0;
   overflow: hidden;
@@ -304,10 +304,10 @@ const paneKey = computed(() => {
     padding: 2.5rem 2rem;
 
     &--career {
-      --cat-base: #7de3b6; --cat-strong: #ffffff; --cat-body: rgba(255, 255, 255, 0.86); --cat-muted: rgba(255, 255, 255, 0.6); --cat-soft: rgba(255, 255, 255, 0.06);
-      --cat-soft-strong: #{rgba(#7de3b6, 0.16)};
-      --cat-line: rgba(255, 255, 255, 0.12);
-      --cat-edge: #{rgba(#7de3b6, 0.45)};
+      --cat-base: #7fe3f0; --cat-strong: #ffffff; --cat-body: rgba(255, 255, 255, 0.88); --cat-muted: rgba(255, 255, 255, 0.62); --cat-soft: rgba(255, 255, 255, 0.08);
+      --cat-soft-strong: #{rgba(#7fe3f0, 0.18)};
+      --cat-line: rgba(180, 236, 255, 0.2);
+      --cat-edge: #{rgba(#7fe3f0, 0.5)};
     }
 
     &--work {
@@ -510,7 +510,7 @@ const paneKey = computed(() => {
       &:hover {
         background: var(--cat-base);
         border-color: var(--cat-base);
-        color: #0f2027;
+        color: #06205a;
       }
     }
   }

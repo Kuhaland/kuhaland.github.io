@@ -10,14 +10,6 @@
              alt="kuhaland"
         />
       </div>
-      <button class="sidenav__collapse"
-              :aria-label="collapsed ? '메뉴 펼치기' : '메뉴 접기'"
-              @click="emit('toggle')"
-      >
-        <AppIcon :name="collapsed ? 'chevron_right' : 'menu_open'"
-                 :size="20"
-        />
-      </button>
     </div>
     <!-- Menu -->
     <nav class="sidenav__nav">
@@ -45,7 +37,7 @@
         </button>
       </div>
     </nav>
-    <!-- Guide Button -->
+    <!-- Footer -->
     <div class="sidenav__foot">
       <button class="sidenav__guide"
               :class="{ 'sidenav__guide--on': guideOpen }"
@@ -59,6 +51,15 @@
         <span v-show="!collapsed"
               class="sidenav__label"
         >이용안내</span>
+      </button>
+      <button class="sidenav__collapse"
+              :aria-label="collapsed ? '메뉴 펼치기' : '메뉴 접기'"
+              :title="collapsed ? '메뉴 펼치기' : '메뉴 접기'"
+              @click="emit('toggle')"
+      >
+        <AppIcon :name="collapsed ? 'keyboard_double_arrow_right' : 'keyboard_double_arrow_left'"
+                 :size="18"
+        />
       </button>
     </div>
   </aside>
@@ -116,7 +117,7 @@ onBeforeUnmount(() => {
 <style scoped lang="scss">
 .sidenav {
   position: fixed; top: 1.5rem; bottom: 1.5rem; left: 1.5rem; z-index: 10;
-  width: $lnb-width-expanded; min-width: 9rem;
+  width: $lnb-width-expanded; min-width: 8.5rem;
   @include flex(column);
   padding: 1.25rem 0.875rem;
   border-radius: 2rem;
@@ -139,17 +140,13 @@ onBeforeUnmount(() => {
   }
 
   &__top {
-    @include flex(row, space-between, center);
+    @include flex(row, center, center);
     min-height: 2.75rem;
     margin-bottom: 1.75rem;
-
-    .sidenav--collapsed & {
-      flex-direction: column; gap: 1rem;
-    }
   }
 
   &__logo {
-    @include flex(row, flex-start, center);
+    @include flex(row, center, center);
     min-width: 0;
 
     .sidenav--collapsed & {
@@ -169,8 +166,9 @@ onBeforeUnmount(() => {
   }
 
   &__collapse {
-    @include icon-button(2.25rem, 0.625rem);
-    color: rgba(255, 255, 255, 0.65);
+    @include icon-button(2rem, 62.4375rem);
+    align-self: center;
+    color: rgba(255, 255, 255, 0.55);
     transition: $transition-base;
 
     &:hover {
@@ -224,6 +222,7 @@ onBeforeUnmount(() => {
   }
 
   &__foot {
+    @include flex(column, flex-start, stretch, 0.625rem);
     margin-top: auto; padding-top: 1.125rem;
   }
 

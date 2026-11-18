@@ -6,6 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="dace1f6e-7003-4c03-93c4-347a20ad4a26" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/styles/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/styles/_variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DetailPanel.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DetailPanel.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SideNav.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SideNav.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sections/CareerSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/CareerSection.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/sections/ProfileSection.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/sections/ProfileSection.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/career.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/career.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,24 +40,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/kuha/Documents/git/kuhaland.github.io",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Applications/PhpStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/kuha/Documents/git/kuhaland.github.io&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/PhpStorm.app/Contents/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/assets/fonts" />
@@ -76,7 +83,7 @@
       <workItem from="1787534025281" duration="597000" />
       <workItem from="1788753912523" duration="702000" />
       <workItem from="1789981822797" duration="980000" />
-      <workItem from="1794806326900" duration="6862000" />
+      <workItem from="1794806326900" duration="12034000" />
     </task>
     <servers />
   </component>
@@ -102,12 +109,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/IntroOverlay.vue</url>
-          <line>35</line>
+          <line>41</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/components/sections/ContactSection.vue</url>
-          <line>13</line>
+          <line>18</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="2" />
         </line-breakpoint>

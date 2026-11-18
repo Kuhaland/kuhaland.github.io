@@ -136,6 +136,10 @@ useSectionReveal(root, () => props.active, { stagger: 0.08 })
       text-align: center;
     }
 
+    &--bio {
+      display: flex; flex-direction: column;
+    }
+
     &--skills {
       grid-column: 1 / -1;
     }
@@ -183,11 +187,13 @@ useSectionReveal(root, () => props.active, { stagger: 0.08 })
   }
 
   &__details {
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2rem;
+    flex: 1;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(min-content, 1fr); column-gap: 2rem;
     margin: 1rem 0 0; padding: 0 0.75rem;
   }
 
   &__field {
+    display: flex; flex-direction: column; justify-content: center;
     padding: 0.875rem 0;
     border-bottom: 1px solid var(--pf-line);
   }
@@ -347,12 +353,12 @@ useSectionReveal(root, () => props.active, { stagger: 0.08 })
     }
 
     &__details {
-      column-gap: 1.25rem;
-      margin-top: 0.375rem; padding: 0;
+      column-gap: 1.5rem;
+      margin-top: 0.5rem; padding: 0;
     }
 
     &__field {
-      padding: 0.375rem 0;
+      padding: 0.625rem 0;
     }
 
     &__label {
@@ -360,8 +366,8 @@ useSectionReveal(root, () => props.active, { stagger: 0.08 })
     }
 
     &__value {
-      margin-top: 0.125rem;
-      font-size: 0.8125rem; line-height: 1.4;
+      margin-top: 0.3125rem;
+      font-size: 0.8125rem; line-height: 1.5;
     }
 
     &__status {
@@ -370,8 +376,8 @@ useSectionReveal(root, () => props.active, { stagger: 0.08 })
     }
 
     &__skill-groups {
-      display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem;
-      margin-top: 0.5rem;
+      display: flex; flex-wrap: wrap; gap: 0.875rem 1.75rem;
+      margin-top: 0.75rem;
     }
 
     &__skill-label {
@@ -379,7 +385,7 @@ useSectionReveal(root, () => props.active, { stagger: 0.08 })
     }
 
     &__chips {
-      margin-top: 0.25rem;
+      margin-top: 0.4375rem;
       gap: 0.375rem;
     }
 

@@ -19,7 +19,7 @@ const history = [
     duration: '2년',
     company: '주식회사 한투어',
     companyEn: 'Hantour',
-    team: '',
+    team: '디자인팀',
     position: '대리 / 팀원',
     tasks: ['자사 웹사이트 제작 및 유지보수 (디자인)'],
     focus: ['GUI', 'UI·UX기획', '모바일디자인'],
@@ -43,7 +43,7 @@ const history = [
     duration: '3년 10개월',
     company: '(주)저스트고',
     companyEn: 'JustGo',
-    team: '',
+    team: 'IT연구소 / 디자인팀',
     position: '차장 / 팀장',
     tasks: [
       '자사 웹사이트·앱 제작 및 유지보수 (디자인/퍼블)',

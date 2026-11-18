@@ -31,13 +31,13 @@
                             y2="0"
             >
               <stop offset="0%"
-                    stop-color="#7de3b6"
+                    stop-color="#7fe3f0"
               />
               <stop offset="55%"
-                    stop-color="#5ec8e5"
+                    stop-color="#5aa8ff"
               />
               <stop offset="100%"
-                    stop-color="#8f8bff"
+                    stop-color="#b4ecff"
               />
             </linearGradient>
           </defs>
@@ -218,11 +218,17 @@ useSectionReveal(root, () => props.active, {
   transition: padding-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   color: #fff;
   background: radial-gradient(
-      120% 90% at 12% 0%,
-      rgba(126, 227, 182, 0.18) 0%,
-      rgba(126, 227, 182, 0) 60%
+      45% 65% at 72% 50%,
+      rgba(100, 190, 205, 0.38) 0%,
+      rgba(50, 130, 175, 0.18) 40%,
+      rgba(20, 90, 170, 0) 75%
     ),
-    linear-gradient(150deg, #0f2027 0%, #203a43 55%, #2c5364 100%);
+    radial-gradient(
+      70% 60% at 85% 100%,
+      rgba(50, 120, 190, 0.3) 0%,
+      rgba(20, 90, 170, 0) 70%
+    ),
+    linear-gradient(165deg, #030a3a 0%, #051752 40%, #062a6e 75%, #083c7c 100%);
 
   &__head {
     position: relative; z-index: 2;
@@ -241,7 +247,7 @@ useSectionReveal(root, () => props.active, {
 
   &__accent {
     font-style: normal;
-    background: linear-gradient(90deg, #7de3b6 0%, #5ec8e5 55%, #8f8bff 100%);
+    background: linear-gradient(90deg, #b4ecff 0%, #7fe3f0 50%, #5aa8ff 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -272,7 +278,7 @@ useSectionReveal(root, () => props.active, {
 
   &__curve-progress {
     fill: none; stroke: url(#careerLine); stroke-width: 3; stroke-linecap: round;
-    filter: drop-shadow(0 0 0.625rem rgba(94, 200, 229, 0.5));
+    filter: drop-shadow(0 0 0.625rem rgba(127, 227, 240, 0.6));
     transition: stroke-dasharray 0.6s cubic-bezier(0.7, 0, 0.3, 1);
   }
 
@@ -313,13 +319,13 @@ useSectionReveal(root, () => props.active, {
   &__card {
     position: absolute; left: 50%;
     display: flex; flex-direction: column; gap: 0.1875rem;
-    width: 14rem;
-    padding: 0.8125rem 0.9375rem;
-    border-radius: var(--radius-sm); border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(0.375rem);
-    opacity: 0.55; transform: translateX(-50%);
+    width: 17.5rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 1.25rem; border: 1px solid rgba(180, 236, 255, 0.22);
+    background: linear-gradient(135deg, rgba(10, 24, 80, 0.72) 0%, rgba(6, 18, 60, 0.6) 100%); backdrop-filter: blur(0.75rem); box-shadow: 0 0.75rem 1.5rem rgba(2, 8, 40, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    opacity: 0.72; transform: translateX(-50%);
     transition: opacity $transition-base, background $transition-base,
-      border-color $transition-base, transform $transition-nav;
+      border-color $transition-base, box-shadow $transition-base, transform $transition-nav;
   }
 
   &__node--down {
@@ -344,11 +350,11 @@ useSectionReveal(root, () => props.active, {
 
   &__node--past {
     .career__dot {
-      background: rgba(126, 227, 182, 0.75);
+      background: rgba(127, 227, 240, 0.8);
     }
 
     .career__card {
-      opacity: 0.75;
+      opacity: 0.85;
     }
   }
 
@@ -368,8 +374,8 @@ useSectionReveal(root, () => props.active, {
 
     .career__card {
       opacity: 1;
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.32);
+      background: linear-gradient(135deg, rgba(14, 34, 100, 0.88) 0%, rgba(8, 26, 78, 0.82) 100%); box-shadow: 0 0 1.5rem rgba(127, 227, 240, 0.3), 0 0.75rem 1.5rem rgba(2, 8, 40, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+      border-color: rgba(180, 236, 255, 0.7);
       transform: translateX(-50%) translateY(0) scale(1.04);
     }
   }
@@ -379,25 +385,26 @@ useSectionReveal(root, () => props.active, {
   }
 
   &__year {
-    font-size: 1.375rem; font-weight: 700; letter-spacing: -0.01em; color: #9ff0cd;
+    font-size: 1.75rem; font-weight: 800; letter-spacing: -0.01em; color: #8fe9f5;
   }
 
   &__company {
-    margin-top: 0.125rem;
-    font-size: 1.0625rem; font-weight: 700;
+    margin-top: 0.25rem;
+    font-size: 1.25rem; font-weight: 700; color: #fff;
   }
 
   &__team {
-    font-size: 0.875rem; color: rgba(255, 255, 255, 0.62);
+    font-size: 0.9375rem; color: rgba(255, 255, 255, 0.78);
   }
 
   &__period {
-    margin-top: 0.375rem;
-    font-size: 0.875rem; font-weight: 600; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.8);
+    margin-top: 0.625rem; padding-top: 0.625rem;
+    border-top: 1px solid rgba(180, 236, 255, 0.16);
+    font-size: 1rem; font-weight: 600; letter-spacing: 0.02em; color: rgba(255, 255, 255, 0.95);
   }
 
   &__duration {
-    font-size: 0.875rem; color: rgba(255, 255, 255, 0.55);
+    font-size: 0.9375rem; font-weight: 500; color: #b4ecff;
   }
 
   &__hud {
